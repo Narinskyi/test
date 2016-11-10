@@ -4,7 +4,6 @@ import architecture.WebDriverFactory;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
-
 import java.util.logging.Logger;
 
 public class AbstractTest {
@@ -26,8 +25,11 @@ public class AbstractTest {
     }
 
     public static void failTest(String message) {
+
+        stop();
         log.severe(message);
         Assert.fail(message);
+
     }
 
 }
