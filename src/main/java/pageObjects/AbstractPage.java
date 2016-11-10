@@ -13,7 +13,7 @@ public abstract class AbstractPage implements Page {
     private String baseURL = DataProvider.getBaseUrl();
 
     public void open() {
-        String url = baseURL+ AvailablePages.getSuffix(this);
+        String url = baseURL + AvailablePages.getSuffix(this);
 
         log.info("Navigating to "+ url);
         WebDriverUtils.openPage(url);
