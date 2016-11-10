@@ -1,7 +1,6 @@
 package utils;
 
 import architecture.WebDriverFactory;
-import enums.ConfiguredBrowsers;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
@@ -13,7 +12,9 @@ public class AbstractTest {
 
     @BeforeClass
     public static void start(){
-        WebDriverFactory.startDriver(ConfiguredBrowsers.chrome);
+
+        //start browser, specified in .properties file
+        WebDriverFactory.startDriver(DataProvider.getBrowser());
         log.info("Browser started");
     }
 

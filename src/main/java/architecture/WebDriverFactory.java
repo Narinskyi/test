@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 
 public class WebDriverFactory {
 
+
     private static WebDriver driver;
 
     public static WebDriver getDriver(){
@@ -19,7 +20,6 @@ public class WebDriverFactory {
         if (driver!=null) {
             driver.quit();
         }
-        else System.out.println("No drivers are opened at the time");
     }
 
 }
