@@ -89,4 +89,12 @@ public class LoginPage extends AbstractFortunaPage {
         }
     }
 
+    public boolean isForgottenPasswordPageOpened(){
+        return WebDriverUtils.getCurrentUrl().contains("forgotten-password");
+    }
+
+    public boolean isRegisterPageOpened() {
+        return WebDriverUtils.isNewTabOpened("register-step-1");
+    }
+
 }

@@ -4,6 +4,8 @@ import architecture.WebDriverFactory;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -118,6 +120,10 @@ public class WebDriverUtils {
         return driver().findElement(locator).getAttribute(attribute);
     }
 
+    public static String getCurrentUrl(){
+        return driver().getCurrentUrl();
+    }
+
     /**---------------------------- Booleans ----------------------------*/
 
     //is element visible?
@@ -139,6 +145,24 @@ public class WebDriverUtils {
         }
 
         return result;
+    }
+
+    public static boolean isNewTabOpened(String expectedUrlEnding){
+
+        //get window handlers as list
+        List<String> browserTabs = new ArrayList<String>(driver().getWindowHandles());
+
+        //switch to new tab
+        driver().switchTo().window(browserTabs .get(1));
+
+        //check is it correct page opened or not (e.g. check page's title)
+        String actualUrl=WebDriverUtils.getCurrentUrl();
+
+        boolean isOpened = actualUrl.contains(expectedUrlEnding);
+        // then close tab and get back
+        driver().close();
+        driver().switchTo().window(browserTabs.get(0));
+        return isOpened;
     }
 
 
@@ -174,6 +198,7 @@ public class WebDriverUtils {
         }
         return driver().findElements(locator);
     }
+
 
 
 }

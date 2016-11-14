@@ -3,6 +3,7 @@ package utils;
 import enums.ConfiguredBrowsers;
 
 import java.util.ResourceBundle;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 public class DataProvider {
@@ -28,6 +29,10 @@ public class DataProvider {
             browser = ConfiguredBrowsers.chrome;
         }
         return browser;
+    }
+
+    public static String getRandomUsername () {
+        return UUID.randomUUID().toString().substring(0,7);
     }
 
 }
