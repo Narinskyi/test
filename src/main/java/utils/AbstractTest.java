@@ -1,9 +1,10 @@
 package utils;
 
 import architecture.WebDriverFactory;
-import org.junit.AfterClass;
 import org.junit.Assert;
-import org.junit.BeforeClass;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+
 import java.util.logging.Logger;
 
 public class AbstractTest {

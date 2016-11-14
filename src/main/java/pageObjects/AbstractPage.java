@@ -15,7 +15,11 @@ public abstract class AbstractPage implements Page {
     }
 
     public void refresh() {
+        WebDriverUtils.refreshPage();
+    }
 
+    public void waitFor(long millisec) {
+        WebDriverUtils.waitFor(millisec);
     }
 
 }

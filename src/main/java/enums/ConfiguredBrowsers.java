@@ -26,6 +26,7 @@ public enum ConfiguredBrowsers {
 
         initDrivers();
 
+
         switch (this) {
 
             case firefox: return new FirefoxDriver();
@@ -33,7 +34,7 @@ public enum ConfiguredBrowsers {
             case edge: return new EdgeDriver();
             case ie: return getIEDriver();
             case mobileEmulatorChrome: return getChromeDriverMobile("Google Nexus 5");
-            case tabletEmulatorChrome: return getChromeDriverMobile("iPad");
+            case tabletEmulatorChrome: return getChromeDriverMobile("Apple iPad");
             case phantomJS: return new PhantomJSDriver();
             default: return new PhantomJSDriver();
         }
@@ -52,10 +53,10 @@ public enum ConfiguredBrowsers {
     }
 
     private static ChromeDriver getChromeDriverMobile(String deviceName){
-        Map<String, String> mobileEmulation = new HashMap<String, String>();
+        Map<String, String> mobileEmulation = new HashMap<>();
         mobileEmulation.put("deviceName", deviceName);
 
-        Map<String, Object> chromeOptions = new HashMap<String, Object>();
+        Map<String, Object> chromeOptions = new HashMap<>();
         chromeOptions.put("mobileEmulation", mobileEmulation);
         DesiredCapabilities capabilities = DesiredCapabilities.chrome();
         capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
@@ -73,7 +74,8 @@ public enum ConfiguredBrowsers {
     }
 
     public static void main(String[] args) {
-        mobileEmulatorChrome.getDriver();
+        WebDriver driver=tabletEmulatorChrome.getDriver();
+        driver.navigate().to("http://wpl-licensee25-admin.ptdev.eu");
     }
 
 }

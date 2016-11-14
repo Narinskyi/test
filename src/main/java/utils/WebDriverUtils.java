@@ -4,22 +4,19 @@ import architecture.WebDriverFactory;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
+import java.util.List;
 import java.util.logging.Logger;
 
 public class WebDriverUtils {
 
     private static Logger log = Logger.getAnonymousLogger();
     //timeout constants
-    private static final int TIMEOUT = 30;
-    private static final int WAIT = 1000;
+    private static final int TIMEOUT = 10;
+
+
+
 
     /**---------------------------- Waiters ----------------------------*/
-
-    //regular sleep with default timeout
-    public static void waitFor() {
-        waitFor(WAIT);
-    }
 
     //regular sleep with configurable timeout
     public static void waitFor(long millisec) {
@@ -36,46 +33,49 @@ public class WebDriverUtils {
     }
 
     //wait for element visibility with default timeout
-    public static void waitForElementVisibility (String selector) {
-        waitForElementVisibility(selector, TIMEOUT);
+    public static void waitForElementVisibility (By locator) {
+        waitForElementVisibility(locator, TIMEOUT);
     }
 
     //wait for element visibility
-    public static void waitForElementVisibility (String selector, long timeoutInSeconds) {
-        WebDriverWait wait = new WebDriverWait(driver(), timeoutInSeconds);
+    public static void waitForElementVisibility (By locator, long timeoutInSeconds) {
+        WebDriverWait wait = new WebDriverWait(driver(),timeoutInSeconds);
 
-        log.info("Waiting for visibility of element " + selector);
+        log.info("Waiting for visibility of element " + locator);
         try {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(getElementSelector(selector)));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
         } catch (TimeoutException e) {
-            AbstractTest.failTest("Element: " + selector + " did was not visible after: " + timeoutInSeconds + " s");
+            AbstractTest.failTest("Element: " + locator + " was not visible after: " + timeoutInSeconds + " s");
         }
     }
+
 
     /**---------------------------- Input ----------------------------*/
 
     //click
-    public static void click (String selector) {
+    public static void click (By locator) {
         try {
-            findElement(selector).click();
+            findElement(locator).click();
         } catch (WebDriverException e) {
-            AbstractTest.failTest("It was not possible to click element " + selector);
+            AbstractTest.failTest("It was not possible to click element " + locator);
         }
     }
 
-    public static void clearField(String selector) {
-        findElement(selector).clear();
+    public static void clearField(By locator) {
+        findElement(locator).clear();
     }
 
-    public static void inputTextToField(String selector, String text) {
-        for (int i = 0; i < text.length(); i++) {
-            findElement(selector).sendKeys(text.charAt(i) + "");
-        }
+    public static void inputTextToField(By locator, String text) {
+        findElement(locator).sendKeys(text);
     }
 
-    public static void clearAndInputTextToField(String selector, String text) {
-        clearField(selector);
-        inputTextToField(selector, text);
+    public static void clearAndInputTextToField(By locator, String text) {
+        clearField(locator);
+        inputTextToField(locator, text);
+    }
+
+    public static void inputTextToTextArea(By locator, String text) {
+        findElement(locator).sendKeys(text);
     }
 
 
@@ -103,24 +103,42 @@ public class WebDriverUtils {
     /**---------------------------- Getters ----------------------------*/
 
     //get text of the element
-    public static String getElementText(String selector) {
-        log.info("Getting text of " + selector + " element");
-        return findElement(selector).getText();
+    public static String getElementText(By locator) {
+        log.info("Getting text of " + locator + " element");
+        return findElement(locator).getText();
     }
 
+    public static boolean getCheckBoxState(By locator) {
+        log.info("Getting text of " + locator + " element");
+        return findElement(locator).isSelected();
+    }
+
+    public static String getAttribute(By locator, String attribute) {
+        log.info("Getting "+ attribute + " value of " + locator + " element");
+        return driver().findElement(locator).getAttribute(attribute);
+    }
 
     /**---------------------------- Booleans ----------------------------*/
 
     //is element visible?
-    public static boolean isVisible(String selector) {
-        log.info("Checking if " + selector + " visible");
-        return driver().findElement(getElementSelector(selector)).isDisplayed();
+    public static boolean isElementVisible(By locator) {
+        log.info("Checking if " + locator + " is visible");
+        return findElement(locator).isDisplayed();
     }
 
-    //is element present in DOM?
-    public static boolean isElementPresent(String selector) {
-        log.info("Checking if " + selector + " present");
-        return driver().findElements(getElementSelector(selector)).size()!=0;
+    //are multiple element visible?
+    public static boolean areSeveralElementsVisible(By locator, int expectedElementsCount) {
+        boolean result;
+
+        log.info("Checking if multiple elements:" + locator + " are visible");
+        List<WebElement> elements = findElements(locator);
+        result = (elements.size() == expectedElementsCount);
+
+        for (WebElement element: elements) {
+            result&=element.isDisplayed();
+        }
+
+        return result;
     }
 
 
@@ -130,35 +148,32 @@ public class WebDriverUtils {
         return WebDriverFactory.getDriver();
     }
 
-    //get web element
-    private static WebElement findElement(String byString){
-        return driver().findElement(getElementSelector(byString));
-    }
+    //findElement element
+    private static WebElement findElement(By locator) {
 
-    //verify element presence on the page
-    private static boolean isElementVisible(By selector) {
+        WebDriverWait wait = new WebDriverWait(driver(), TIMEOUT);
+
+        log.info("Waiting for presence of element " + locator);
         try {
-            return driver().findElement(selector).isDisplayed();
-        } catch (Exception e) {
-            return false;
+            wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+        } catch (TimeoutException e) {
+            AbstractTest.failTest("Element: " + locator + " was not present in DOM after: " + TIMEOUT + " s");
         }
+        return driver().findElement(locator);
     }
 
-    //get proper selector from argument string
-    private static By getElementSelector(String identity) {
-        By[] selectors = {
-                By.id(identity),
-                By.name(identity),
-                By.cssSelector(identity),
-                By.xpath(identity)};
-        for (By selector : selectors) {
-            if (isElementVisible(selector)) {
-                return selector;
-            }
+    private static List<WebElement> findElements(By locator) {
+
+        WebDriverWait wait = new WebDriverWait(driver(), TIMEOUT);
+
+        log.info("Waiting for presence of elements " + locator);
+        try {
+            wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator));
+        } catch (TimeoutException e) {
+            AbstractTest.failTest("Elements: " + locator + " were not present in DOM after: " + TIMEOUT + " s");
         }
-        AbstractTest.failTest("Could not find any visible element with identity - "
-                + identity);
-        return null;
+        return driver().findElements(locator);
     }
+
 
 }

@@ -26,7 +26,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="Fortuna Automation Plan A" target="1.5" />
+      <module name="Fortuna Automation Plan A" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
