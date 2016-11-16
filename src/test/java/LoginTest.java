@@ -92,70 +92,77 @@ public class LoginTest extends AbstractTest {
         Assert.assertTrue("Register link verification failed", loginPage.isRegisterPageOpened());
 
     }
-//
-//
-//    @Test (priority = 1)
-//    public void emptyFieldsVerification() {
-//
-//        loginPage = (LoginPage) NavigationUtils.navigateToPage(PlayerCondition.guest, ConfiguredPages.login);
-//
-//        //empty fields
-//        loginPage.clickLogin();
-//        Assert.assertTrue(loginPage.fieldsAreInvalid());
-//        System.out.println("=================End of empty fields verification=================");
-//
-//        //empty password
-//        loginPage.enterUsername(INVALID_USERNAME);
-//        loginPage.clickRememberMe();
-//        loginPage.clickLogin();
-//        Assert.assertTrue(loginPage.isPasswordInvalid());
-//        System.out.println("=================End of empty password verification=================");
-//
-//        //empty username
-//        loginPage.clearUsername();
-//        loginPage.enterPassword(INVALID_PASSWORD);
-//        loginPage.clickLogin();
-//        Assert.assertTrue(loginPage.isUsernameInvalid());
-//        System.out.println("=================End of empty username verification=================");
-//
-//    }
-//
-//    @Test (priority = 1)
-//    public void invalidBothFieldsVerification(){
-//
-//        loginPage = (LoginPage)NavigationUtils.navigateToPage(PlayerCondition.guest, ConfiguredPages.login);
-//
-//        loginPage.enterUsername("invalid");
-//        loginPage.enterPassword(INVALID_PASSWORD);
-//        loginPage.clickLogin();
-//
-//        Assert.assertTrue(loginPage.errorMessagesAreDisplayed(1));
-//    }
-//
-//    @Test (priority = 1)
-//    public void invalidUsernameVerification() {
-//
-//        loginPage = (LoginPage)NavigationUtils.navigateToPage(PlayerCondition.guest, ConfiguredPages.login);
-//
-//        loginPage.enterUsername(INVALID_USERNAME);
-//        loginPage.enterPassword(VALID_PASSWORD);
-//        loginPage.clickLogin();
-//
-//        Assert.assertTrue(loginPage.errorMessagesAreDisplayed(1));
-//    }
-//
-//    @Test (priority = 1)
-//    public void invalidPasswordVerification() {
-//
-//        loginPage = (LoginPage)NavigationUtils.navigateToPage(PlayerCondition.guest, ConfiguredPages.login);
-//
-//        loginPage.enterUsername(username);
-//        loginPage.enterPassword(INVALID_PASSWORD);
-//        loginPage.clickLogin();
-//
-//        Assert.assertTrue(loginPage.errorMessagesAreDisplayed(1));
-//    }
-//
+
+
+    @Test (groups = {"desktop", "tablet", "mobile"})
+    public void emptyFieldsVerification() {
+
+        loginPage.open();
+
+        //empty fields
+        loginPage.clickLogin();
+        Assert.assertTrue("Username validation failed", loginPage.isUsernameInvalid());
+        Assert.assertTrue("Password validation failed",loginPage.isPasswordInvalid());
+
+        //empty password
+        loginPage.enterUsername(INVALID_USERNAME);
+        loginPage.clickLogin();
+        Assert.assertTrue("Password validation failed",loginPage.isPasswordInvalid());
+
+        //empty username
+        loginPage.clearUsername();
+        loginPage.enterPassword(INVALID_PASSWORD);
+        loginPage.clickLogin();
+        Assert.assertTrue("Username validation failed", loginPage.isUsernameInvalid());
+
+    }
+
+    @Test (groups = {"desktop", "tablet"})
+    public void invalidBothFieldsVerification(){
+
+        loginPage.open();
+
+        loginPage.enterUsername("invalid");
+        loginPage.enterPassword(INVALID_PASSWORD);
+        loginPage.clickLogin();
+
+        Assert.assertTrue("Error message was not displayed", loginPage.areErrorMessagesDisplayed(1));
+    }
+
+    @Test (groups = {"mobile"})
+    public void invalidBothFieldsVerificationM(){
+
+        loginPage.open();
+
+        loginPage.enterUsername("invalid");
+        loginPage.enterPassword(INVALID_PASSWORD);
+        loginPage.clickLogin();
+
+        Assert.assertTrue("Error message was not displayed", loginPage.isMobilePopupDisplayed());
+    }
+
+    @Test (groups = {"desktop", "tablet"})
+    public void invalidPasswordVerification() {
+
+        loginPage.enterUsername(username);
+        loginPage.enterPassword(INVALID_PASSWORD);
+        loginPage.clickLogin();
+
+        Assert.assertTrue("Error message was not displayed", loginPage.areErrorMessagesDisplayed(1));
+    }
+
+    @Test (groups = {"mobile"})
+    public void invalidPasswordVerificatioM(){
+
+        loginPage.open();
+
+        loginPage.enterUsername(username);
+        loginPage.enterPassword(INVALID_PASSWORD);
+        loginPage.clickLogin();
+
+        Assert.assertTrue("Error message was not displayed", loginPage.isMobilePopupDisplayed());
+    }
+
 //    @Test (priority = 2)
 //    public void validInputVerification() {
 //
