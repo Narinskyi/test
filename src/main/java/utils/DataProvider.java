@@ -2,6 +2,8 @@ package utils;
 
 import enums.ConfiguredBrowsers;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.UUID;
 import java.util.logging.Logger;
@@ -9,7 +11,6 @@ import java.util.logging.Logger;
 public class DataProvider {
 
     private static Logger log = Logger.getAnonymousLogger();
-
     private static ResourceBundle resources = ResourceBundle.getBundle("ConfigBundle");
 
     public static String getBaseUrl(){
@@ -33,6 +34,34 @@ public class DataProvider {
 
     public static String getRandomUsername () {
         return UUID.randomUUID().toString().substring(0,7);
+    }
+
+    /**---------------------------- DateUtils utils ----------------------------*/
+    public static class DateUtils {
+
+        public static String getCurrentDay(){
+            return new SimpleDateFormat("dd").format(new Date());
+        }
+
+        public static String getCurrentMonth(){
+            return new SimpleDateFormat("MM").format(new Date());
+        }
+
+        public static String getCurrentYear(){
+            return new SimpleDateFormat("yyyy").format(new Date());
+        }
+
+        public static String getCurrentDate() {
+            return new SimpleDateFormat("dd.MM.yyyy").format(new Date());
+        }
+
+        public static String getSomeYearsAgo(int howMany){
+            Date today = new Date();
+            String todayFormatted = new SimpleDateFormat("MM.dd.").format(today);
+            int someYearsAgo = Integer.valueOf(new SimpleDateFormat("yyyy").format(today))-howMany;
+            return todayFormatted+Integer.toString(someYearsAgo);
+        }
+
     }
 
 }

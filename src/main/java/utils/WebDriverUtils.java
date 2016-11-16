@@ -3,6 +3,7 @@ package utils;
 import architecture.WebDriverFactory;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
@@ -78,6 +79,11 @@ public class WebDriverUtils {
 
     public static void inputTextToTextArea(By locator, String text) {
         findElement(locator).sendKeys(text);
+    }
+
+    public static void setDropdownOptionByValue(By locator, String value) {
+        Select select = new Select(findElement(locator));
+        select.selectByValue(value);
     }
 
 

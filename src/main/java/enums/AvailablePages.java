@@ -2,12 +2,15 @@ package enums;
 
 import architecture.Page;
 import pageObjects.ChangePasswordPage;
+import pageObjects.ForgottenPasswordPage;
 import pageObjects.LoginPage;
 
 public enum AvailablePages {
 
-    login("login"),
-    changePassword("change-password");
+    changePassword("change-password"),
+    forgottenPassword("forgotten-password"),
+    login("login");
+
 
     private final String suffix;
     private Page page;
@@ -19,9 +22,12 @@ public enum AvailablePages {
     public Page getPage(){
 
         switch (this){
-            case login: page = new LoginPage();
-                break;
+
             case changePassword: page = new ChangePasswordPage();
+                break;
+            case forgottenPassword: page = new ForgottenPasswordPage();
+                break;
+            case login: page = new LoginPage();
                 break;
 
         }
@@ -31,7 +37,7 @@ public enum AvailablePages {
     //get suffix - iterate through enum
     public static String getSuffix(Page soughtPage) {
         for (AvailablePages pages : AvailablePages.values()){
-            if (pages.getPage().equals(soughtPage))
+            if (pages.getPage().getClass().equals(soughtPage.getClass()))
                 return pages.suffix;
         }
         return "/";

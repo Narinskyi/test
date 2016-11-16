@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 public class AbstractTest {
 
-    protected static Logger log = Logger.getAnonymousLogger();
+    private static Logger log = Logger.getAnonymousLogger();
 
     @BeforeClass
     public static void start(){
@@ -25,13 +25,18 @@ public class AbstractTest {
         log.info("Browser stopped");
     }
 
-    public static void failTest(String message) {
+    protected static void restart() {
+        stop();
+        start();
+    }
 
+    public static void failTest(String message) {
         stop();
         log.severe(message);
         Assert.fail(message);
-
     }
+
+
 
 }
 

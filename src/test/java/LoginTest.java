@@ -1,6 +1,6 @@
 import architecture.PageFactory;
 import enums.AvailablePages;
-import org.junit.Assert;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageObjects.LoginPage;
 import utils.AbstractTest;
@@ -31,94 +31,94 @@ public class LoginTest extends AbstractTest {
 //    }
 
     @Test (groups = "desktop")
-    public void uiElementsVerificationD(){
+    public void uiElementsTestD(){
 
         loginPage.open();
         loginPage.clickLogin();
 
         //verify header, placeholders and that remember me is unchecked by default
-        Assert.assertTrue("Username placeholder failed", loginPage.getUsernamePlaceholder().contains("username/email"));
-        Assert.assertTrue("Password placeholder failed", loginPage.getPasswordPlaceholder().contains("password"));
-        Assert.assertTrue("Username validation failed", loginPage.isUsernameInvalid());
-        Assert.assertTrue("Password validation failed",loginPage.isPasswordInvalid());
-        Assert.assertTrue("Remember me unchecked by default failed",!loginPage.isRememberMeChecked());
+        Assert.assertTrue(loginPage.getUsernamePlaceholder().contains("username/email"), "Username placeholder failed");
+        Assert.assertTrue(loginPage.getPasswordPlaceholder().contains("password"), "Password placeholder failed");
+        Assert.assertTrue(loginPage.isUsernameInvalid(), "Username validation failed");
+        Assert.assertTrue(loginPage.isPasswordInvalid(), "Password validation failed");
+        Assert.assertTrue(!loginPage.isRememberMeChecked(), "Remember me unchecked by default failed");
     }
 
     @Test (groups = {"tablet", "mobile"})
-    public void uiElementsVerificationTM(){
+    public void uiElementsTestTM(){
 
         loginPage.open();
         loginPage.clickLogin();
 
         //verify header, placeholders and that remember me is unchecked by default
-        Assert.assertTrue("Username validation failed", loginPage.isUsernameInvalid());
-        Assert.assertTrue("Password validation failed",loginPage.isPasswordInvalid());
-        Assert.assertTrue("Remember me unchecked by default failed",!loginPage.isRememberMeChecked());
+        Assert.assertTrue(loginPage.isUsernameInvalid(), "Username validation failed");
+        Assert.assertTrue(loginPage.isPasswordInvalid(), "Password validation failed");
+        Assert.assertTrue(!loginPage.isRememberMeChecked(), "Remember me unchecked by default failed");
     }
 
     @Test (groups = {"desktop", "tablet", "mobile"})
-    public void passwordVisibilityIconVerification(){
+    public void passwordVisibilityIconTest(){
 
         loginPage.open();
 
         //verify that password is invisible by default
         loginPage.enterPassword(INVALID_PASSWORD);
-        Assert.assertFalse("Password masking verification failed", loginPage.isPasswordVisible());
+        Assert.assertFalse(loginPage.isPasswordVisible(), "Password masking verification failed");
 
         //verify that password visibility function works
         loginPage.clickEyeIcon();
-        Assert.assertTrue("Password visibility verification failed", loginPage.isPasswordVisible());
+        Assert.assertTrue(loginPage.isPasswordVisible(), "Password visibility verification failed");
 
     }
 
     @Test(groups = {"desktop", "tablet", "mobile"})
-    public void forgottenPasswordLinkVerification(){
+    public void forgottenPasswordLinkTest(){
 
         loginPage.open();
 
         //verify forgotten password link
         loginPage.clickForgottenPassword();
-        Assert.assertTrue("Forgotten password link verification failed", loginPage.isForgottenPasswordPageOpened());
+        Assert.assertTrue(loginPage.isForgottenPasswordPageOpened(), "Forgotten password link verification failed");
 
     }
 
     @Test(groups = {"desktop", "tablet", "mobile"})
-    public void registrationLinkVerification(){
+    public void registrationLinkTest(){
 
         loginPage.open();
 
         //verify registration link
         loginPage.clickRegister();
-        Assert.assertTrue("Register link verification failed", loginPage.isRegisterPageOpened());
+        Assert.assertTrue(loginPage.isRegisterPageOpened(), "Register link verification failed");
 
     }
 
 
     @Test (groups = {"desktop", "tablet", "mobile"})
-    public void emptyFieldsVerification() {
+    public void emptyFieldsTest() {
 
         loginPage.open();
 
         //empty fields
         loginPage.clickLogin();
-        Assert.assertTrue("Username validation failed", loginPage.isUsernameInvalid());
-        Assert.assertTrue("Password validation failed",loginPage.isPasswordInvalid());
+        Assert.assertTrue(loginPage.isUsernameInvalid(), "Username validation failed");
+        Assert.assertTrue(loginPage.isPasswordInvalid(), "Password validation failed");
 
         //empty password
         loginPage.enterUsername(INVALID_USERNAME);
         loginPage.clickLogin();
-        Assert.assertTrue("Password validation failed",loginPage.isPasswordInvalid());
+        Assert.assertTrue(loginPage.isPasswordInvalid(), "Password validation failed");
 
         //empty username
         loginPage.clearUsername();
         loginPage.enterPassword(INVALID_PASSWORD);
         loginPage.clickLogin();
-        Assert.assertTrue("Username validation failed", loginPage.isUsernameInvalid());
+        Assert.assertTrue(loginPage.isUsernameInvalid(), "Username validation failed");
 
     }
 
     @Test (groups = {"desktop", "tablet"})
-    public void invalidBothFieldsVerification(){
+    public void invalidBothFieldsTest(){
 
         loginPage.open();
 
@@ -126,11 +126,11 @@ public class LoginTest extends AbstractTest {
         loginPage.enterPassword(INVALID_PASSWORD);
         loginPage.clickLogin();
 
-        Assert.assertTrue("Error message was not displayed", loginPage.areErrorMessagesDisplayed(1));
+        Assert.assertTrue(loginPage.areErrorMessagesDisplayed(1), "Error message was not displayed");
     }
 
     @Test (groups = {"mobile"})
-    public void invalidBothFieldsVerificationM(){
+    public void invalidBothFieldsTestM(){
 
         loginPage.open();
 
@@ -138,17 +138,17 @@ public class LoginTest extends AbstractTest {
         loginPage.enterPassword(INVALID_PASSWORD);
         loginPage.clickLogin();
 
-        Assert.assertTrue("Error message was not displayed", loginPage.isMobilePopupDisplayed());
+        Assert.assertTrue(loginPage.isMobilePopupDisplayed(), "Error message was not displayed");
     }
 
     @Test (groups = {"desktop", "tablet"})
-    public void invalidPasswordVerification() {
+    public void invalidPasswordTest() {
 
         loginPage.enterUsername(username);
         loginPage.enterPassword(INVALID_PASSWORD);
         loginPage.clickLogin();
 
-        Assert.assertTrue("Error message was not displayed", loginPage.areErrorMessagesDisplayed(1));
+        Assert.assertTrue(loginPage.areErrorMessagesDisplayed(1), "Error message was not displayed");
     }
 
     @Test (groups = {"mobile"})
@@ -160,11 +160,11 @@ public class LoginTest extends AbstractTest {
         loginPage.enterPassword(INVALID_PASSWORD);
         loginPage.clickLogin();
 
-        Assert.assertTrue("Error message was not displayed", loginPage.isMobilePopupDisplayed());
+        Assert.assertTrue(loginPage.isMobilePopupDisplayed(), "Error message was not displayed");
     }
 
 //    @Test (priority = 2)
-//    public void validInputVerification() {
+//    public void validInputTest() {
 //
 //        loginPage = (LoginPage)NavigationUtils.navigateToPage(PlayerCondition.guest, ConfiguredPages.login);
 //
@@ -180,7 +180,7 @@ public class LoginTest extends AbstractTest {
 //    }
 //
 //    @Test (priority = 3)
-//    public void rememberMeVerification(){
+//    public void rememberMeTest(){
 //
 //        loginPage = (LoginPage)NavigationUtils.navigateToPage(PlayerCondition.guest, ConfiguredPages.login);
 //

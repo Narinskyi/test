@@ -9,6 +9,7 @@ public abstract class AbstractFortunaPage extends AbstractPage {
     private static final By SUCCESS_MESSAGE = By.cssSelector(".message.success");
     private static final By POPUP_MOBILE = By.cssSelector(".popup");
     private static final By BUTTON_CLOSE_POPUP_MOBILE = By.cssSelector(".fn-close");
+    private static final By BUTTON_SUBMIT = By.cssSelector("button[type='submit']");
 
     public boolean areSuccessMessagesDisplayed(int howMany){
         return WebDriverUtils.areSeveralElementsVisible(SUCCESS_MESSAGE, howMany);
@@ -32,6 +33,10 @@ public abstract class AbstractFortunaPage extends AbstractPage {
 
     public void closeMobilePopup(){
         WebDriverUtils.click(BUTTON_CLOSE_POPUP_MOBILE);
+    }
+
+    public void clickSubmit(){
+        WebDriverUtils.click(BUTTON_SUBMIT);
     }
 
 
