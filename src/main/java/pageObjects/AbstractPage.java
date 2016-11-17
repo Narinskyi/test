@@ -9,7 +9,7 @@ public abstract class AbstractPage implements Page {
 
     private String baseURL = DataProvider.getBaseUrl();
 
-    public void open() {
+    public void  open() {
         String url = baseURL + AvailablePages.getSuffix(this);
         WebDriverUtils.openPage(url);
     }

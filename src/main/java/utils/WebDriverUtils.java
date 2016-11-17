@@ -69,7 +69,7 @@ public class WebDriverUtils {
     }
 
     public static void inputTextToField(By locator, String text) {
-        findElement(locator).sendKeys(text);
+        findElement(locator).sendKeys(String.valueOf(text));
     }
 
     public static void clearAndInputTextToField(By locator, String text) {
@@ -156,7 +156,7 @@ public class WebDriverUtils {
     public static boolean isNewTabOpened(String expectedUrlEnding){
 
         //get window handlers as list
-        List<String> browserTabs = new ArrayList<String>(driver().getWindowHandles());
+        List<String> browserTabs = new ArrayList<>(driver().getWindowHandles());
 
         //switch to new tab
         driver().switchTo().window(browserTabs .get(1));

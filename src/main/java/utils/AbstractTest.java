@@ -11,7 +11,7 @@ public class AbstractTest {
 
     private static Logger log = Logger.getAnonymousLogger();
 
-    @BeforeClass
+    @BeforeClass(alwaysRun = true)
     public static void start(){
 
         //start browser, specified in .properties file
@@ -19,7 +19,7 @@ public class AbstractTest {
         log.info("Browser started");
     }
 
-    @AfterClass
+    @AfterClass(alwaysRun = true)
     public static void stop(){
         WebDriverFactory.quitDriver();
         log.info("Browser stopped");
@@ -31,7 +31,6 @@ public class AbstractTest {
     }
 
     public static void failTest(String message) {
-        stop();
         log.severe(message);
         Assert.fail(message);
     }

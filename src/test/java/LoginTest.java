@@ -10,7 +10,7 @@ public class LoginTest extends AbstractTest {
     private static LoginPage loginPage = PageFactory.getPage(AvailablePages.login);
 
     private static final String INVALID_USERNAME = "invalid";
-    private static final String INVALID_PASSWORD = "jdss&@^n#342";
+    private static final String INVALID_PASSWORD = "invalidPassword";
     private static final String VALID_PASSWORD = "Password1";
 
     private String username;
@@ -82,7 +82,7 @@ public class LoginTest extends AbstractTest {
 
     }
 
-    @Test(groups = {"desktop", "tablet", "mobile"})
+    @Test(groups = {"desktop", "tablet"})
     public void registrationLinkTest(){
 
         loginPage.open();
@@ -144,6 +144,7 @@ public class LoginTest extends AbstractTest {
     @Test (groups = {"desktop", "tablet"})
     public void invalidPasswordTest() {
 
+        loginPage.open();
         loginPage.enterUsername(username);
         loginPage.enterPassword(INVALID_PASSWORD);
         loginPage.clickLogin();
