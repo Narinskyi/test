@@ -3,7 +3,7 @@ import enums.AvailablePages;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageObjects.ForgottenPasswordPage;
-import utils.AbstractTest;
+import architecture.AbstractTest;
 
 public class ForgottenPasswordTest extends AbstractTest{
 

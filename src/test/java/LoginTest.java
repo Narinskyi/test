@@ -3,7 +3,8 @@ import enums.AvailablePages;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageObjects.LoginPage;
-import utils.AbstractTest;
+import architecture.AbstractTest;
+import utils.DataProvider;
 
 public class LoginTest extends AbstractTest {
 
@@ -153,7 +154,7 @@ public class LoginTest extends AbstractTest {
     }
 
     @Test (groups = {"mobile"})
-    public void invalidPasswordVerificatioM(){
+    public void invalidPasswordTestM(){
 
         loginPage.open();
 
@@ -162,6 +163,11 @@ public class LoginTest extends AbstractTest {
         loginPage.clickLogin();
 
         Assert.assertTrue(loginPage.isMobilePopupDisplayed(), "Error message was not displayed");
+    }
+
+    @Test
+    public void doNothing(){
+        System.out.println(DataProvider.getUserData().getFirstName());
     }
 
 //    @Test (priority = 2)

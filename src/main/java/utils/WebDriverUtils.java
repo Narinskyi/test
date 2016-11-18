@@ -1,5 +1,6 @@
 package utils;
 
+import architecture.AbstractTest;
 import architecture.WebDriverFactory;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;

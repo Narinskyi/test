@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="userData" class="springConstructors.UserData">
+        <property name="title" value="Mr"/>
+        <property name="gender" value="M"/>
+        <property name="firstName" value="Stan"/>
+        <property name="lastName" value="Automation"/>
+        <property name="birthDay" value="01"/>
+        <property name="birthMonth" value="01"/>
+        <property name="birthYear" value="1991"/>
+        <property name="email" value="some@email.com"/>
+        <property name="country" value="US"/>
+        <property name="city" value="Madrid"/>
+        <property name="address" value="Santiago"/>
+        <property name="address2" value=""/>
+        <property name="house" value="10"/>
+        <property name="postCode" value="12345"/>
+        <property name="phoneAreaCode" value="+38"/>
+        <property name="phone" value="790000000"/>
+        <property name="mobileAreaCode" value="+38"/>
+        <property name="mobile" value="790000000"/>
+        <property name="username" value="ksFu8@s"/>
+        <property name="profileUsername" value="autoChrProf"/>
+        <property name="password" value="Password1"/>
+        <property name="verificationQuestion" value="Name of your first pet?"/>
+        <property name="verificationAnswer" value="Internet"/>
+        <property name="currency" value="EUR"/>
+    </bean>
+
+</beans>

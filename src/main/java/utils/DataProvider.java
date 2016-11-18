@@ -1,6 +1,7 @@
 package utils;
 
 import enums.ConfiguredBrowsers;
+import springConstructors.UserData;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -12,6 +13,15 @@ public class DataProvider {
 
     private static Logger log = Logger.getAnonymousLogger();
     private static ResourceBundle resources = ResourceBundle.getBundle("ConfigBundle");
+    private static UserData userData;
+
+    public static void setUserData(UserData userData) {
+        DataProvider.userData = userData;
+    }
+
+    public static UserData getUserData() {
+        return userData;
+    }
 
     public static String getBaseUrl(){
         return resources.getString("base.url");
@@ -63,5 +73,6 @@ public class DataProvider {
         }
 
     }
+
 
 }
