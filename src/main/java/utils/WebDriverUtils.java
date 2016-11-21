@@ -1,7 +1,7 @@
 package utils;
 
-import architecture.AbstractTest;
-import architecture.WebDriverFactory;
+import core.AbstractTest;
+import core.WebDriverFactory;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;

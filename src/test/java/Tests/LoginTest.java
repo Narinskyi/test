@@ -1,12 +1,18 @@
-import architecture.PageFactory;
+package Tests;
+
+import Preconditions.AbstractMyAccountTest;
+import core.PageFactory;
 import enums.AvailablePages;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObjects.LoginPage;
-import architecture.AbstractTest;
+import springConstructors.UserData;
 import utils.DataProvider;
 
-public class LoginTest extends AbstractTest {
+import java.util.UUID;
+
+public class LoginTest extends AbstractMyAccountTest {
 
     private static LoginPage loginPage = PageFactory.getPage(AvailablePages.login);
 
@@ -16,20 +22,14 @@ public class LoginTest extends AbstractTest {
 
     private String username;
 
+    @BeforeClass
+    public void generateRandomUsername(){
+        UserData userData = DataProvider.getUserData();
+        //generate a random username and set it
+        username= UUID.randomUUID().toString().substring(0,7);
+        userData.setUsername(username);
+    }
 
-    //reason to create user in test body is to save the username (could have been done through AbstractMyAccount test)
-//    @BeforeClass
-//    public void createUser(){
-//
-//        UserData userData = DataContainer.getUserData();
-//
-//        //generate a random username and set it
-//        username= UUID.randomUUID().toString().substring(0,7);
-//        userData.setUsername(username);
-//
-//        BackEndUtils.createUser(this,userData);
-//
-//    }
 
     @Test (groups = "desktop")
     public void uiElementsTestD(){
@@ -163,11 +163,6 @@ public class LoginTest extends AbstractTest {
         loginPage.clickLogin();
 
         Assert.assertTrue(loginPage.isMobilePopupDisplayed(), "Error message was not displayed");
-    }
-
-    @Test
-    public void doNothing(){
-        System.out.println(DataProvider.getUserData().getFirstName());
     }
 
 //    @Test (priority = 2)

@@ -1,9 +1,11 @@
-import architecture.PageFactory;
+package Tests;
+
+import core.PageFactory;
 import enums.AvailablePages;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageObjects.ForgottenPasswordPage;
-import architecture.AbstractTest;
+import core.AbstractTest;
 
 public class ForgottenPasswordTest extends AbstractTest{
 

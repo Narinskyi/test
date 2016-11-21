@@ -1,6 +1,6 @@
 package pageObjects;
 
-import architecture.Page;
+import core.Page;
 import enums.AvailablePages;
 import utils.DataProvider;
 import utils.WebDriverUtils;

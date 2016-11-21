@@ -1,4 +1,4 @@
-package architecture;
+package core;
 
 import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,8 +45,6 @@ public class AbstractTest extends AbstractTestNGSpringContextTests{
         log.severe(message);
         Assert.fail(message);
     }
-
-
 
 }
 

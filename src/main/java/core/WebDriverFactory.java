@@ -1,4 +1,4 @@
-package architecture;
+package core;
 
 import enums.ConfiguredBrowsers;
 import org.openqa.selenium.WebDriver;

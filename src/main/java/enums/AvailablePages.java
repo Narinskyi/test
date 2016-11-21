@@ -1,6 +1,6 @@
 package enums;
 
-import architecture.Page;
+import core.Page;
 import pageObjects.ChangePasswordPage;
 import pageObjects.ForgottenPasswordPage;
 import pageObjects.LoginPage;

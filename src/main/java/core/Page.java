@@ -1,4 +1,4 @@
-package architecture;
+package core;
 
 public interface Page {
 
