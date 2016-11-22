@@ -7,9 +7,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 import springConstructors.UserData;
 import utils.DataProvider;
 
+import java.lang.reflect.Method;
 import java.util.logging.Logger;
 
 @ContextConfiguration(locations={"/spring-config.xml"})
@@ -44,6 +47,11 @@ public class AbstractTest extends AbstractTestNGSpringContextTests{
     public static void failTest(String message) {
         log.severe(message);
         Assert.fail(message);
+    }
+
+    @BeforeMethod(alwaysRun = true)
+    public void displayCurrentTestName(Method method){
+        log.info("**---------------------------- "+method.getName()+" ----------------------------**");
     }
 
 }

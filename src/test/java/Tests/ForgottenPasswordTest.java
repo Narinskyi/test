@@ -74,7 +74,7 @@ public class ForgottenPasswordTest extends AbstractTest{
 
         //verify registration link
         forgottenPasswordPage.clickRegisterLink();
-        Assert.assertTrue(forgottenPasswordPage.isRegistrationpage(), "Registration page was not opened");
+        Assert.assertTrue(forgottenPasswordPage.isRegistrationPage(), "Registration page was not opened");
     }
 
     @Test(groups = {"desktop"})
@@ -174,7 +174,7 @@ public class ForgottenPasswordTest extends AbstractTest{
     }
 
     //verify that forgotten-password-tablet page can be opened
-    @Test(groups = {"tablet"})
+    @Test(groups = {"tablet"},enabled = false)
     public void forgottenPasswordTabletTest() {
         forgottenPasswordPage.openForgottenPasswordTabletPage();
         Assert.assertTrue(forgottenPasswordPage.isForgottenPasswordTabletPage(), "Page is not forgotten-password-tablet page");

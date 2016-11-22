@@ -17,7 +17,6 @@ public class AbstractMyAccountTest extends AbstractTest {
     public void registerUserAnd(){
 
         UserData userData = DataProvider.getUserData();
-
-
+        
     }
 }

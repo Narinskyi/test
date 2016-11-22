@@ -91,7 +91,7 @@ public class ForgottenPasswordPage extends AbstractFortunaPage{
         return WebDriverUtils.getCurrentUrl().contains("contact-us-mobile");
     }
 
-    public boolean isRegistrationpage() {
+    public boolean isRegistrationPage() {
         return WebDriverUtils.getCurrentUrl().contains("register-step-1");
     }
 
