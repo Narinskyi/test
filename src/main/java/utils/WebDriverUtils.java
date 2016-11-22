@@ -159,8 +159,17 @@ public class WebDriverUtils {
         //get window handlers as list
         List<String> browserTabs = new ArrayList<>(driver().getWindowHandles());
 
-        //switch to new tab
-        driver().switchTo().window(browserTabs .get(1));
+        //try to switch to new tab (wait until it's opened)
+        for (int i=0; i<3; i++) {
+            try {
+                driver().switchTo().window(browserTabs.get(1));
+                break;
+            } catch (IndexOutOfBoundsException e) {
+                if (i==2) return false;
+                waitFor(500);
+            }
+        }
+
 
         //check is it correct page opened or not (e.g. check page's title)
         String actualUrl=WebDriverUtils.getCurrentUrl();
