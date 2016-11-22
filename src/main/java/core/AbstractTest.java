@@ -39,6 +39,11 @@ public class AbstractTest extends AbstractTestNGSpringContextTests{
         log.info("Browser stopped");
     }
 
+    @BeforeMethod(alwaysRun = true)
+    public void displayCurrentTestName(Method method){
+        log.info("**---------------------------- "+method.getName()+" ----------------------------**");
+    }
+
     protected void restart() {
         this.stop();
         this.start();
@@ -47,11 +52,6 @@ public class AbstractTest extends AbstractTestNGSpringContextTests{
     public static void failTest(String message) {
         log.severe(message);
         Assert.fail(message);
-    }
-
-    @BeforeMethod(alwaysRun = true)
-    public void displayCurrentTestName(Method method){
-        log.info("**---------------------------- "+method.getName()+" ----------------------------**");
     }
 
 }

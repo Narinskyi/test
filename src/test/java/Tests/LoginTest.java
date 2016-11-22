@@ -40,7 +40,7 @@ public class LoginTest extends AbstractMyAccountTest {
         //verify header, placeholders and that remember me is unchecked by default
         Assert.assertTrue(loginPage.getUsernamePlaceholder().contains("username/email"), "Username placeholder failed");
         Assert.assertTrue(loginPage.getPasswordPlaceholder().contains("password"), "Password placeholder failed");
-        Assert.assertTrue(loginPage.isUsernameInvalid(), "Username validation failed");
+        //Assert.assertTrue(loginPage.isUsernameInvalid(), "Username validation failed");
         Assert.assertTrue(loginPage.isPasswordInvalid(), "Password validation failed");
         Assert.assertTrue(!loginPage.isRememberMeChecked(), "Remember me unchecked by default failed");
     }
