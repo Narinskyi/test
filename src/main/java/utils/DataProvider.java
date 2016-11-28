@@ -31,8 +31,13 @@ public class DataProvider {
     public static ConfiguredBrowsers getBrowser() {
 
         ConfiguredBrowsers browser;
+        String browserName;
 
-        String browserName = resources.getString("browser");
+        //try to extract browser name from command line parameter; if no - from .properties file
+        if (System.getProperty("browser")!=null) {
+            browserName = System.getProperty("browser");
+        } else
+            browserName = resources.getString("browser");
         try {
             browser = ConfiguredBrowsers.valueOf(browserName);
         } catch (IllegalArgumentException e) {
@@ -59,10 +64,6 @@ public class DataProvider {
 
         public static String getCurrentYear(){
             return new SimpleDateFormat("yyyy").format(new Date());
-        }
-
-        public static String getCurrentDate() {
-            return new SimpleDateFormat("dd.MM.yyyy").format(new Date());
         }
 
         public static String getSomeYearsAgo(int howMany){

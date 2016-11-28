@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Fortuna Automation Plan A.iml" filepath="$PROJECT_DIR$/Fortuna Automation Plan A.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fortuna-automation-planA.iml" filepath="$PROJECT_DIR$/fortuna-automation-planA.iml" />
     </modules>
   </component>
 </project>

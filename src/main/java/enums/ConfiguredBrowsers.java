@@ -44,6 +44,8 @@ public enum ConfiguredBrowsers {
     //set path values for configured drivers
     private static void initDrivers(){
 
+
+
         System.setProperty("webdriver.gecko.driver", "src/drivers/geckodriver.exe");
         System.setProperty("webdriver.chrome.driver", "src/drivers/chromedriver.exe");
         System.setProperty("webdriver.edge.driver", "src/drivers/MicrosoftWebDriver.exe");
