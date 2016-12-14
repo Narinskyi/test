@@ -3,6 +3,8 @@ package utils;
 import enums.ConfiguredBrowsers;
 import springConstructors.UserData;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -25,6 +27,17 @@ public class DataProvider {
 
     public static String getBaseUrl(){
         return resources.getString("base.url");
+    }
+
+    public static boolean shouldUseGrid() { return Boolean.valueOf(resources.getString("grid")); }
+
+    public static URL getHubURL() {
+        String url = resources.getString("hub");
+        try {
+            return new URL(url);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException("Please set correct URL");
+        }
     }
 
     //return ConfiguredBrowser object by its name. Chrome is returned by default
@@ -74,6 +87,5 @@ public class DataProvider {
         }
 
     }
-
 
 }

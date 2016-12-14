@@ -1,5 +1,6 @@
 package enums;
 
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -8,7 +9,12 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import sun.security.krb5.internal.crypto.Des;
+import utils.DataProvider;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,18 +30,30 @@ public enum ConfiguredBrowsers {
 
     public WebDriver getDriver(){
 
-        initDrivers();
+        //if grid = true, use RemoteWebDriver
+        boolean useGrid = DataProvider.shouldUseGrid();
 
+        //get host of the grid hub
+        URL host = DataProvider.getHubURL();
+
+        initDrivers();
 
         switch (this) {
 
-            case firefox: return new FirefoxDriver();
-            case chrome: return new ChromeDriver();
-            case edge: return new EdgeDriver();
-            case ie: return getIEDriver();
-            case mobileEmulatorChrome: return getChromeDriverMobile("Google Nexus 5");
-            case tabletEmulatorChrome: return getChromeDriverMobile("Apple iPad");
-            case phantomJS: return new PhantomJSDriver();
+            case firefox: return useGrid ? new RemoteWebDriver(host,DesiredCapabilities.firefox())
+                    : new FirefoxDriver();
+            case chrome: return useGrid ? new RemoteWebDriver(host,DesiredCapabilities.chrome())
+                    : new ChromeDriver();
+            case edge: return useGrid ? new RemoteWebDriver(host,DesiredCapabilities.edge())
+                    : new EdgeDriver();
+            case ie: return useGrid ? new RemoteWebDriver(host,getIECapabilities())
+                    : new InternetExplorerDriver(getIECapabilities());
+            case mobileEmulatorChrome: return useGrid ? new RemoteWebDriver(host,getChromeMobileCapabilities("Google Nexus 5"))
+                    : new ChromeDriver(getChromeMobileCapabilities("Google Nexus 5"));
+            case tabletEmulatorChrome: return useGrid ? new RemoteWebDriver(host,getChromeMobileCapabilities("Apple iPad"))
+                    : new ChromeDriver(getChromeMobileCapabilities("Apple iPad"));
+            case phantomJS: return useGrid ? new RemoteWebDriver(host, DesiredCapabilities.phantomjs())
+                    : new PhantomJSDriver();
             default: return new PhantomJSDriver();
         }
 
@@ -43,8 +61,6 @@ public enum ConfiguredBrowsers {
 
     //set path values for configured drivers
     private static void initDrivers(){
-
-
 
         System.setProperty("webdriver.gecko.driver", "src/drivers/geckodriver.exe");
         System.setProperty("webdriver.chrome.driver", "src/drivers/chromedriver.exe");
@@ -54,7 +70,8 @@ public enum ConfiguredBrowsers {
 
     }
 
-    private static ChromeDriver getChromeDriverMobile(String deviceName){
+    private DesiredCapabilities getChromeMobileCapabilities(String deviceName){
+
         Map<String, String> mobileEmulation = new HashMap<>();
         mobileEmulation.put("deviceName", deviceName);
 
@@ -62,22 +79,31 @@ public enum ConfiguredBrowsers {
         chromeOptions.put("mobileEmulation", mobileEmulation);
         DesiredCapabilities capabilities = DesiredCapabilities.chrome();
         capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
-        return new ChromeDriver(capabilities);
+
+        return capabilities;
     }
 
-    private static InternetExplorerDriver getIEDriver() {
-
+    private DesiredCapabilities getIECapabilities(){
         DesiredCapabilities capabilities = DesiredCapabilities.internetExplorer();
         capabilities.setCapability("nativeEvents", false);
         capabilities.setCapability("ignoreZoomSetting", true);
         capabilities.setCapability(InternetExplorerDriver.IE_ENSURE_CLEAN_SESSION, true);
 
-        return new InternetExplorerDriver(capabilities);
+        return capabilities;
     }
 
     public static void main(String[] args) {
-        WebDriver driver=tabletEmulatorChrome.getDriver();
-        driver.navigate().to("http://wpl-licensee25-admin.ptdev.eu");
+
+        try {
+            DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+
+            WebDriver driver = new RemoteWebDriver(new URL("http://127.0.0.1:4444/wd/hub"), capabilities);
+            driver.navigate().to("http://wpl-licensee25-admin.ptdev.eu");
+            driver.quit();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }

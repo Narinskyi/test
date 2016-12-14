@@ -2,6 +2,7 @@ package core;
 
 import enums.ConfiguredBrowsers;
 import org.openqa.selenium.WebDriver;
+import utils.DataProvider;
 
 public class WebDriverFactory {
 
@@ -13,7 +14,7 @@ public class WebDriverFactory {
     }
 
     public static void startDriver (ConfiguredBrowsers browser) {
-        driver=browser.getDriver();
+            driver = browser.getDriver();
     }
 
     public static void quitDriver(){
