@@ -7,9 +7,7 @@ import utils.DataProvider;
 public class WebDriverFactory {
 
     //private constructor
-    private WebDriverFactory(){
-
-    }
+    private WebDriverFactory(){}
 
     private static WebDriverFactory instance = new WebDriverFactory();
 
@@ -21,7 +19,7 @@ public class WebDriverFactory {
     private static ConfiguredBrowsers browser = DataProvider.getBrowser();
 
     // thread local driver object for webdriver
-    ThreadLocal<WebDriver> driver = new ThreadLocal<WebDriver>()
+    private ThreadLocal<WebDriver> driver = new ThreadLocal<WebDriver>()
     {
         @Override
         protected WebDriver initialValue()

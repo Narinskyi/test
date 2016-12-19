@@ -27,8 +27,8 @@ public abstract class AbstractTest extends AbstractTestNGSpringContextTests{
     public void start(){
 
         DataProvider.setUserData(userData);
-        //start browser, specified in .properties file
-        //WebDriverFactory.getInstance().getDriver();
+        //start browser, specified in .properties file (redundant since also called in WebDriverUtils - left for clarity)
+        WebDriverFactory.getInstance().getDriver();
         log.info("Browser started");
 
     }

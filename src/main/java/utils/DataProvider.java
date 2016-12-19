@@ -29,10 +29,10 @@ public class DataProvider {
         return resources.getString("base.url");
     }
 
-    public static boolean shouldUseGrid() { return Boolean.valueOf(resources.getString("grid")); }
+    public static boolean shouldUseGrid() { return Boolean.valueOf(getParameterValue("grid")); }
 
     public static URL getHubURL() {
-        String url = resources.getString("hub");
+        String url = getParameterValue("hub");
         try {
             return new URL(url);
         } catch (MalformedURLException e) {
@@ -47,10 +47,7 @@ public class DataProvider {
         String browserName;
 
         //try to extract browser name from command line parameter; if no - from .properties file
-        if (System.getProperty("browser")!=null) {
-            browserName = System.getProperty("browser");
-        } else
-            browserName = resources.getString("browser");
+        browserName = getParameterValue("browser");
         try {
             browser = ConfiguredBrowsers.valueOf(browserName);
         } catch (IllegalArgumentException e) {
@@ -64,7 +61,15 @@ public class DataProvider {
         return UUID.randomUUID().toString().substring(0,7);
     }
 
-    /**---------------------------- DateUtils utils ----------------------------*/
+    //try to extract parameter from session. If no such - get it from .properties file
+    private static String getParameterValue(String parameter) {
+        if (System.getProperty(parameter)!=null) {
+            return System.getProperty(parameter);
+        } else
+            return resources.getString(parameter);
+    }
+
+    /**---------------------------- DateUtils class ----------------------------*/
     public static class DateUtils {
 
         public static String getCurrentDay(){

@@ -1,6 +1,5 @@
 package enums;
 
-import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -10,7 +9,6 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import sun.security.krb5.internal.crypto.Des;
 import utils.DataProvider;
 
 import java.net.MalformedURLException;
@@ -36,27 +34,53 @@ public enum ConfiguredBrowsers {
         //get host of the grid hub
         URL host = DataProvider.getHubURL();
 
-        initDrivers();
-
-        switch (this) {
-
-            case firefox: return useGrid ? new RemoteWebDriver(host,DesiredCapabilities.firefox())
-                    : new FirefoxDriver();
-            case chrome: return useGrid ? new RemoteWebDriver(host,DesiredCapabilities.chrome())
-                    : new ChromeDriver();
-            case edge: return useGrid ? new RemoteWebDriver(host,DesiredCapabilities.edge())
-                    : new EdgeDriver();
-            case ie: return useGrid ? new RemoteWebDriver(host,getIECapabilities())
-                    : new InternetExplorerDriver(getIECapabilities());
-            case mobileEmulatorChrome: return useGrid ? new RemoteWebDriver(host,getChromeMobileCapabilities("Google Nexus 5"))
-                    : new ChromeDriver(getChromeMobileCapabilities("Google Nexus 5"));
-            case tabletEmulatorChrome: return useGrid ? new RemoteWebDriver(host,getChromeMobileCapabilities("Apple iPad"))
-                    : new ChromeDriver(getChromeMobileCapabilities("Apple iPad"));
-            case phantomJS: return useGrid ? new RemoteWebDriver(host, DesiredCapabilities.phantomjs())
-                    : new PhantomJSDriver();
-            default: return new PhantomJSDriver();
+        //if grid is turned on - use RemoteWebDriver
+        if (useGrid) {
+            switch (this) {
+                case firefox:
+                    new RemoteWebDriver(host,DesiredCapabilities.firefox());
+                case chrome:
+                    return new RemoteWebDriver(host,DesiredCapabilities.chrome());
+                case edge:
+                    return new RemoteWebDriver(host,DesiredCapabilities.edge());
+                case ie:
+                    return new RemoteWebDriver(host,getIECapabilities());
+                case mobileEmulatorChrome:
+                    return new RemoteWebDriver(host,getChromeMobileCapabilities("Google Nexus 5"));
+                case tabletEmulatorChrome:
+                    return new RemoteWebDriver(host,getChromeMobileCapabilities("Apple iPad"));
+                case phantomJS:
+                    return new RemoteWebDriver(host, DesiredCapabilities.phantomjs());
+                default:
+                    throw new RuntimeException("Incorrect browser was specified in .properties file");
+            }
         }
 
+        //if grid is turned off - use local instance of WebDriver
+        else {
+
+            //local drivers initialization (for remote set in selenium server run config)
+            initDrivers();
+
+            switch (this) {
+                case firefox:
+                    return new FirefoxDriver();
+                case chrome:
+                    return new ChromeDriver();
+                case edge:
+                    return new EdgeDriver();
+                case ie:
+                    new InternetExplorerDriver(getIECapabilities());
+                case mobileEmulatorChrome:
+                    return new ChromeDriver(getChromeMobileCapabilities("Google Nexus 5"));
+                case tabletEmulatorChrome:
+                    return new ChromeDriver(getChromeMobileCapabilities("Apple iPad"));
+                case phantomJS:
+                    return new PhantomJSDriver();
+                default:
+                    throw new RuntimeException("Incorrect browser was specified in .properties file");
+            }
+        }
     }
 
     //set path values for configured drivers
@@ -95,10 +119,11 @@ public enum ConfiguredBrowsers {
     public static void main(String[] args) {
 
         try {
-            DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+            initDrivers();
+            DesiredCapabilities capabilities = DesiredCapabilities.edge();
 
-            WebDriver driver = new RemoteWebDriver(new URL("http://127.0.0.1:4444/wd/hub"), capabilities);
-            driver.navigate().to("http://wpl-licensee25-admin.ptdev.eu");
+            WebDriver driver = new RemoteWebDriver(new URL("http://172.29.46.171:4444/wd/hub"), capabilities);
+            driver.navigate().to("http://wpl-licensee25-public.ptdev.eu");
             driver.quit();
         } catch (MalformedURLException e) {
             e.printStackTrace();

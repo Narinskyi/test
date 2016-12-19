@@ -4,7 +4,7 @@ import core.AbstractTest;
 import org.testng.annotations.Test;
 import pageObjects.FortunaextdevPage;
 
-@Test(enabled = true)
+@Test(enabled = false)
 public class GeneityRegistrationTest extends AbstractTest {
 
         private FortunaextdevPage fortunaextdevPage = new FortunaextdevPage();
