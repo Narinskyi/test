@@ -6,21 +6,37 @@ import utils.DataProvider;
 
 public class WebDriverFactory {
 
+    //private constructor
+    private WebDriverFactory(){
 
-    private static WebDriver driver;
-
-    public static WebDriver getDriver(){
-        return driver;
     }
 
-    public static void startDriver (ConfiguredBrowsers browser) {
-            driver = browser.getDriver();
+    private static WebDriverFactory instance = new WebDriverFactory();
+
+    public static WebDriverFactory getInstance(){
+        return instance;
     }
 
-    public static void quitDriver(){
-        if (driver!=null) {
-            driver.quit();
+    //which browser is used now
+    private static ConfiguredBrowsers browser = DataProvider.getBrowser();
+
+    // thread local driver object for webdriver
+    ThreadLocal<WebDriver> driver = new ThreadLocal<WebDriver>()
+    {
+        @Override
+        protected WebDriver initialValue()
+        {
+            return browser.getDriver();
         }
+    };
+
+    public WebDriver getDriver(){
+        return driver.get();
+    }
+
+    void quitDriver(){
+        driver.get().quit();
+        driver.remove();
     }
 
 }

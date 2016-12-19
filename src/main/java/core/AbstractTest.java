@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 import springConstructors.UserData;
 import utils.DataProvider;
 
@@ -16,7 +16,7 @@ import java.lang.reflect.Method;
 import java.util.logging.Logger;
 
 @ContextConfiguration(locations={"/spring-config.xml"})
-public class AbstractTest extends AbstractTestNGSpringContextTests{
+public abstract class AbstractTest extends AbstractTestNGSpringContextTests{
 
     private static Logger log = Logger.getAnonymousLogger();
 
@@ -29,13 +29,14 @@ public class AbstractTest extends AbstractTestNGSpringContextTests{
 
         DataProvider.setUserData(userData);
         //start browser, specified in .properties file
-        WebDriverFactory.startDriver(DataProvider.getBrowser());
+        //WebDriverFactory.getInstance().getDriver();
         log.info("Browser started");
+
     }
 
-    @AfterClass(alwaysRun = true)
+    @AfterMethod(alwaysRun = true)
     public void stop(){
-        WebDriverFactory.quitDriver();
+        WebDriverFactory.getInstance().quitDriver();
         log.info("Browser stopped");
     }
 

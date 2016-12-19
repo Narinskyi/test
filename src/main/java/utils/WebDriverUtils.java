@@ -185,7 +185,7 @@ public class WebDriverUtils {
     /**---------------------------- Private service methods ----------------------------*/
     //current driver
     private static WebDriver driver(){
-        return WebDriverFactory.getDriver();
+        return WebDriverFactory.getInstance().getDriver();
     }
 
     //findElement element
