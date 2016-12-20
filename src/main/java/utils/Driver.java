@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class WebDriverUtils {
+public class Driver {
 
     private static Logger log = Logger.getAnonymousLogger();
     //timeout constants
@@ -172,7 +172,7 @@ public class WebDriverUtils {
 
 
         //check is it correct page opened or not (e.g. check page's title)
-        String actualUrl=WebDriverUtils.getCurrentUrl();
+        String actualUrl= Driver.getCurrentUrl();
 
         boolean isOpened = actualUrl.contains(expectedUrlEnding);
         // then close tab and get back

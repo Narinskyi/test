@@ -1,7 +1,7 @@
 package pageObjects;
 
 import org.openqa.selenium.By;
-import utils.WebDriverUtils;
+import utils.Driver;
 
 public class LoginPage extends AbstractFortunaPage {
 
@@ -17,51 +17,51 @@ public class LoginPage extends AbstractFortunaPage {
     private static final By VALIDATION_PASSWORD = By.cssSelector(".field_name_password");
 
     public void enterUsername(String username) {
-        WebDriverUtils.inputTextToField(INPUT_USERNAME, username);
+        Driver.inputTextToField(INPUT_USERNAME, username);
     }
 
     public void clearUsername() {
-        WebDriverUtils.clearField(INPUT_USERNAME);
+        Driver.clearField(INPUT_USERNAME);
     }
 
     public String getUsernameInputText() {
-        return WebDriverUtils.getElementText(INPUT_USERNAME);
+        return Driver.getElementText(INPUT_USERNAME);
     }
 
     public void enterPassword(String password) {
-        WebDriverUtils.inputTextToField(INPUT_PASSWORD, password);
+        Driver.inputTextToField(INPUT_PASSWORD, password);
     }
 
     public boolean isRememberMeChecked() {
-        return WebDriverUtils.getCheckBoxState(CHECKBOX_REMEMBER_ME);
+        return Driver.getCheckBoxState(CHECKBOX_REMEMBER_ME);
     }
 
     public void clickRememberMe() {
-        WebDriverUtils.click(CHECKBOX_REMEMBER_ME);
+        Driver.click(CHECKBOX_REMEMBER_ME);
     }
 
     public void clickLogin() {
-        WebDriverUtils.click(BUTTON_LOGIN);
+        Driver.click(BUTTON_LOGIN);
     }
 
     public void clickForgottenPassword() {
-        WebDriverUtils.click(LINK_FORGOTTEN_PASSWORD);
+        Driver.click(LINK_FORGOTTEN_PASSWORD);
     }
 
     public void clickRegister() {
-        WebDriverUtils.click(LINK_REGISTER);
+        Driver.click(LINK_REGISTER);
     }
 
     public String getUsernamePlaceholder() {
-        return WebDriverUtils.getAttribute(INPUT_USERNAME, "placeholder");
+        return Driver.getAttribute(INPUT_USERNAME, "placeholder");
     }
 
     public String getPasswordPlaceholder() {
-        return WebDriverUtils.getAttribute(INPUT_PASSWORD, "placeholder");
+        return Driver.getAttribute(INPUT_PASSWORD, "placeholder");
     }
 
     public void clickEyeIcon() {
-        WebDriverUtils.click(EYE_ICON);
+        Driver.click(EYE_ICON);
     }
 
     public boolean isUsernameInvalid() {
@@ -74,7 +74,7 @@ public class LoginPage extends AbstractFortunaPage {
 
     public boolean isPasswordVisible() {
 
-        String passwordVisibilityType = WebDriverUtils.getAttribute(INPUT_PASSWORD, "type");
+        String passwordVisibilityType = Driver.getAttribute(INPUT_PASSWORD, "type");
 
         switch (passwordVisibilityType) {
 
@@ -89,11 +89,11 @@ public class LoginPage extends AbstractFortunaPage {
     }
 
     public boolean isForgottenPasswordPageOpened(){
-        return WebDriverUtils.getCurrentUrl().contains("forgotten-password");
+        return Driver.getCurrentUrl().contains("forgotten-password");
     }
 
     public boolean isRegisterPageOpened() {
-        return WebDriverUtils.isNewTabOpened("register-step-1");
+        return Driver.isNewTabOpened("register-step-1");
     }
 
 }

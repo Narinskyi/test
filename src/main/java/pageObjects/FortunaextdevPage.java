@@ -2,7 +2,7 @@ package pageObjects;
 
 import org.openqa.selenium.By;
 import utils.DataProvider;
-import utils.WebDriverUtils;
+import utils.Driver;
 import java.util.concurrent.ThreadLocalRandom;
 
 //temporary solution
@@ -19,16 +19,16 @@ public class FortunaextdevPage extends AbstractPage {
 
 
     public void openFortunaextdev() {
-        WebDriverUtils.openPage("http://fortunacz-fortunaextdev.custenv.geneity.co.uk/");
-        WebDriverUtils.waitForElementVisibility(INPUT_USERNAME_XP);
+        Driver.openPage("http://fortunacz-fortunaextdev.custenv.geneity.co.uk/");
+        Driver.waitForElementVisibility(INPUT_USERNAME_XP);
     }
 
     private void loginWithCredentials(String username, String password) {
 
-        WebDriverUtils.inputTextToField(INPUT_USERNAME_XP, username);
-        WebDriverUtils.inputTextToField(INPUT_PASSWORD_XP, password);
-        WebDriverUtils.click(BUTTON_SIGN_IN_XP);
-        WebDriverUtils.waitForElementVisibility(ICON_SIGNED_IN_XP);
+        Driver.inputTextToField(INPUT_USERNAME_XP, username);
+        Driver.inputTextToField(INPUT_PASSWORD_XP, password);
+        Driver.click(BUTTON_SIGN_IN_XP);
+        Driver.waitForElementVisibility(ICON_SIGNED_IN_XP);
     }
 
     public void loginWithDefaultCredentials(){
@@ -41,13 +41,13 @@ public class FortunaextdevPage extends AbstractPage {
 
         for (int i=0; i<howMany; i++) {
 
-            WebDriverUtils.click(BUTTON_ADD_SLIP_XP);
-            WebDriverUtils.waitForElementVisibility(INPUT_STAKE_XP);
-            WebDriverUtils.inputTextToField(INPUT_STAKE_XP,
+            Driver.click(BUTTON_ADD_SLIP_XP);
+            Driver.waitForElementVisibility(INPUT_STAKE_XP);
+            Driver.inputTextToField(INPUT_STAKE_XP,
                     Integer.toString(ThreadLocalRandom.current().nextInt(70, 100 + 1)));
-            WebDriverUtils.waitForElementVisibility(BUTTON_PLACE_SLIP_XP);
-            WebDriverUtils.click(BUTTON_PLACE_SLIP_XP);
-            WebDriverUtils.waitForElementVisibility(BUTTON_CONFIRM_SLIP_XP);
+            Driver.waitForElementVisibility(BUTTON_PLACE_SLIP_XP);
+            Driver.click(BUTTON_PLACE_SLIP_XP);
+            Driver.waitForElementVisibility(BUTTON_CONFIRM_SLIP_XP);
 
         }
 

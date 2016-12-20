@@ -2,7 +2,7 @@ package pageObjects;
 
 import enums.AvailablePages;
 import utils.DataProvider;
-import utils.WebDriverUtils;
+import utils.Driver;
 
 public abstract class AbstractPage {
 
@@ -10,15 +10,15 @@ public abstract class AbstractPage {
 
     public void open() {
         String url = baseURL + AvailablePages.getSuffix(this);
-        WebDriverUtils.openPage(url);
+        Driver.openPage(url);
     }
 
     public void refresh() {
-        WebDriverUtils.refreshPage();
+        Driver.refreshPage();
     }
 
     public void waitFor(long millisec) {
-        WebDriverUtils.waitFor(millisec);
+        Driver.waitFor(millisec);
     }
 
 }

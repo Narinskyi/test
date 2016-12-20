@@ -2,7 +2,7 @@ package pageObjects;
 
 import org.openqa.selenium.By;
 import utils.DataProvider;
-import utils.WebDriverUtils;
+import utils.Driver;
 
 public class ForgottenPasswordPage extends AbstractFortunaPage{
 
@@ -26,53 +26,53 @@ public class ForgottenPasswordPage extends AbstractFortunaPage{
     public void enterValidBirthday() {
         int year = Integer.valueOf(DataProvider.DateUtils.getCurrentYear())-18;
 
-        WebDriverUtils.setDropdownOptionByValue(SELECT_DAY, DataProvider.DateUtils.getCurrentDay());
-        WebDriverUtils.setDropdownOptionByValue(SELECT_MONTH, DataProvider.DateUtils.getCurrentMonth());
-        WebDriverUtils.setDropdownOptionByValue(SELECT_YEAR, Integer.toString(year));
+        Driver.setDropdownOptionByValue(SELECT_DAY, DataProvider.DateUtils.getCurrentDay());
+        Driver.setDropdownOptionByValue(SELECT_MONTH, DataProvider.DateUtils.getCurrentMonth());
+        Driver.setDropdownOptionByValue(SELECT_YEAR, Integer.toString(year));
     }
 
     //too young
     public void enterInvalidBirthday() {
         int year = Integer.valueOf(DataProvider.DateUtils.getCurrentYear())-17;
 
-        WebDriverUtils.setDropdownOptionByValue(SELECT_DAY, DataProvider.DateUtils.getCurrentDay());
-        WebDriverUtils.setDropdownOptionByValue(SELECT_MONTH, DataProvider.DateUtils.getCurrentMonth());
-        WebDriverUtils.setDropdownOptionByValue(SELECT_YEAR, Integer.toString(year));
+        Driver.setDropdownOptionByValue(SELECT_DAY, DataProvider.DateUtils.getCurrentDay());
+        Driver.setDropdownOptionByValue(SELECT_MONTH, DataProvider.DateUtils.getCurrentMonth());
+        Driver.setDropdownOptionByValue(SELECT_YEAR, Integer.toString(year));
     }
 
     //today is 18
     public void enterValidBirthdayMobile() {
-        WebDriverUtils.inputTextToField(SELECT_MOBILE, DataProvider.DateUtils.getSomeYearsAgo(18));
+        Driver.inputTextToField(SELECT_MOBILE, DataProvider.DateUtils.getSomeYearsAgo(18));
     }
 
     //too young
     public void enterInvalidBirthdayMobile() {
-        WebDriverUtils.inputTextToField(SELECT_MOBILE, DataProvider.DateUtils.getSomeYearsAgo(17));
+        Driver.inputTextToField(SELECT_MOBILE, DataProvider.DateUtils.getSomeYearsAgo(17));
     }
 
     public void enterUsername(String username) {
-        WebDriverUtils.inputTextToField(INPUT_USERNAME, username);
+        Driver.inputTextToField(INPUT_USERNAME, username);
     }
 
     public void clickLoginLink() {
-        WebDriverUtils.click(LINK_LOGIN);
+        Driver.click(LINK_LOGIN);
     }
 
     public void clickRegisterLink() {
-        WebDriverUtils.click(LINK_REGISTER);
+        Driver.click(LINK_REGISTER);
     }
 
     public void clickContactUsMobileLink() {
-        WebDriverUtils.click(LINK_CONTACT_US_MOBILE);
+        Driver.click(LINK_CONTACT_US_MOBILE);
     }
 
 
     public boolean isConfirmationInfoVisible(){
-        return WebDriverUtils.isElementVisible(CONFIRMATION_MESSAGE);
+        return Driver.isElementVisible(CONFIRMATION_MESSAGE);
     }
 
     public boolean isReCaptchaVisible(){
-        return WebDriverUtils.isElementVisible(RECAPTCHA);
+        return Driver.isElementVisible(RECAPTCHA);
     }
 
     public boolean isBirthdayInvalid(){
@@ -84,24 +84,24 @@ public class ForgottenPasswordPage extends AbstractFortunaPage{
     }
 
     public boolean isLoginPageOpened(){
-        return WebDriverUtils.getCurrentUrl().contains("login");
+        return Driver.getCurrentUrl().contains("login");
     }
 
     public boolean isContactUsMobilePageOpened(){
-        return WebDriverUtils.getCurrentUrl().contains("contact-us-mobile");
+        return Driver.getCurrentUrl().contains("contact-us-mobile");
     }
 
     public boolean isRegistrationPage() {
-        return WebDriverUtils.getCurrentUrl().contains("register-step-1");
+        return Driver.getCurrentUrl().contains("register-step-1");
     }
 
     public void openForgottenPasswordTabletPage(){
-        WebDriverUtils.openPage(DataProvider.getBaseUrl()+"forgotten-password-tablet");
+        Driver.openPage(DataProvider.getBaseUrl()+"forgotten-password-tablet");
     }
 
     public boolean isForgottenPasswordTabletPage(){
-        return WebDriverUtils.isElementVisible(ROOT)&&
-                WebDriverUtils.isElementVisible(FORTUNA_LOGO);
+        return Driver.isElementVisible(ROOT)&&
+                Driver.isElementVisible(FORTUNA_LOGO);
     }
 
 }

@@ -1,7 +1,7 @@
 package pageObjects;
 
 import org.openqa.selenium.By;
-import utils.WebDriverUtils;
+import utils.Driver;
 
 public abstract class AbstractFortunaPage extends AbstractPage {
 
@@ -12,31 +12,31 @@ public abstract class AbstractFortunaPage extends AbstractPage {
     private static final By BUTTON_SUBMIT = By.cssSelector("button[type='submit']");
 
     public boolean areSuccessMessagesDisplayed(int howMany){
-        return WebDriverUtils.areSeveralElementsVisible(SUCCESS_MESSAGE, howMany);
+        return Driver.areSeveralElementsVisible(SUCCESS_MESSAGE, howMany);
     }
 
     public boolean areErrorMessagesDisplayed(int howMany){
-        return WebDriverUtils.areSeveralElementsVisible(ERROR_MESSAGE, howMany);
+        return Driver.areSeveralElementsVisible(ERROR_MESSAGE, howMany);
     }
 
     public boolean isFieldValid (By locator) {
-        return WebDriverUtils.getAttribute(locator, "class").contains("valid");
+        return Driver.getAttribute(locator, "class").contains("valid");
     }
 
     public boolean isFieldInvalid (By locator) {
-        return WebDriverUtils.getAttribute(locator, "class").contains("invalid");
+        return Driver.getAttribute(locator, "class").contains("invalid");
     }
 
     public boolean isMobilePopupDisplayed(){
-        return WebDriverUtils.isElementVisible(POPUP_MOBILE);
+        return Driver.isElementVisible(POPUP_MOBILE);
     }
 
     public void closeMobilePopup(){
-        WebDriverUtils.click(BUTTON_CLOSE_POPUP_MOBILE);
+        Driver.click(BUTTON_CLOSE_POPUP_MOBILE);
     }
 
     public void clickSubmit(){
-        WebDriverUtils.click(BUTTON_SUBMIT);
+        Driver.click(BUTTON_SUBMIT);
     }
 
 
