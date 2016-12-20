@@ -1,15 +1,14 @@
 package pageObjects;
 
-import core.Page;
 import enums.AvailablePages;
 import utils.DataProvider;
 import utils.WebDriverUtils;
 
-public abstract class AbstractPage implements Page {
+public abstract class AbstractPage {
 
     private String baseURL = DataProvider.getBaseUrl();
 
-    public void  open() {
+    public void open() {
         String url = baseURL + AvailablePages.getSuffix(this);
         WebDriverUtils.openPage(url);
     }
