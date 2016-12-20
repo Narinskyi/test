@@ -1,6 +1,7 @@
 package utils;
 
 import enums.ConfiguredBrowsers;
+import enums.Platform;
 import springConstructors.UserData;
 
 import java.net.MalformedURLException;
@@ -27,6 +28,22 @@ public class DataProvider {
 
     public static String getBaseUrl(){
         return resources.getString("base.url");
+    }
+
+    public static Platform getCurrentPlatform(){
+        switch (DataProvider.getBrowser()){
+            case chrome:
+            case edge:
+            case firefox:
+            case ie:
+            case phantomJS:
+                return Platform.desktop;
+            case tabletEmulatorChrome:
+                return Platform.mobile;
+            case mobileEmulatorChrome:
+                return Platform.mobile;
+            default: return Platform.desktop;
+        }
     }
 
     public static boolean shouldUseGrid() { return Boolean.valueOf(getParameterValue("grid")); }

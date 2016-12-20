@@ -18,8 +18,6 @@ public class Driver {
     private static final int TIMEOUT = 10;
 
 
-
-
     /**---------------------------- Waiters ----------------------------*/
 
     //regular sleep with configurable timeout
@@ -87,6 +85,10 @@ public class Driver {
         select.selectByValue(value);
     }
 
+    public static void executeJavascript(String javascript) {
+        ((JavascriptExecutor) driver()).executeScript(javascript);
+    }
+
 
     /**---------------------------- Navigation ----------------------------*/
 
@@ -131,6 +133,11 @@ public class Driver {
         return driver().getCurrentUrl();
     }
 
+    public static String getURLSuffix() {
+        return driver().getCurrentUrl().
+                replaceAll(DataProvider.getBaseUrl(),"");
+    }
+
     /**---------------------------- Booleans ----------------------------*/
 
     //is element visible?
@@ -154,7 +161,7 @@ public class Driver {
         return result;
     }
 
-    public static boolean isNewTabOpened(String expectedUrlEnding){
+    public static boolean isNewTabOpened(String expectedURLSuffix){
 
         //get window handlers as list
         List<String> browserTabs = new ArrayList<>(driver().getWindowHandles());
@@ -170,11 +177,7 @@ public class Driver {
             }
         }
 
-
-        //check is it correct page opened or not (e.g. check page's title)
-        String actualUrl= Driver.getCurrentUrl();
-
-        boolean isOpened = actualUrl.contains(expectedUrlEnding);
+        boolean isOpened = Driver.getURLSuffix().equals(expectedURLSuffix);
         // then close tab and get back
         driver().close();
         driver().switchTo().window(browserTabs.get(0));
@@ -214,7 +217,6 @@ public class Driver {
         }
         return driver().findElements(locator);
     }
-
 
 
 }

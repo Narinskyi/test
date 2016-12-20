@@ -84,15 +84,15 @@ public class ForgottenPasswordPage extends AbstractFortunaPage{
     }
 
     public boolean isLoginPageOpened(){
-        return Driver.getCurrentUrl().contains("login");
+        return Driver.getURLSuffix().equals("login");
     }
 
     public boolean isContactUsMobilePageOpened(){
-        return Driver.getCurrentUrl().contains("contact-us-mobile");
+        return Driver.getURLSuffix().equals("contact-us-mobile");
     }
 
     public boolean isRegistrationPage() {
-        return Driver.getCurrentUrl().contains("register-step-1");
+        return Driver.getURLSuffix().equals("register-step-1");
     }
 
     public void openForgottenPasswordTabletPage(){

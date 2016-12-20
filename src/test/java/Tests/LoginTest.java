@@ -1,18 +1,16 @@
 package Tests;
 
-import Preconditions.AbstractMyAccountTest;
+import Preconditions.PreconditionalSteps;
+import core.AbstractTest;
 import core.PageFactory;
 import enums.AvailablePages;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObjects.LoginPage;
-import springConstructors.UserData;
 import utils.DataProvider;
 
-import java.util.UUID;
-
-public class LoginTest extends AbstractMyAccountTest {
+public class LoginTest extends AbstractTest {
 
     private static LoginPage loginPage = PageFactory.getPage(AvailablePages.login);
 
@@ -20,16 +18,10 @@ public class LoginTest extends AbstractMyAccountTest {
     private static final String INVALID_PASSWORD = "invalidPassword";
     private static final String VALID_PASSWORD = "Password1";
 
-    private String username;
-
     @BeforeClass
-    public void generateRandomUsername(){
-        UserData userData = DataProvider.getUserData();
-        //generate a random username and set it
-        username= UUID.randomUUID().toString().substring(0,7);
-        userData.setUsername(username);
+    public void prepareUser(){
+        PreconditionalSteps.createUser();
     }
-
 
     @Test (groups = "desktop")
     public void uiElementsTestD(){
@@ -146,7 +138,7 @@ public class LoginTest extends AbstractMyAccountTest {
     public void invalidPasswordTest() {
 
         loginPage.open();
-        loginPage.enterUsername(username);
+        loginPage.enterUsername(DataProvider.getUserData().getUsername());
         loginPage.enterPassword(INVALID_PASSWORD);
         loginPage.clickLogin();
 
@@ -158,28 +150,28 @@ public class LoginTest extends AbstractMyAccountTest {
 
         loginPage.open();
 
-        loginPage.enterUsername(username);
+        loginPage.enterUsername(DataProvider.getUserData().getUsername());
         loginPage.enterPassword(INVALID_PASSWORD);
         loginPage.clickLogin();
 
         Assert.assertTrue(loginPage.isMobilePopupDisplayed(), "Error message was not displayed");
     }
 
-//    @Test (priority = 2)
-//    public void validInputTest() {
-//
-//        loginPage = (LoginPage)NavigationUtils.navigateToPage(PlayerCondition.guest, ConfiguredPages.login);
-//
-//        loginPage.enterUsername(username);
-//        loginPage.enterPassword(VALID_PASSWORD);
-//        loginPage.clickLogin();
-//
-//        //verify that user is logged-in successfully
-//        Assert.assertTrue(loginPage.isMyAccountPage());
-//
-//        //after test-logout
-//        loginPage.fortunaLogout();
-//    }
+    @Test (groups = {"desktop", "tablet", "mobile"})
+    public void validInputTest() {
+
+        loginPage.open();
+
+        loginPage.enterUsername(DataProvider.getUserData().getUsername());
+        loginPage.enterPassword(VALID_PASSWORD);
+        loginPage.clickLogin();
+
+        //verify that user is logged-in successfully
+        Assert.assertTrue(loginPage.isDashboardPageOpened());
+
+        //after test-logout
+        loginPage.logout();
+    }
 //
 //    @Test (priority = 3)
 //    public void rememberMeTest(){

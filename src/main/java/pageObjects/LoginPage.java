@@ -1,5 +1,7 @@
 package pageObjects;
 
+import core.PageFactory;
+import enums.AvailablePages;
 import org.openqa.selenium.By;
 import utils.Driver;
 
@@ -82,18 +84,22 @@ public class LoginPage extends AbstractFortunaPage {
                 return false;
             case "text":
                 return true;
-
             default:
                 return false;
         }
     }
 
     public boolean isForgottenPasswordPageOpened(){
-        return Driver.getCurrentUrl().contains("forgotten-password");
+        return Driver.getURLSuffix().equals("forgotten-password");
     }
 
     public boolean isRegisterPageOpened() {
         return Driver.isNewTabOpened("register-step-1");
+    }
+
+    public boolean isDashboardPageOpened() {
+        DashboardPage dashboardPage = PageFactory.getPage(AvailablePages.dashboard);
+        return dashboardPage.isAccountInfoDisplayed();
     }
 
 }

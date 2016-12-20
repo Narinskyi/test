@@ -7,8 +7,8 @@
     <bean id="userData" class="springConstructors.UserData">
         <property name="title" value="Mr"/>
         <property name="gender" value="M"/>
-        <property name="firstName" value="Stan"/>
-        <property name="lastName" value="Automation"/>
+        <property name="firstName" value="Auto"/>
+        <property name="lastName" value="Test"/>
         <property name="birthDay" value="01"/>
         <property name="birthMonth" value="01"/>
         <property name="birthYear" value="1991"/>

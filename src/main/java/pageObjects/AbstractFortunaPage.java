@@ -1,5 +1,7 @@
 package pageObjects;
 
+import core.PageFactory;
+import enums.AvailablePages;
 import org.openqa.selenium.By;
 import utils.Driver;
 
@@ -37,6 +39,12 @@ public abstract class AbstractFortunaPage extends AbstractPage {
 
     public void clickSubmit(){
         Driver.click(BUTTON_SUBMIT);
+    }
+
+    public void logout(){
+        LogoutPage logoutPage = PageFactory.getPage(AvailablePages.logout);
+        logoutPage.open();
+        logoutPage.logout();
     }
 
 

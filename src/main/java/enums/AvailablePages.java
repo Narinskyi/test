@@ -1,15 +1,15 @@
 package enums;
 
-import pageObjects.AbstractPage;
-import pageObjects.ChangePasswordPage;
-import pageObjects.ForgottenPasswordPage;
-import pageObjects.LoginPage;
+import pageObjects.*;
 
 public enum AvailablePages {
 
     changePassword("change-password"),
+    dashboard("dashboard"),
     forgottenPassword("forgotten-password"),
-    login("login");
+    login("login"),
+    logout("logout"),
+    register("register-step-1");
 
 
     private final String suffix;
@@ -25,11 +25,16 @@ public enum AvailablePages {
 
             case changePassword: page = new ChangePasswordPage();
                 break;
+            case dashboard: page = new DashboardPage();
+                break;
             case forgottenPassword: page = new ForgottenPasswordPage();
                 break;
             case login: page = new LoginPage();
                 break;
-
+            case logout: page = new LogoutPage();
+                break;
+            case register: page = new RegistrationPage();
+                break;
         }
         return this.page;
     }
@@ -42,9 +47,5 @@ public enum AvailablePages {
         }
         return "/";
     }
-
-//    public static void main(String[] args) {
-//        ChangePasswordPage loginPage = (ChangePasswordPage) changePassword.getPage();
-//    }
 
 }
