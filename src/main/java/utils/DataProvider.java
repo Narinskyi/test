@@ -2,6 +2,7 @@ package utils;
 
 import enums.ConfiguredBrowsers;
 import enums.Platform;
+import springConstructors.IMSData;
 import springConstructors.UserData;
 
 import java.net.MalformedURLException;
@@ -17,6 +18,7 @@ public class DataProvider {
     private static Logger log = Logger.getAnonymousLogger();
     private static ResourceBundle resources = ResourceBundle.getBundle("ConfigBundle");
     private static UserData userData;
+    private static IMSData imsData;
 
     public static void setUserData(UserData userData) {
         DataProvider.userData = userData;
@@ -25,6 +27,10 @@ public class DataProvider {
     public static UserData getUserData() {
         return userData;
     }
+
+    public static void setIMSData(IMSData imsData) { DataProvider.imsData = imsData;}
+
+    public static IMSData getIMSData() { return imsData;}
 
     public static String getBaseUrl(){
         return resources.getString("base.url");
@@ -39,7 +45,7 @@ public class DataProvider {
             case phantomJS:
                 return Platform.desktop;
             case tabletEmulatorChrome:
-                return Platform.mobile;
+                return Platform.tablet;
             case mobileEmulatorChrome:
                 return Platform.mobile;
             default: return Platform.desktop;

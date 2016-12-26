@@ -138,7 +138,7 @@ public class LoginTest extends AbstractTest {
     public void invalidPasswordTest() {
 
         loginPage.open();
-        loginPage.enterUsername(DataProvider.getUserData().getUsername());
+        loginPage.enterUsername(loginPage.username());
         loginPage.enterPassword(INVALID_PASSWORD);
         loginPage.clickLogin();
 
@@ -162,7 +162,7 @@ public class LoginTest extends AbstractTest {
 
         loginPage.open();
 
-        loginPage.enterUsername(DataProvider.getUserData().getUsername());
+        loginPage.enterUsername(loginPage.username());
         loginPage.enterPassword(VALID_PASSWORD);
         loginPage.clickLogin();
 

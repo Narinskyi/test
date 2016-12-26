@@ -1,12 +1,13 @@
 package pageObjects;
 
+import enums.Platform;
 import org.openqa.selenium.By;
 import utils.DataProvider;
 import utils.Driver;
 import java.util.concurrent.ThreadLocalRandom;
 
 //temporary solution
-public class FortunaextdevPage extends AbstractPage {
+public class FortunaextdevPage extends AbstractFortunaPage {
 
     private static final By INPUT_USERNAME_XP = By.xpath("//input[@name='username']");
     private static final By INPUT_PASSWORD_XP = By.xpath("//input[@name='password']");
@@ -17,23 +18,34 @@ public class FortunaextdevPage extends AbstractPage {
     private static final By BUTTON_PLACE_SLIP_XP = By.name("place_slip");
     private static final By BUTTON_CONFIRM_SLIP_XP = By.name("confirm_slip_placed");
 
+    private static final By MOBILE_SIGN_IN = By.cssSelector("a.do-login");
+    private static final By MOBILE_SIGNED_IN_ICON = By.cssSelector("a.go-account");
+
 
     public void openFortunaextdev() {
         Driver.openPage("http://fortunacz-fortunaextdev.custenv.geneity.co.uk/");
-        Driver.waitForElementVisibility(INPUT_USERNAME_XP);
     }
 
     private void loginWithCredentials(String username, String password) {
 
-        Driver.inputTextToField(INPUT_USERNAME_XP, username);
-        Driver.inputTextToField(INPUT_PASSWORD_XP, password);
-        Driver.click(BUTTON_SIGN_IN_XP);
-        Driver.waitForElementVisibility(ICON_SIGNED_IN_XP);
+        if (isPlatform(Platform.mobile)){
+            Driver.click(MOBILE_SIGN_IN);
+            Driver.inputTextToField(INPUT_USERNAME_XP, username);
+            Driver.inputTextToField(INPUT_PASSWORD_XP, password);
+            Driver.click(BUTTON_SIGN_IN_XP);
+            Driver.waitForElementVisibility(MOBILE_SIGNED_IN_ICON);
+
+        } else {
+            Driver.inputTextToField(INPUT_USERNAME_XP, username);
+            Driver.inputTextToField(INPUT_PASSWORD_XP, password);
+            Driver.click(BUTTON_SIGN_IN_XP);
+            Driver.waitForElementVisibility(ICON_SIGNED_IN_XP);
+        }
+
     }
 
     public void loginWithDefaultCredentials(){
-        loginWithCredentials(DataProvider.getUserData().getUsername(),
-                DataProvider.getUserData().getPassword());
+        loginWithCredentials(username(), password());
     }
 
 

@@ -8,6 +8,7 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import springConstructors.IMSData;
 import springConstructors.UserData;
 import utils.DataProvider;
 import java.lang.reflect.Method;
@@ -22,10 +23,15 @@ public abstract class AbstractTest extends AbstractTestNGSpringContextTests{
     @Qualifier("userData")
     private UserData userData;
 
+    @Autowired
+    @Qualifier("imsData")
+    private IMSData imsData;
+
     @BeforeClass(alwaysRun = true)
     public void start(){
 
         DataProvider.setUserData(userData);
+        DataProvider.setIMSData(imsData);
         //start browser, specified in .properties file (redundant since also called in WebDriverUtils - left for clarity)
         WebDriverFactory.getInstance().getDriver();
         log.info("Browser started");

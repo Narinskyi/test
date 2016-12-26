@@ -3,6 +3,7 @@ package pageObjects;
 import core.PageFactory;
 import enums.AvailablePages;
 import org.openqa.selenium.By;
+import utils.DataProvider;
 import utils.Driver;
 
 public abstract class AbstractFortunaPage extends AbstractPage {
@@ -45,6 +46,14 @@ public abstract class AbstractFortunaPage extends AbstractPage {
         LogoutPage logoutPage = PageFactory.getPage(AvailablePages.logout);
         logoutPage.open();
         logoutPage.logout();
+    }
+
+    public String username() {
+        return DataProvider.getUserData().getUsername();
+    }
+
+    public String password() {
+        return DataProvider.getUserData().getPassword();
     }
 
 

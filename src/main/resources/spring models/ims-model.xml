@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+               xmlns="http://www.springframework.org/schema/beans"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+<bean id="imsData" class="springConstructors.IMSData">
+    <property name="imsURL" value="https://extdev2-admin.extdev.eu/ims/?context=ims"/>
+    <property name="imsOpenApiConnection" value="https://extdev2-openapi.extdev.eu:443"/>
+    <property name="imsLogin" value="wpl_automation"/>
+    <property name="imsPass" value="7415963Res"/>
+    <property name="imsCasino" value="playtech810037"/>
+</bean>
+
+</beans>

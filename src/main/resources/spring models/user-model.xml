@@ -13,9 +13,9 @@
         <property name="birthMonth" value="01"/>
         <property name="birthYear" value="1991"/>
         <property name="email" value="some@email.com"/>
-        <property name="country" value="US"/>
-        <property name="city" value="Madrid"/>
-        <property name="address" value="Santiago"/>
+        <property name="country" value="CZ"/>
+        <property name="city" value="Praha"/>
+        <property name="address" value="Old Town Square"/>
         <property name="address2" value=""/>
         <property name="house" value="10"/>
         <property name="postCode" value="12345"/>
@@ -28,7 +28,7 @@
         <property name="password" value="Password1"/>
         <property name="verificationQuestion" value="Name of your first pet?"/>
         <property name="verificationAnswer" value="Internet"/>
-        <property name="currency" value="EUR"/>
+        <property name="currency" value="CZK"/>
     </bean>
 
 </beans>

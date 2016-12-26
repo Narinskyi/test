@@ -1,6 +1,7 @@
 package pageObjects;
 
 import enums.AvailablePages;
+import enums.Platform;
 import utils.DataProvider;
 import utils.Driver;
 
@@ -19,6 +20,10 @@ public abstract class AbstractPage {
 
     public void waitFor(long millisec) {
         Driver.waitFor(millisec);
+    }
+
+    boolean isPlatform(Platform platform) {
+        return DataProvider.getCurrentPlatform().equals(platform);
     }
 
 }
