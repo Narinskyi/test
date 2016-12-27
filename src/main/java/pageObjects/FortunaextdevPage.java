@@ -9,12 +9,12 @@ import java.util.concurrent.ThreadLocalRandom;
 //temporary solution
 public class FortunaextdevPage extends AbstractFortunaPage {
 
-    private static final By INPUT_USERNAME_XP = By.xpath("//input[@name='username']");
-    private static final By INPUT_PASSWORD_XP = By.xpath("//input[@name='password']");
+    private static final By INPUT_USERNAME_XP = By.name("username");
+    private static final By INPUT_PASSWORD_XP = By.name("password");
     private static final By BUTTON_SIGN_IN_XP = By.xpath("//input[@type='submit']");
     private static final By ICON_SIGNED_IN_XP = By.id("welcome_id");
     private static final By BUTTON_ADD_SLIP_XP = By.xpath("(//button[@name='add-to-slip'][not(contains(@disabled,'disabled'))])[5]");
-    private static final By INPUT_STAKE_XP = By.xpath("//input[@class='stake']");
+    private static final By INPUT_STAKE_XP = By.cssSelector("input.stake");
     private static final By BUTTON_PLACE_SLIP_XP = By.name("place_slip");
     private static final By BUTTON_CONFIRM_SLIP_XP = By.name("confirm_slip_placed");
 

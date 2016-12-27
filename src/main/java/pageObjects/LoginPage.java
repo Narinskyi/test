@@ -7,16 +7,18 @@ import utils.Driver;
 
 public class LoginPage extends AbstractFortunaPage {
 
-    private static final By INPUT_USERNAME = By.name("userName");
+    private static final By INPUT_USERNAME = By.cssSelector("input.fn-user-name");
     private static final By INPUT_PASSWORD = By.name("password");
     private static final By EYE_ICON = By.cssSelector(".fn-password-visibility");
-    private static final By CHECKBOX_REMEMBER_ME = By.id("rememberme");
+    private static final By CHECKBOX_REMEMBER_ME = By.cssSelector("label[for=rememberme]");
     private static final By BUTTON_LOGIN = By.cssSelector(".fn-login-btn");
     private static final By LINK_FORGOTTEN_PASSWORD = By.xpath("//a[@href='/forgotten-password']");
     private static final By LINK_REGISTER = By.xpath("//a[@href='/register-step-1']");
 
     private static final By VALIDATION_USERNAME = By.cssSelector(".field_name_username");
     private static final By VALIDATION_PASSWORD = By.cssSelector(".field_name_password");
+
+    private static final By BUTTON_ACCEPT_TC = By.cssSelector("span.fn-accept");
 
     public void enterUsername(String username) {
         Driver.inputTextToField(INPUT_USERNAME, username);
@@ -27,7 +29,7 @@ public class LoginPage extends AbstractFortunaPage {
     }
 
     public String getUsernameInputText() {
-        return Driver.getElementText(INPUT_USERNAME);
+        return Driver.getAttribute(INPUT_USERNAME, "value");
     }
 
     public void enterPassword(String password) {
@@ -53,6 +55,8 @@ public class LoginPage extends AbstractFortunaPage {
     public void clickRegister() {
         Driver.click(LINK_REGISTER);
     }
+
+    public void clickAcceptTC() { Driver.click(BUTTON_ACCEPT_TC);}
 
     public String getUsernamePlaceholder() {
         return Driver.getAttribute(INPUT_USERNAME, "placeholder");

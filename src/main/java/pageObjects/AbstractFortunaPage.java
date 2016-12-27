@@ -48,6 +48,10 @@ public abstract class AbstractFortunaPage extends AbstractPage {
         logoutPage.logout();
     }
 
+    public void quietLogout(){
+        Driver.executeJavascript("require('managers/auth.manager').quietLogout();");
+    }
+
     public String username() {
         return DataProvider.getUserData().getUsername();
     }

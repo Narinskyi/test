@@ -57,18 +57,18 @@ public class Driver {
     //click
     public static void click (By locator) {
         try {
-            findElement(locator).click();
+            findVisibleElement(locator).click();
         } catch (WebDriverException e) {
             AbstractTest.failTest("It was not possible to click element " + locator);
         }
     }
 
     public static void clearField(By locator) {
-        findElement(locator).clear();
+        findVisibleElement(locator).clear();
     }
 
     public static void inputTextToField(By locator, String text) {
-        findElement(locator).sendKeys(String.valueOf(text));
+        findVisibleElement(locator).sendKeys(String.valueOf(text));
     }
 
     public static void clearAndInputTextToField(By locator, String text) {
@@ -81,7 +81,7 @@ public class Driver {
     }
 
     public static void setDropdownOptionByValue(By locator, String value) {
-        Select select = new Select(findElement(locator));
+        Select select = new Select(findVisibleElement(locator));
         select.selectByValue(value);
     }
 
@@ -216,6 +216,20 @@ public class Driver {
             AbstractTest.failTest("Elements: " + locator + " were not present in DOM after: " + TIMEOUT + " s");
         }
         return driver().findElements(locator);
+    }
+
+    private static WebElement findVisibleElement(By locator) {
+
+        WebDriverWait wait = new WebDriverWait(driver(), TIMEOUT);
+
+        log.info("Waiting for visibility of element " + locator);
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+        } catch (TimeoutException e) {
+            AbstractTest.failTest("Element: " + locator + " was not visible after: " + TIMEOUT + " s");
+        }
+        return driver().findElement(locator);
+
     }
 
 

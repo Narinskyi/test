@@ -16,11 +16,10 @@ public class LoginTest extends AbstractTest {
 
     private static final String INVALID_USERNAME = "invalid";
     private static final String INVALID_PASSWORD = "invalidPassword";
-    private static final String VALID_PASSWORD = "Password1";
 
-    @BeforeClass
+    @BeforeClass (alwaysRun = true)
     public void prepareUser(){
-        PreconditionalSteps.createUser();
+        PreconditionalSteps.prepareUser();
     }
 
     @Test (groups = "desktop")
@@ -163,32 +162,35 @@ public class LoginTest extends AbstractTest {
         loginPage.open();
 
         loginPage.enterUsername(loginPage.username());
-        loginPage.enterPassword(VALID_PASSWORD);
+        loginPage.enterPassword(loginPage.password());
         loginPage.clickLogin();
+        loginPage.clickAcceptTC();
 
         //verify that user is logged-in successfully
         Assert.assertTrue(loginPage.isDashboardPageOpened());
 
         //after test-logout
-        loginPage.logout();
+        loginPage.quietLogout();
     }
-//
-//    @Test (priority = 3)
-//    public void rememberMeTest(){
-//
-//        loginPage = (LoginPage)NavigationUtils.navigateToPage(PlayerCondition.guest, ConfiguredPages.login);
-//
-//        loginPage.enterUsername(username);
-//        loginPage.enterPassword(VALID_PASSWORD);
-//        loginPage.clickRememberMe();
-//        loginPage.clickLogin();
-//
-//        //verify that user is logged-in successfully (with remember me checked)
-//        Assert.assertTrue(loginPage.isMyAccountPage());
-//
-//        loginPage.fortunaLogout();
-//
-//        Assert.assertTrue(loginPage.getUsernameInputText().equals(username)&&
-//                loginPage.isRememberMeChecked());
-//    }
+
+    //disabled due to bug
+    @Test (groups = {"desktop", "tablet", "mobile"}, enabled = false)
+    public void rememberMeTest(){
+
+        loginPage.open();
+
+        loginPage.enterUsername(loginPage.username());
+        loginPage.enterPassword(loginPage.password());
+        loginPage.clickRememberMe();
+        loginPage.clickLogin();
+        //loginPage.clickAcceptTC();
+
+        //verify that user is logged-in successfully (with remember me checked)
+        Assert.assertTrue(loginPage.isDashboardPageOpened());
+
+        loginPage.logout();
+
+        Assert.assertTrue(loginPage.getUsernameInputText().equals(loginPage.username()), "Username was not saved");
+        Assert.assertTrue(loginPage.isRememberMeChecked(), "Remember did not remain checked");
+    }
 }

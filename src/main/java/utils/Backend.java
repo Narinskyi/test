@@ -13,10 +13,6 @@ public class Backend {
     public static void createUser() {
 
         UserData userData = DataProvider.getUserData();
-        String random = DataProvider.getRandomUsername();
-
-        userData.setUsername(random);
-        userData.setEmail(random+"@gmail.com");
 
         Date now = new Date();
         SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
@@ -35,7 +31,7 @@ public class Backend {
 
         OpenApi.getOpenApiConnection().waitForID(request.toString(), Arrays.asList(31008, 33006));
 
-        System.out.println("User with: "+random+" username was created successfully");
+        System.out.println("User with: "+userData.getUsername()+" username was created successfully");
     }
 
     private static JSONObject prepareDataMap(UserData userData) {

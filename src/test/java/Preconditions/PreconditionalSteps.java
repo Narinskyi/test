@@ -2,8 +2,10 @@ package Preconditions;
 
 import core.AbstractTest;
 import pageObjects.FortunaextdevPage;
+import pageObjects.LoginPage;
 import pageObjects.RegistrationPage;
 import springConstructors.UserData;
+import utils.Backend;
 import utils.DataProvider;
 import java.util.UUID;
 
@@ -11,30 +13,38 @@ public class PreconditionalSteps extends AbstractTest {
 
     private static FortunaextdevPage fortunaextdevPage = new FortunaextdevPage();
     private static RegistrationPage registrationPage = new RegistrationPage();
+    private static LoginPage loginPage = new LoginPage();
     private static UserData userData = DataProvider.getUserData();
 
-    public static void createUser() {
+    public static void prepareUser() {
         generateUniqueUserdata();
-        registerThroughUI();
+        registerThroughBackend();
         loginToFortunaExtdev();
-        logout();
     }
 
     private static void generateUniqueUserdata(){
-        String uniqeString = UUID.randomUUID().toString().substring(0,7);
-        log.info("Registering user: "+ uniqeString);
-        userData.setUsername(uniqeString);
-        userData.setEmail(uniqeString+"@gmail.com");
+        String random = DataProvider.getRandomUsername();
+        userData.setUsername(random);
+        userData.setEmail(random+"@gmail.com");
     }
 
     private static void registerThroughUI() {
         registrationPage.open();
         registrationPage.registerUser();
+        System.out.println("User with: "+userData.getUsername()+" username was registered successfully");
+    }
+
+    private static void registerThroughBackend(){
+        Backend.createUser();
     }
 
     private static void loginToFortunaExtdev(){
         fortunaextdevPage.openFortunaextdev();
         fortunaextdevPage.loginWithDefaultCredentials();
+    }
+
+    private static void acceptTC(){
+        loginPage.clickAcceptTC();
     }
 
     private static void logout(){
