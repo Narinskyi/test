@@ -74,7 +74,7 @@ public enum ConfiguredBrowsers {
                 case mobileEmulatorChrome:
                     return new ChromeDriver(getChromeMobileCapabilities("Google Nexus 5"));
                 case tabletEmulatorChrome:
-                    return new ChromeDriver(getChromeMobileCapabilities("Apple iPad"));
+                    return new ChromeDriver(getChromeTabletCapabilities());
                 case phantomJS:
                     return new PhantomJSDriver();
                 default:
@@ -94,9 +94,48 @@ public enum ConfiguredBrowsers {
 
     }
 
+    private DesiredCapabilities getChromeTabletCapabilities(){
+
+//        Map<String, Object> mobileEmulation = new HashMap<>();
+//        Map<String, Integer> deviceMetrics = new HashMap<String, Integer>();
+//
+//        //dimensions are set in order to emulate landscape orientation
+//        deviceMetrics.put("width", 1024);
+//        deviceMetrics.put("height", 768);
+//        deviceMetrics.put("pixelRatio", 2);
+//
+//        //mobileEmulation.put("deviceName", deviceName);
+//        mobileEmulation.put("deviceMetrics", deviceMetrics);
+//        mobileEmulation.put("userAgent", "Mozilla/5.0 (iPad; U; CPU OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 " +
+//                "(KHTML, like Gecko) Version/4.0.4 Mobile/7B334b Safari/531.21.10");
+//
+//        Map<String, Object> chromeOptions = new HashMap<>();
+//        chromeOptions.put("mobileEmulation", mobileEmulation);
+//        DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+//        capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
+
+
+        Map<String, Object> mobileEmulation = new HashMap<>();
+
+        //dimensions are set in order to emulate landscape orientation
+
+
+        //mobileEmulation.put("deviceName", deviceName);
+        String userAgent = "Mozilla/5.0 (iPad; U; CPU OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 " +
+                "(KHTML, like Gecko) Version/4.0.4 Mobile/7B334b Safari/531.21.10";
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--user-agent=" + userAgent);
+        options.addArguments("window-size=1039,859");
+        DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+        capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+
+        return capabilities;
+    }
+
     private DesiredCapabilities getChromeMobileCapabilities(String deviceName){
 
-        Map<String, String> mobileEmulation = new HashMap<>();
+        Map<String, Object> mobileEmulation = new HashMap<>();
+
         mobileEmulation.put("deviceName", deviceName);
 
         Map<String, Object> chromeOptions = new HashMap<>();

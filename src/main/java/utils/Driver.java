@@ -143,7 +143,7 @@ public class Driver {
     //is element visible?
     public static boolean isElementVisible(By locator) {
         log.info("Checking if " + locator + " is visible");
-        return findElement(locator).isDisplayed();
+        return findVisibleElement(locator)!=null;
     }
 
     //are multiple element visible?
