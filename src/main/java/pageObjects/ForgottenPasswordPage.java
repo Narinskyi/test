@@ -7,7 +7,6 @@ import utils.Driver;
 public class ForgottenPasswordPage extends AbstractFortunaPage{
 
     private static final By ROOT = By.cssSelector(".forgotten-password-page");
-    private static final By FORTUNA_LOGO = By.cssSelector(".main-header__logo");
     private static final By SELECT_DAY = By.id("day");
     private static final By SELECT_MONTH = By.id("month");
     private static final By SELECT_YEAR = By.id("year");
@@ -111,8 +110,7 @@ public class ForgottenPasswordPage extends AbstractFortunaPage{
     }
 
     public boolean isForgottenPasswordTabletPage(){
-        return Driver.isElementVisible(ROOT)&&
-                Driver.isElementVisible(FORTUNA_LOGO);
+        return Driver.isElementVisible(ROOT);
     }
 
 }

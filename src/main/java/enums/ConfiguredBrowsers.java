@@ -146,10 +146,11 @@ public enum ConfiguredBrowsers {
             initDrivers();
             DesiredCapabilities capabilities = DesiredCapabilities.edge();
 
-           // WebDriver driver = new RemoteWebDriver(new URL("http://172.29.46.171:4444/wd/hub"), capabilities);
+           WebDriver driver = new RemoteWebDriver(new URL("http://172.29.46.171:4444/wd/hub"), ConfiguredBrowsers.chrome.getChromeTabletCapabilities());
 
-            WebDriver driver = new InternetExplorerDriver(ConfiguredBrowsers.ie.getIECapabilities());
+            //WebDriver driver = new InternetExplorerDriver(ConfiguredBrowsers.ie.getIECapabilities());
             driver.navigate().to("http://wpl-licensee25-public.ptdev.eu");
+            driver.wait(10000);
             driver.quit();
         } catch (Exception e) {
             e.printStackTrace();
