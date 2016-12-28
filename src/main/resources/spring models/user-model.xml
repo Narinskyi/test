@@ -12,7 +12,7 @@
         <property name="birthDay" value="01"/>
         <property name="birthMonth" value="01"/>
         <property name="birthYear" value="1991"/>
-        <property name="email" value="some@email.com"/>
+        <property name="email" value="autotest@mail.com"/>
         <property name="country" value="CZ"/>
         <property name="city" value="Praha"/>
         <property name="address" value="Old Town Square"/>
