@@ -2,6 +2,7 @@ package utils;
 
 import core.AbstractTest;
 import core.WebDriverFactory;
+import enums.ConfiguredBrowsers;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -57,7 +58,11 @@ public class Driver {
     //click
     public static void click (By locator) {
         try {
-            findVisibleElement(locator).click();
+            if (DataProvider.getBrowser().equals(ConfiguredBrowsers.edge)) {
+                clickJS(findElement(locator));
+            } else {
+                findVisibleElement(locator).click();
+            }
         } catch (WebDriverException e) {
             AbstractTest.failTest("It was not possible to click element " + locator);
         }
@@ -92,6 +97,12 @@ public class Driver {
 
     public static void executeJavascript(String javascript) {
         ((JavascriptExecutor) driver()).executeScript(javascript);
+    }
+
+    private static void clickJS(WebElement element) {
+        JavascriptExecutor executor = (JavascriptExecutor)driver();
+        log.info("Clicking the element via Javascript");
+        executor.executeScript("arguments[0].click();", element);
     }
 
 

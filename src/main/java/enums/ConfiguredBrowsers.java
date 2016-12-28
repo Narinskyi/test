@@ -5,6 +5,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -38,7 +39,7 @@ public enum ConfiguredBrowsers {
         if (useGrid) {
             switch (this) {
                 case firefox:
-                    new RemoteWebDriver(host,DesiredCapabilities.firefox());
+                    new RemoteWebDriver(host,getFirefoxCapabilities());
                 case chrome:
                     return new RemoteWebDriver(host,DesiredCapabilities.chrome());
                 case edge:
@@ -64,13 +65,13 @@ public enum ConfiguredBrowsers {
 
             switch (this) {
                 case firefox:
-                    return new FirefoxDriver();
+                    return new FirefoxDriver(getFirefoxCapabilities());
                 case chrome:
                     return new ChromeDriver();
                 case edge:
                     return new EdgeDriver();
                 case ie:
-                    new InternetExplorerDriver(getIECapabilities());
+                    return new InternetExplorerDriver(getIECapabilities());
                 case mobileEmulatorChrome:
                     return new ChromeDriver(getChromeMobileCapabilities("Google Nexus 5"));
                 case tabletEmulatorChrome:
@@ -123,6 +124,13 @@ public enum ConfiguredBrowsers {
         return capabilities;
     }
 
+    private DesiredCapabilities getFirefoxCapabilities() {
+        DesiredCapabilities desiredCapabilities = DesiredCapabilities.firefox();
+        FirefoxProfile profile = new FirefoxProfile();
+        desiredCapabilities.setCapability(FirefoxDriver.PROFILE, profile);
+        return desiredCapabilities;
+    }
+
     private DesiredCapabilities getIECapabilities(){
         DesiredCapabilities capabilities = DesiredCapabilities.internetExplorer();
         capabilities.setCapability("nativeEvents", false);
@@ -138,10 +146,12 @@ public enum ConfiguredBrowsers {
             initDrivers();
             DesiredCapabilities capabilities = DesiredCapabilities.edge();
 
-            WebDriver driver = new RemoteWebDriver(new URL("http://172.29.46.171:4444/wd/hub"), capabilities);
+           // WebDriver driver = new RemoteWebDriver(new URL("http://172.29.46.171:4444/wd/hub"), capabilities);
+
+            WebDriver driver = new InternetExplorerDriver(ConfiguredBrowsers.ie.getIECapabilities());
             driver.navigate().to("http://wpl-licensee25-public.ptdev.eu");
             driver.quit();
-        } catch (MalformedURLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

@@ -23,7 +23,7 @@ public class FortunaextdevPage extends AbstractFortunaPage {
 
 
     public void openFortunaextdev() {
-        Driver.openPage("http://fortunacz-fortunaextdev.custenv.geneity.co.uk/");
+        Driver.openPage("http://fortunacz-fortunaextdev.custenv.geneity.co.uk");
     }
 
     private void loginWithCredentials(String username, String password) {
