@@ -11,7 +11,7 @@ public class ForgottenPasswordTest extends AbstractTest{
 
     private static ForgottenPasswordPage forgottenPasswordPage = PageFactory.getPage(AvailablePages.forgottenPassword);
 
-    @Test (groups = {"desktop"})
+    @Test (groups = {"desktop", "tablet"})
     public void validHardcodedInputTest(){
         forgottenPasswordPage.open();
 
@@ -23,29 +23,17 @@ public class ForgottenPasswordTest extends AbstractTest{
         Assert.assertTrue(forgottenPasswordPage.isConfirmationInfoVisible(), "Confirmation info was not displayed");
     }
 
-    @Test (groups = {"tablet"})
-    public void validHardcodedInputTestT(){
-        forgottenPasswordPage.open();
-
-        forgottenPasswordPage.enterValidBirthdayMobile();
-        forgottenPasswordPage.enterUsername("SUCCESS");
-        forgottenPasswordPage.clickSubmit();
-
-        Assert.assertTrue(forgottenPasswordPage.areSuccessMessagesDisplayed(1), "Success message was not displayed");
-        Assert.assertTrue(forgottenPasswordPage.isConfirmationInfoVisible(), "Confirmation info was not displayed");
-    }
 
     @Test (groups = {"mobile"})
     public void validHardcodedInputTestM(){
         forgottenPasswordPage.open();
 
-        forgottenPasswordPage.enterValidBirthdayMobile();
+        forgottenPasswordPage.enterValidBirthday();
         forgottenPasswordPage.enterUsername("SUCCESS");
         forgottenPasswordPage.clickSubmit();
 
         Assert.assertTrue(forgottenPasswordPage.isMobilePopupDisplayed(), "Success popup was not displayed");
     }
-
 
     @Test (groups = {"desktop", "tablet"})
     public void loginLinkTest(){
@@ -77,7 +65,7 @@ public class ForgottenPasswordTest extends AbstractTest{
         Assert.assertTrue(forgottenPasswordPage.isRegistrationPage(), "Registration page was not opened");
     }
 
-    @Test(groups = {"desktop"})
+    @Test(groups = {"desktop","tablet","mobile"})
     public void emptyFieldsTest() {
 
         forgottenPasswordPage.open();
@@ -99,31 +87,9 @@ public class ForgottenPasswordTest extends AbstractTest{
         Assert.assertTrue(forgottenPasswordPage.isBirthdayInvalid(), "Birthday validation failed");
     }
 
-    @Test(groups = {"tablet", "mobile"})
-    public void emptyFieldsTestTM() {
-
-        forgottenPasswordPage.open();
-
-        //verify empty fields submission
-        forgottenPasswordPage.clickSubmit();
-        Assert.assertTrue(forgottenPasswordPage.isBirthdayInvalid(), "Birthday validation failed");
-        Assert.assertTrue(forgottenPasswordPage.isUsernameInvalid(), "Username validation failed");
-
-        //verify empty username and invalid birthday
-        forgottenPasswordPage.enterInvalidBirthdayMobile();
-        forgottenPasswordPage.clickSubmit();
-        Assert.assertTrue(forgottenPasswordPage.isBirthdayInvalid(), "Birthday validation failed");
-        Assert.assertTrue(forgottenPasswordPage.isUsernameInvalid(), "Username validation failed");
-
-        //verify
-        forgottenPasswordPage.enterUsername("INVALID");
-        forgottenPasswordPage.clickSubmit();
-        Assert.assertTrue(forgottenPasswordPage.isBirthdayInvalid(), "Birthday validation failed");
-    }
-
 
     //invalid username - reCaptcha appears
-    @Test(groups = {"desktop"})
+    @Test(groups = {"desktop","tablet"})
     public void invalidInputTest() {
 
         forgottenPasswordPage.open();
@@ -140,29 +106,12 @@ public class ForgottenPasswordTest extends AbstractTest{
     }
 
     //invalid username - reCaptcha appears
-    @Test(groups = {"tablet"})
-    public void invalidInputTestT() {
-
-        forgottenPasswordPage.open();
-
-        forgottenPasswordPage.enterValidBirthdayMobile();
-        forgottenPasswordPage.enterUsername("INVALID");
-        forgottenPasswordPage.clickSubmit();
-
-        Assert.assertTrue(forgottenPasswordPage.isReCaptchaVisible(), "ReCaptcha was not displayed");
-        Assert.assertTrue(forgottenPasswordPage.areErrorMessagesDisplayed(1), "Error message was not displayed");
-
-        //restart browser to ensure Captcha does not remain displayed
-        restart();
-    }
-
-    //invalid username - reCaptcha appears
     @Test(groups = {"mobile"})
     public void invalidInputTestM() {
 
         forgottenPasswordPage.open();
 
-        forgottenPasswordPage.enterValidBirthdayMobile();
+        forgottenPasswordPage.enterValidBirthday();
         forgottenPasswordPage.enterUsername("INVALID");
         forgottenPasswordPage.clickSubmit();
 
@@ -174,7 +123,7 @@ public class ForgottenPasswordTest extends AbstractTest{
     }
 
     //verify that forgotten-password-tablet page can be opened
-    @Test(groups = {"tablet"},enabled = false)
+    @Test(groups = {"tablet"},enabled = true)
     public void forgottenPasswordTabletTest() {
         forgottenPasswordPage.openForgottenPasswordTabletPage();
         Assert.assertTrue(forgottenPasswordPage.isForgottenPasswordTabletPage(), "Page is not forgotten-password-tablet page");

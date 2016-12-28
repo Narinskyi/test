@@ -44,10 +44,13 @@ public class DataProvider {
             case ie:
             case phantomJS:
                 return Platform.desktop;
+
             case tabletEmulatorChrome:
                 return Platform.tablet;
+
             case mobileEmulatorChrome:
                 return Platform.mobile;
+
             default: return Platform.desktop;
         }
     }

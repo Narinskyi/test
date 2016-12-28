@@ -15,7 +15,7 @@ public class Driver {
 
     private static Logger log = Logger.getAnonymousLogger();
     //timeout constants
-    private static final int TIMEOUT = 10;
+    private static final int TIMEOUT = 15;
 
 
     /**---------------------------- Waiters ----------------------------*/
@@ -71,6 +71,11 @@ public class Driver {
         findVisibleElement(locator).sendKeys(String.valueOf(text));
     }
 
+    //when unable to focus the field
+    public static void inputTextToInvisibleField(By locator, String text) {
+        findElement(locator).sendKeys(String.valueOf(text));
+    }
+
     public static void clearAndInputTextToField(By locator, String text) {
         clearField(locator);
         inputTextToField(locator, text);
@@ -81,7 +86,7 @@ public class Driver {
     }
 
     public static void setDropdownOptionByValue(By locator, String value) {
-        Select select = new Select(findVisibleElement(locator));
+        Select select = new Select(findElement(locator));
         select.selectByValue(value);
     }
 
@@ -144,6 +149,12 @@ public class Driver {
     public static boolean isElementVisible(By locator) {
         log.info("Checking if " + locator + " is visible");
         return findVisibleElement(locator)!=null;
+    }
+
+    //is element present?
+    public static boolean isElementPresent(By locator) {
+        log.info("Checking if " + locator + " is present");
+        return findElement(locator)!=null;
     }
 
     //are multiple element visible?

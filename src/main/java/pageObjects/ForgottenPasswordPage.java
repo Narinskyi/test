@@ -11,43 +11,54 @@ public class ForgottenPasswordPage extends AbstractFortunaPage{
     private static final By SELECT_DAY = By.id("day");
     private static final By SELECT_MONTH = By.id("month");
     private static final By SELECT_YEAR = By.id("year");
-    private static final By SELECT_MOBILE = By.id("date");
+    private static final By SELECT_MOBILE = By.name("date");
     private static final By INPUT_USERNAME = By.name("username");
     private static final By LINK_LOGIN = By.cssSelector(".forgotten-password-page__login-link a");
     private static final By LINK_REGISTER = By.cssSelector(".forgotten-password-page__register-link a");
     private static final By LINK_CONTACT_US_MOBILE = By.cssSelector(".fn-wc-container a");
     private static final By CONFIRMATION_MESSAGE = By.cssSelector(".fn-confirmation-information");
     private static final By RECAPTCHA = By.cssSelector(".fn-recaptcha>div");
+    private static final By LOGIN_PAGE_DIV = By.cssSelector("div.login-page");
 
     private static final By VALIDATION_BIRTHDAY = By.cssSelector(".fieldset_name_birthdate");
     private static final By VALIDATION_USERNAME = By.cssSelector(".fn-username");
 
     //today is 18
     public void enterValidBirthday() {
-        int year = Integer.valueOf(DataProvider.DateUtils.getCurrentYear())-18;
 
-        Driver.setDropdownOptionByValue(SELECT_DAY, DataProvider.DateUtils.getCurrentDay());
-        Driver.setDropdownOptionByValue(SELECT_MONTH, DataProvider.DateUtils.getCurrentMonth());
-        Driver.setDropdownOptionByValue(SELECT_YEAR, Integer.toString(year));
+        switch (DataProvider.getCurrentPlatform()) {
+            case desktop:
+                int year = Integer.valueOf(DataProvider.DateUtils.getCurrentYear())-18;
+
+                Driver.setDropdownOptionByValue(SELECT_DAY, DataProvider.DateUtils.getCurrentDay());
+                Driver.setDropdownOptionByValue(SELECT_MONTH, DataProvider.DateUtils.getCurrentMonth());
+                Driver.setDropdownOptionByValue(SELECT_YEAR, Integer.toString(year));
+                break;
+
+            case tablet:
+            case mobile:
+                Driver.inputTextToInvisibleField(SELECT_MOBILE, DataProvider.DateUtils.getSomeYearsAgo(18));
+                break;
+        }
     }
 
     //too young
     public void enterInvalidBirthday() {
-        int year = Integer.valueOf(DataProvider.DateUtils.getCurrentYear())-17;
 
-        Driver.setDropdownOptionByValue(SELECT_DAY, DataProvider.DateUtils.getCurrentDay());
-        Driver.setDropdownOptionByValue(SELECT_MONTH, DataProvider.DateUtils.getCurrentMonth());
-        Driver.setDropdownOptionByValue(SELECT_YEAR, Integer.toString(year));
-    }
+        switch (DataProvider.getCurrentPlatform()) {
+            case desktop:
+                int year = Integer.valueOf(DataProvider.DateUtils.getCurrentYear()) - 17;
 
-    //today is 18
-    public void enterValidBirthdayMobile() {
-        Driver.inputTextToField(SELECT_MOBILE, DataProvider.DateUtils.getSomeYearsAgo(18));
-    }
+                Driver.setDropdownOptionByValue(SELECT_DAY, DataProvider.DateUtils.getCurrentDay());
+                Driver.setDropdownOptionByValue(SELECT_MONTH, DataProvider.DateUtils.getCurrentMonth());
+                Driver.setDropdownOptionByValue(SELECT_YEAR, Integer.toString(year));
+                break;
 
-    //too young
-    public void enterInvalidBirthdayMobile() {
-        Driver.inputTextToField(SELECT_MOBILE, DataProvider.DateUtils.getSomeYearsAgo(17));
+            case tablet:
+            case mobile:
+                Driver.inputTextToInvisibleField(SELECT_MOBILE, DataProvider.DateUtils.getSomeYearsAgo(17));
+                break;
+        }
     }
 
     public void enterUsername(String username) {
@@ -84,7 +95,7 @@ public class ForgottenPasswordPage extends AbstractFortunaPage{
     }
 
     public boolean isLoginPageOpened(){
-        return Driver.getURLSuffix().equals("login");
+        return Driver.isElementPresent(LOGIN_PAGE_DIV);
     }
 
     public boolean isContactUsMobilePageOpened(){
