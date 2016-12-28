@@ -49,7 +49,7 @@ public enum ConfiguredBrowsers {
                 case mobileEmulatorChrome:
                     return new RemoteWebDriver(host,getChromeMobileCapabilities("Google Nexus 5"));
                 case tabletEmulatorChrome:
-                    return new RemoteWebDriver(host,getChromeMobileCapabilities("Apple iPad"));
+                    return new RemoteWebDriver(host,getChromeTabletCapabilities());
                 case phantomJS:
                     return new RemoteWebDriver(host, DesiredCapabilities.phantomjs());
                 default:
