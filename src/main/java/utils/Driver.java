@@ -4,6 +4,7 @@ import core.AbstractTest;
 import core.WebDriverFactory;
 import enums.ConfiguredBrowsers;
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -50,6 +51,22 @@ public class Driver {
         } catch (TimeoutException e) {
             AbstractTest.failTest("Element: " + locator + " was not visible after: " + timeoutInSeconds + " s");
         }
+    }
+
+    //wait for element text to change
+    public static boolean isElementTextChangedTo(By locator, String newText){
+        WebDriverWait wait = new WebDriverWait(driver(),TIMEOUT);
+        log.info("Waiting for element change " + locator);
+        try {
+            wait.until(new ExpectedCondition<Boolean>() {
+                public Boolean apply(WebDriver driver) {
+                    return (driver().findElement(locator).getText()).equalsIgnoreCase(newText);
+                }
+            });
+        } catch (TimeoutException timeIsOut) {
+            return false;
+        }
+        return true;
     }
 
 
@@ -142,7 +159,7 @@ public class Driver {
 
     public static String getAttribute(By locator, String attribute) {
         log.info("Getting "+ attribute + " value of " + locator + " element");
-        return driver().findElement(locator).getAttribute(attribute);
+        return findElement(locator).getAttribute(attribute);
     }
 
     public static String getCurrentUrl(){

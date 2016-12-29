@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 @ContextConfiguration(locations={"/spring-config.xml"})
 public abstract class AbstractTest extends AbstractTestNGSpringContextTests{
 
-    protected static Logger log = Logger.getAnonymousLogger();
+    private static Logger log = Logger.getAnonymousLogger();
 
     @Autowired
     @Qualifier("userData")

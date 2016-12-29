@@ -22,6 +22,11 @@ public class PreconditionalSteps extends AbstractTest {
         loginToFortunaExtdev();
     }
 
+    public static void prepareUserAndLogin() {
+        prepareUser();
+        loginPage.login();
+    }
+
     private static void generateUniqueUserdata(){
         String random = DataProvider.getRandomUsername();
         userData.setUsername(random);

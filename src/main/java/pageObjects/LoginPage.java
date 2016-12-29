@@ -20,6 +20,14 @@ public class LoginPage extends AbstractFortunaPage {
 
     private static final By BUTTON_ACCEPT_TC = By.cssSelector("span.fn-accept");
 
+    public void login() {
+        open();
+        enterUsername(username());
+        enterPassword(password());
+        clickLogin();
+        clickAcceptTC();
+    }
+
     public void enterUsername(String username) {
         Driver.inputTextToField(INPUT_USERNAME, username);
     }
