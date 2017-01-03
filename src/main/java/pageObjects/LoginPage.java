@@ -45,7 +45,7 @@ public class LoginPage extends AbstractFortunaPage {
     }
 
     public boolean isRememberMeChecked() {
-        return Driver.getCheckBoxState(CHECKBOX_REMEMBER_ME);
+        return Driver.isCheckboxChecked(CHECKBOX_REMEMBER_ME);
     }
 
     public void clickRememberMe() {

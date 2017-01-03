@@ -12,6 +12,7 @@ public enum AvailablePages {
     liveBetslipHistory("live-betslip-history"),
     login("login"),
     logout("logout"),
+    notifications("notifications"),
     personalSettings("personal-settings"),
     prematchBetslipHistory("prematch-betslip-history"),
     register("register-step-1"),
@@ -44,6 +45,8 @@ public enum AvailablePages {
             case login: page = new LoginPage();
                 break;
             case logout: page = new LogoutPage();
+                break;
+            case notifications: page = new NotificationsPage();
                 break;
             case personalSettings: page = new PersonalSettingsPage();
                 break;

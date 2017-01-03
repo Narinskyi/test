@@ -76,7 +76,7 @@ public class Driver {
     public static void click (By locator) {
         try {
             if (DataProvider.getBrowser().equals(ConfiguredBrowsers.edge)) {
-                clickJS(findElement(locator));
+                clickJS(locator);
             } else {
                 findVisibleElement(locator).click();
             }
@@ -116,10 +116,10 @@ public class Driver {
         ((JavascriptExecutor) driver()).executeScript(javascript);
     }
 
-    private static void clickJS(WebElement element) {
+    public static void clickJS(By locator) {
         JavascriptExecutor executor = (JavascriptExecutor)driver();
         log.info("Clicking the element via Javascript");
-        executor.executeScript("arguments[0].click();", element);
+        executor.executeScript("arguments[0].click();", findElement(locator));
     }
 
 
@@ -152,7 +152,7 @@ public class Driver {
         return findElement(locator).getText();
     }
 
-    public static boolean getCheckBoxState(By locator) {
+    public static boolean isCheckboxChecked(By locator) {
         log.info("Getting text of " + locator + " element");
         return findElement(locator).isSelected();
     }
