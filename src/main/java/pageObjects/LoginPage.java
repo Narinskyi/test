@@ -26,6 +26,7 @@ public class LoginPage extends AbstractFortunaPage {
         enterPassword(password());
         clickLogin();
         clickAcceptTC();
+        isDashboardPageOpened();
     }
 
     public void enterUsername(String username) {

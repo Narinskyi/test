@@ -18,7 +18,7 @@ public class NotificationsTest extends AbstractTest {
         PreconditionalSteps.prepareUserAndLogin();
     }
 
-    @Test(groups = {"desktop", "tablet", "mobile"})
+    @Test(groups = {"desktop", "tablet"})
     public void checkAllTest(){
         notificationsPage.open();
         notificationsPage.checkAllCheckboxes();
@@ -26,11 +26,27 @@ public class NotificationsTest extends AbstractTest {
         Assert.assertTrue(notificationsPage.areSuccessMessagesDisplayed(1), "Success message was not displayed");
     }
 
-    @Test(groups = {"desktop", "tablet", "mobile"})
+    @Test(groups = {"desktop", "tablet"})
     public void uncheckAllTest(){
         notificationsPage.open();
         notificationsPage.uncheckAllCheckboxes();
         notificationsPage.clickSubmit();
         Assert.assertTrue(notificationsPage.areSuccessMessagesDisplayed(1), "Success message was not displayed");
+    }
+
+    @Test(groups = {"mobile"})
+    public void checkAllTestM(){
+        notificationsPage.open();
+        notificationsPage.checkAllCheckboxes();
+        notificationsPage.clickSubmit();
+        Assert.assertTrue(notificationsPage.isMobilePopupDisplayed(), "Success message was not displayed");
+    }
+
+    @Test(groups = {"mobile"})
+    public void uncheckAllTestM(){
+        notificationsPage.open();
+        notificationsPage.uncheckAllCheckboxes();
+        notificationsPage.clickSubmit();
+        Assert.assertTrue(notificationsPage.isMobilePopupDisplayed(), "Success message was not displayed");
     }
 }
