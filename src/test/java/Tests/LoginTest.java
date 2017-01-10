@@ -4,6 +4,7 @@ import Preconditions.PreconditionalSteps;
 import core.AbstractTest;
 import core.PageFactory;
 import enums.AvailablePages;
+import enums.Platform;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -22,31 +23,22 @@ public class LoginTest extends AbstractTest {
         PreconditionalSteps.prepareUser();
     }
 
-    @Test (groups = "desktop")
-    public void uiElementsTestD(){
+    @Test (groups = {"desktop", "tablet", "mobile"})
+    public void uiElementsTest(){
 
         loginPage.open();
         loginPage.clickLogin();
 
         //verify header, placeholders and that remember me is unchecked by default
-        Assert.assertTrue(loginPage.getUsernamePlaceholder().contains("username/email"), "Username placeholder failed");
-        Assert.assertTrue(loginPage.getPasswordPlaceholder().contains("password"), "Password placeholder failed");
-        //Assert.assertTrue(loginPage.isUsernameInvalid(), "Username validation failed");
-        Assert.assertTrue(loginPage.isPasswordInvalid(), "Password validation failed");
-        Assert.assertTrue(!loginPage.isRememberMeChecked(), "Remember me unchecked by default failed");
-    }
-
-    @Test (groups = {"tablet", "mobile"})
-    public void uiElementsTestTM(){
-
-        loginPage.open();
-        loginPage.clickLogin();
-
-        //verify header, placeholders and that remember me is unchecked by default
+        if (DataProvider.getCurrentPlatform().equals(Platform.desktop)) {
+            Assert.assertTrue(loginPage.getUsernamePlaceholder().contains("username/email"), "Username placeholder failed");
+            Assert.assertTrue(loginPage.getPasswordPlaceholder().contains("password"), "Password placeholder failed");
+        }
         Assert.assertTrue(loginPage.isUsernameInvalid(), "Username validation failed");
         Assert.assertTrue(loginPage.isPasswordInvalid(), "Password validation failed");
         Assert.assertTrue(!loginPage.isRememberMeChecked(), "Remember me unchecked by default failed");
     }
+
 
     @Test (groups = {"desktop", "tablet", "mobile"})
     public void passwordVisibilityIconTest(){
@@ -109,7 +101,7 @@ public class LoginTest extends AbstractTest {
 
     }
 
-    @Test (groups = {"desktop", "tablet"})
+    @Test (groups = {"desktop", "tablet", "mobile"})
     public void invalidBothFieldsTest(){
 
         loginPage.open();
@@ -118,22 +110,14 @@ public class LoginTest extends AbstractTest {
         loginPage.enterPassword(INVALID_PASSWORD);
         loginPage.clickLogin();
 
-        Assert.assertTrue(loginPage.areErrorMessagesDisplayed(1), "Error message was not displayed");
+        if (!isMobile) {
+            Assert.assertTrue(loginPage.isErrorMessageDisplayed(), "Error message was not displayed");
+        } else {
+            Assert.assertTrue(loginPage.isMobilePopupDisplayed(), "Error message was not displayed");
+        }
     }
 
-    @Test (groups = {"mobile"})
-    public void invalidBothFieldsTestM(){
-
-        loginPage.open();
-
-        loginPage.enterUsername("invalid");
-        loginPage.enterPassword(INVALID_PASSWORD);
-        loginPage.clickLogin();
-
-        Assert.assertTrue(loginPage.isMobilePopupDisplayed(), "Error message was not displayed");
-    }
-
-    @Test (groups = {"desktop", "tablet"})
+    @Test (groups = {"desktop", "tablet", "mobile"})
     public void invalidPasswordTest() {
 
         loginPage.open();
@@ -141,19 +125,12 @@ public class LoginTest extends AbstractTest {
         loginPage.enterPassword(INVALID_PASSWORD);
         loginPage.clickLogin();
 
-        Assert.assertTrue(loginPage.areErrorMessagesDisplayed(1), "Error message was not displayed");
-    }
+        if(!isMobile) {
+            Assert.assertTrue(loginPage.isErrorMessageDisplayed(), "Error message was not displayed");
+        } else {
+            Assert.assertTrue(loginPage.isMobilePopupDisplayed(), "Error message was not displayed");
+        }
 
-    @Test (groups = {"mobile"})
-    public void invalidPasswordTestM(){
-
-        loginPage.open();
-
-        loginPage.enterUsername(DataProvider.getUserData().getUsername());
-        loginPage.enterPassword(INVALID_PASSWORD);
-        loginPage.clickLogin();
-
-        Assert.assertTrue(loginPage.isMobilePopupDisplayed(), "Error message was not displayed");
     }
 
     @Test (groups = {"desktop", "tablet", "mobile"})

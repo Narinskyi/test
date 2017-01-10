@@ -1,5 +1,6 @@
 package core;
 
+import enums.Platform;
 import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,6 +19,9 @@ import java.util.logging.Logger;
 public abstract class AbstractTest extends AbstractTestNGSpringContextTests{
 
     private static Logger log = Logger.getAnonymousLogger();
+
+    //used to distinguish mobile tests
+    protected static boolean isMobile = DataProvider.getCurrentPlatform().equals(Platform.mobile);
 
     @Autowired
     @Qualifier("userData")

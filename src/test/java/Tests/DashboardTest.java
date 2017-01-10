@@ -1,6 +1,5 @@
 package Tests;
 
-import Preconditions.PreconditionalSteps;
 import core.AbstractTest;
 import core.PageFactory;
 import enums.AvailablePages;
@@ -15,8 +14,8 @@ public class DashboardTest extends AbstractTest {
     private static DashboardPage dashboardPage = PageFactory.getPage(AvailablePages.dashboard);
 
     @BeforeClass(alwaysRun = true)
-    public void prepareUserAndLogin (){
-        PreconditionalSteps.prepareUserAndLogin();
+    public void loginWithExisitingUser (){
+        dashboardPage.loginWithExisitingUser();
     }
 
     @Test (groups = {"desktop", "tablet", "mobile"})

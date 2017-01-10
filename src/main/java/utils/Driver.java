@@ -4,6 +4,7 @@ import core.AbstractTest;
 import core.WebDriverFactory;
 import enums.ConfiguredBrowsers;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.touch.TouchActions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -85,6 +86,13 @@ public class Driver {
         }
     }
 
+    public static void tap (String selector) {
+        JavascriptExecutor executor = (JavascriptExecutor)driver();
+        //String js = "var event = $.Event( 'touchstart', { pageX:200, pageY:200 } );";
+        executor.executeScript("var event = $.Event( 'touchstart', { pageX:200, pageY:200 } );"
+                + "$('"+selector+"').trigger( event );");
+    }
+
     public static void clearField(By locator) {
         findVisibleElement(locator).clear();
     }
@@ -152,6 +160,12 @@ public class Driver {
         return findElement(locator).getText();
     }
 
+    public static boolean isElementText(By locator, String text) {
+        log.info("Getting asynchronous text of " + locator + " element");
+        WebDriverWait wait = new WebDriverWait(driver(), TIMEOUT);
+        return wait.until(ExpectedConditions.textToBePresentInElementValue(findElement(locator),text));
+    }
+
     public static boolean isCheckboxChecked(By locator) {
         log.info("Getting text of " + locator + " element");
         return findElement(locator).isSelected();
@@ -160,6 +174,11 @@ public class Driver {
     public static String getAttribute(By locator, String attribute) {
         log.info("Getting "+ attribute + " value of " + locator + " element");
         return findElement(locator).getAttribute(attribute);
+    }
+
+    public static String getCssValue(By locator, String cssKey) {
+        log.info("Getting css "+ cssKey + " value of " + locator + " element");
+        return findElement(locator).getCssValue(cssKey);
     }
 
     public static String getCurrentUrl(){

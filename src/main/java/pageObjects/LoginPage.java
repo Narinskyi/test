@@ -1,15 +1,16 @@
 package pageObjects;
 
-import core.PageFactory;
-import enums.AvailablePages;
+import enums.Platform;
 import org.openqa.selenium.By;
+import utils.DataProvider;
 import utils.Driver;
 
 public class LoginPage extends AbstractFortunaPage {
 
     private static final By INPUT_USERNAME = By.cssSelector("input.fn-user-name");
     private static final By INPUT_PASSWORD = By.name("password");
-    private static final By EYE_ICON = By.cssSelector(".fn-password-visibility");
+    private static final By EYE_ICON = By.cssSelector(".fn-toggle-password-visibility");
+    private static final String EYE_ICON_CSS = ".fn-toggle-password-visibility";
     private static final By CHECKBOX_REMEMBER_ME = By.cssSelector("label[for=rememberme]");
     private static final By BUTTON_LOGIN = By.cssSelector(".fn-login-btn");
     private static final By LINK_FORGOTTEN_PASSWORD = By.xpath("//a[@href='/forgotten-password']");
@@ -76,7 +77,11 @@ public class LoginPage extends AbstractFortunaPage {
     }
 
     public void clickEyeIcon() {
-        Driver.click(EYE_ICON);
+        if (DataProvider.getCurrentPlatform().equals(Platform.tablet)) {
+            Driver.tap(EYE_ICON_CSS);
+        } else {
+            Driver.click(EYE_ICON);
+        }
     }
 
     public boolean isUsernameInvalid() {
@@ -108,11 +113,6 @@ public class LoginPage extends AbstractFortunaPage {
 
     public boolean isRegisterPageOpened() {
         return Driver.isNewTabOpened("register-step-1");
-    }
-
-    public boolean isDashboardPageOpened() {
-        DashboardPage dashboardPage = PageFactory.getPage(AvailablePages.dashboard);
-        return dashboardPage.isAccountInfoDisplayed();
     }
 
 }

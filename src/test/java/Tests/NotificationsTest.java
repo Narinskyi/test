@@ -1,6 +1,5 @@
 package Tests;
 
-import Preconditions.PreconditionalSteps;
 import core.AbstractTest;
 import core.PageFactory;
 import enums.AvailablePages;
@@ -14,39 +13,32 @@ public class NotificationsTest extends AbstractTest {
     private static NotificationsPage notificationsPage = PageFactory.getPage(AvailablePages.notifications);
 
     @BeforeClass(alwaysRun = true)
-    public void prepareUserAndLogin (){
-        PreconditionalSteps.prepareUserAndLogin();
+    public void loginWithExisitingUser (){
+        notificationsPage.loginWithExisitingUser();
     }
 
-    @Test(groups = {"desktop", "tablet"})
+    @Test(groups = {"desktop", "tablet", "mobile"})
     public void checkAllTest(){
         notificationsPage.open();
         notificationsPage.checkAllCheckboxes();
         notificationsPage.clickSubmit();
-        Assert.assertTrue(notificationsPage.areSuccessMessagesDisplayed(1), "Success message was not displayed");
+        if (!isMobile) {
+            Assert.assertTrue(notificationsPage.areSuccessMessagesDisplayed(1), "Success message was not displayed");
+        } else {
+            Assert.assertTrue(notificationsPage.isMobilePopupDisplayed(), "Success message was not displayed");
+        }
     }
 
-    @Test(groups = {"desktop", "tablet"})
+    @Test(groups = {"desktop", "tablet", "mobile"})
     public void uncheckAllTest(){
         notificationsPage.open();
         notificationsPage.uncheckAllCheckboxes();
         notificationsPage.clickSubmit();
-        Assert.assertTrue(notificationsPage.areSuccessMessagesDisplayed(1), "Success message was not displayed");
+        if (!isMobile) {
+            Assert.assertTrue(notificationsPage.areSuccessMessagesDisplayed(1), "Success message was not displayed");
+        } else {
+            Assert.assertTrue(notificationsPage.isMobilePopupDisplayed(), "Success message was not displayed");
+        }
     }
 
-    @Test(groups = {"mobile"})
-    public void checkAllTestM(){
-        notificationsPage.open();
-        notificationsPage.checkAllCheckboxes();
-        notificationsPage.clickSubmit();
-        Assert.assertTrue(notificationsPage.isMobilePopupDisplayed(), "Success message was not displayed");
-    }
-
-    @Test(groups = {"mobile"})
-    public void uncheckAllTestM(){
-        notificationsPage.open();
-        notificationsPage.uncheckAllCheckboxes();
-        notificationsPage.clickSubmit();
-        Assert.assertTrue(notificationsPage.isMobilePopupDisplayed(), "Success message was not displayed");
-    }
 }

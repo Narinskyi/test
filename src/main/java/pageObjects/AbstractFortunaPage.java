@@ -3,12 +3,14 @@ package pageObjects;
 import core.PageFactory;
 import enums.AvailablePages;
 import org.openqa.selenium.By;
+import springConstructors.UserData;
 import utils.DataProvider;
 import utils.Driver;
 
 public abstract class AbstractFortunaPage extends AbstractPage {
 
     private static final By ERROR_MESSAGE = By.cssSelector(".message.error");
+    private static final By ERROR_MESSAGE_BULLET = By.cssSelector(".message.error-tooltip");
     private static final By SUCCESS_MESSAGE = By.cssSelector(".message.success");
     private static final By POPUP_MOBILE = By.cssSelector(".popup");
     private static final By BUTTON_CLOSE_POPUP_MOBILE = By.cssSelector(".fn-close");
@@ -19,7 +21,12 @@ public abstract class AbstractFortunaPage extends AbstractPage {
     }
 
     public boolean areErrorMessagesDisplayed(int howMany){
-        return Driver.areSeveralElementsVisible(ERROR_MESSAGE, howMany);
+        return Driver.areSeveralElementsVisible(ERROR_MESSAGE_BULLET, howMany);
+    }
+
+    //in case when message has no bullets
+    public boolean isErrorMessageDisplayed(){
+        return Driver.isElementVisible(ERROR_MESSAGE);
     }
 
     public boolean isFieldValid (By locator) {
@@ -48,6 +55,25 @@ public abstract class AbstractFortunaPage extends AbstractPage {
         logoutPage.logout();
     }
 
+    public void login() {
+        LoginPage loginPage = PageFactory.getPage(AvailablePages.login);
+        loginPage.open();
+        loginPage.login();
+    }
+
+    public void loginWithExisitingUser(){
+        LoginPage loginPage = PageFactory.getPage(AvailablePages.login);
+        loginPage.open();
+        loginPage.enterUsername(username());
+        loginPage.enterPassword(password());
+        clickSubmit();
+    }
+
+    public boolean isDashboardPageOpened() {
+        DashboardPage dashboardPage = PageFactory.getPage(AvailablePages.dashboard);
+        return dashboardPage.isAccountInfoDisplayed();
+    }
+
     public void quietLogout(){
         Driver.executeJavascript("require('managers/auth.manager').quietLogout();");
     }
@@ -59,7 +85,5 @@ public abstract class AbstractFortunaPage extends AbstractPage {
     public String password() {
         return DataProvider.getUserData().getPassword();
     }
-
-
 
 }

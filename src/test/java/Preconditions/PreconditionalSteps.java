@@ -16,6 +16,10 @@ public class PreconditionalSteps extends AbstractTest {
     private static LoginPage loginPage = new LoginPage();
     private static UserData userData = DataProvider.getUserData();
 
+    public void loginWithExisitingUser() {
+        loginPage.login();
+    }
+
     public static void prepareUser() {
         generateUniqueUserdata();
         registerThroughBackend();

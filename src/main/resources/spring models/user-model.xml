@@ -23,7 +23,7 @@
         <property name="phone" value="790000000"/>
         <property name="mobileAreaCode" value="+38"/>
         <property name="mobile" value="790000000"/>
-        <property name="username" value="ksFu8@s"/>
+        <property name="username" value="autotest"/>
         <property name="profileUsername" value="autoChrProf"/>
         <property name="password" value="Password1"/>
         <property name="verificationQuestion" value="Name of your first pet?"/>

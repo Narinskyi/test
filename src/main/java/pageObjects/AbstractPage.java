@@ -14,13 +14,13 @@ public abstract class AbstractPage {
         Driver.openPage(url);
     }
 
-    public void refresh() {
-        Driver.refreshPage();
-    }
+//    public void refresh() {
+//        Driver.refreshPage();
+//    }
 
-    public void waitFor(long millisec) {
-        Driver.waitFor(millisec);
-    }
+//    public void waitFor(long millisec) {
+//        Driver.waitFor(millisec);
+//    }
 
     boolean isPlatform(Platform platform) {
         return DataProvider.getCurrentPlatform().equals(platform);

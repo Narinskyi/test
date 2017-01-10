@@ -5,6 +5,7 @@ import pageObjects.*;
 public enum AvailablePages {
 
     changePassword("change-password"),
+    changePin("change-pin"),
     dashboard("dashboard"),
     deposit("deposit"),
     forgottenPassword("forgotten-password"),
@@ -15,6 +16,7 @@ public enum AvailablePages {
     notifications("notifications"),
     personalSettings("personal-settings"),
     prematchBetslipHistory("prematch-betslip-history"),
+    quickBet("quick-bet"),
     register("register-step-1"),
     withdraw("withdraw");
 
@@ -31,6 +33,8 @@ public enum AvailablePages {
         switch (this){
 
             case changePassword: page = new ChangePasswordPage();
+                break;
+            case changePin: page = new ChangePinPage();
                 break;
             case dashboard: page = new DashboardPage();
                 break;
@@ -51,6 +55,8 @@ public enum AvailablePages {
             case personalSettings: page = new PersonalSettingsPage();
                 break;
             case prematchBetslipHistory: page = new PrematchBetslipHistoryPage();
+                break;
+            case quickBet: page = new QuickBetPage();
                 break;
             case register: page = new RegistrationPage();
                 break;

@@ -11,7 +11,7 @@ public class ForgottenPasswordTest extends AbstractTest{
 
     private static ForgottenPasswordPage forgottenPasswordPage = PageFactory.getPage(AvailablePages.forgottenPassword);
 
-    @Test (groups = {"desktop", "tablet"})
+    @Test (groups = {"desktop", "tablet", "mobile"})
     public void validHardcodedInputTest(){
         forgottenPasswordPage.open();
 
@@ -19,20 +19,12 @@ public class ForgottenPasswordTest extends AbstractTest{
         forgottenPasswordPage.enterUsername("SUCCESS");
         forgottenPasswordPage.clickSubmit();
 
-        Assert.assertTrue(forgottenPasswordPage.areSuccessMessagesDisplayed(1), "Success message was not displayed");
-        Assert.assertTrue(forgottenPasswordPage.isConfirmationInfoVisible(), "Confirmation info was not displayed");
-    }
-
-
-    @Test (groups = {"mobile"})
-    public void validHardcodedInputTestM(){
-        forgottenPasswordPage.open();
-
-        forgottenPasswordPage.enterValidBirthday();
-        forgottenPasswordPage.enterUsername("SUCCESS");
-        forgottenPasswordPage.clickSubmit();
-
-        Assert.assertTrue(forgottenPasswordPage.isMobilePopupDisplayed(), "Success popup was not displayed");
+        if (!isMobile) {
+            Assert.assertTrue(forgottenPasswordPage.areSuccessMessagesDisplayed(1), "Success message was not displayed");
+            Assert.assertTrue(forgottenPasswordPage.isConfirmationInfoVisible(), "Confirmation info was not displayed");
+        } else {
+            Assert.assertTrue(forgottenPasswordPage.isMobilePopupDisplayed(), "Success message was not displayed");
+        }
     }
 
     @Test (groups = {"desktop", "tablet"})
@@ -45,16 +37,6 @@ public class ForgottenPasswordTest extends AbstractTest{
         Assert.assertTrue(forgottenPasswordPage.isLoginPageOpened(), "Login page was not opened");
     }
 
-    @Test (groups = {"mobile"})
-    public void contactUsLinkTest(){
-
-        forgottenPasswordPage.open();
-
-        //verify login link
-        forgottenPasswordPage.clickContactUsMobileLink();
-        Assert.assertTrue(forgottenPasswordPage.isContactUsMobilePageOpened(), "Contact us mobile page was not opened");
-    }
-
     @Test (groups = {"desktop", "tablet"})
     public void registrationLinkTest(){
 
@@ -65,7 +47,17 @@ public class ForgottenPasswordTest extends AbstractTest{
         Assert.assertTrue(forgottenPasswordPage.isRegistrationPage(), "Registration page was not opened");
     }
 
-    @Test(groups = {"desktop","tablet","mobile"})
+    @Test (groups = {"mobile"})
+    public void contactUsLinkTest(){
+
+        forgottenPasswordPage.open();
+
+        //verify login link
+        forgottenPasswordPage.clickContactUsMobileLink();
+        Assert.assertTrue(forgottenPasswordPage.isContactUsMobilePageOpened(), "Contact us mobile page was not opened");
+    }
+
+    @Test(groups = {"desktop", "tablet", "mobile"})
     public void emptyFieldsTest() {
 
         forgottenPasswordPage.open();
@@ -99,31 +91,18 @@ public class ForgottenPasswordTest extends AbstractTest{
         forgottenPasswordPage.clickSubmit();
 
         Assert.assertTrue(forgottenPasswordPage.isReCaptchaVisible(), "ReCaptcha was not displayed");
-        Assert.assertTrue(forgottenPasswordPage.areErrorMessagesDisplayed(1), "Error message was not displayed");
 
-        //restart browser to ensure Captcha does not remain displayed
-        restart();
-    }
-
-    //invalid username - reCaptcha appears
-    @Test(groups = {"mobile"})
-    public void invalidInputTestM() {
-
-        forgottenPasswordPage.open();
-
-        forgottenPasswordPage.enterValidBirthday();
-        forgottenPasswordPage.enterUsername("INVALID");
-        forgottenPasswordPage.clickSubmit();
-
-        Assert.assertTrue(forgottenPasswordPage.isReCaptchaVisible(), "ReCaptcha was not displayed");
-        Assert.assertTrue(forgottenPasswordPage.isMobilePopupDisplayed(), "Mobile error popup was not displayed");
-
+        if (!isMobile) {
+            Assert.assertTrue(forgottenPasswordPage.isErrorMessageDisplayed(), "Error message was not displayed");
+        } else {
+            Assert.assertTrue(forgottenPasswordPage.isMobilePopupDisplayed(), "Error message was not displayed");
+        }
         //restart browser to ensure Captcha does not remain displayed
         restart();
     }
 
     //verify that forgotten-password-tablet page can be opened
-    @Test(groups = {"tablet"},enabled = true)
+    @Test(groups = {"tablet"})
     public void forgottenPasswordTabletTest() {
         forgottenPasswordPage.openForgottenPasswordTabletPage();
         Assert.assertTrue(forgottenPasswordPage.isForgottenPasswordTabletPage(), "Page is not forgotten-password-tablet page");
