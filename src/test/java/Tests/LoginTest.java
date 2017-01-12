@@ -9,8 +9,12 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObjects.LoginPage;
+import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.Stories;
 import utils.DataProvider;
 
+@Features("Guest")
+@Stories("Login")
 public class LoginTest extends AbstractTest {
 
     private static LoginPage loginPage = PageFactory.getPage(AvailablePages.login);

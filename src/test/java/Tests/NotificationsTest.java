@@ -7,7 +7,11 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObjects.NotificationsPage;
+import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.Stories;
 
+@Features("User")
+@Stories("Notifications")
 public class NotificationsTest extends AbstractTest {
 
     private static NotificationsPage notificationsPage = PageFactory.getPage(AvailablePages.notifications);

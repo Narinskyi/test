@@ -6,7 +6,11 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageObjects.ForgottenPasswordPage;
 import core.AbstractTest;
+import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.Stories;
 
+@Features("Guest")
+@Stories("Forgotten Password")
 public class ForgottenPasswordTest extends AbstractTest{
 
     private static ForgottenPasswordPage forgottenPasswordPage = PageFactory.getPage(AvailablePages.forgottenPassword);

@@ -190,6 +190,10 @@ public class Driver {
                 replaceAll(DataProvider.getBaseUrl(),"");
     }
 
+    public static byte[] makeScreenshot() {
+        return ((TakesScreenshot) driver()).getScreenshotAs(OutputType.BYTES);
+    }
+
     /**---------------------------- Booleans ----------------------------*/
 
     //is element visible?

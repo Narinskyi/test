@@ -8,7 +8,11 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObjects.QuickBetPage;
+import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.Stories;
 
+@Features("User")
+@Stories("Quick Bet")
 public class QuickBetTest extends AbstractTest {
 
     private static QuickBetPage quickBetPage = PageFactory.getPage(AvailablePages.quickBet);

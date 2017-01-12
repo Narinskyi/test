@@ -7,8 +7,12 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObjects.DashboardPage;
+import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.Stories;
 import utils.DataProvider;
 
+@Features("User")
+@Stories("Dashboard")
 public class DashboardTest extends AbstractTest {
 
     private static DashboardPage dashboardPage = PageFactory.getPage(AvailablePages.dashboard);

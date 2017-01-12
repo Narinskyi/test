@@ -8,9 +8,12 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObjects.ChangePasswordPage;
+import ru.yandex.qatools.allure.annotations.*;
 import springConstructors.UserData;
 import utils.DataProvider;
 
+@Features("User")
+@Stories("Change Password")
 public class ChangePasswordTest extends AbstractTest{
 
     private ChangePasswordPage passwordPage = PageFactory.getPage(AvailablePages.changePassword);
@@ -128,7 +131,6 @@ public class ChangePasswordTest extends AbstractTest{
         }
 
     }
-
 
     @Test (groups = {"desktop", "tablet", "mobile"})
     public void validationRulesTest(){

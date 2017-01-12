@@ -9,12 +9,15 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
+import reporting.CustomTestListener;
 import springConstructors.IMSData;
 import springConstructors.UserData;
 import utils.DataProvider;
 import java.lang.reflect.Method;
 import java.util.logging.Logger;
 
+@Listeners({CustomTestListener.class})
 @ContextConfiguration(locations={"/spring-config.xml"})
 public abstract class AbstractTest extends AbstractTestNGSpringContextTests{
 

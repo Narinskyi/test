@@ -8,8 +8,12 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObjects.ChangePinPage;
+import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.Stories;
 import utils.DataProvider;
 
+@Features("User")
+@Stories("Change Pin")
 public class ChangePinTest extends AbstractTest {
     
     private static ChangePinPage pinPage = PageFactory.getPage(AvailablePages.changePin);

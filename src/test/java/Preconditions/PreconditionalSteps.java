@@ -7,7 +7,6 @@ import pageObjects.RegistrationPage;
 import springConstructors.UserData;
 import utils.Backend;
 import utils.DataProvider;
-import java.util.UUID;
 
 public class PreconditionalSteps extends AbstractTest {
 
