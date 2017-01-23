@@ -24,7 +24,7 @@ public class LoginTest extends AbstractTest {
 
     @BeforeClass (alwaysRun = true)
     public void prepareUser(){
-        PreconditionalSteps.prepareUser();
+        PreconditionalSteps.prepareUser(userData);
     }
 
     @Test (groups = {"desktop", "tablet", "mobile"})
@@ -125,7 +125,7 @@ public class LoginTest extends AbstractTest {
     public void invalidPasswordTest() {
 
         loginPage.open();
-        loginPage.enterUsername(loginPage.username());
+        loginPage.enterUsername(userData.getUsername());
         loginPage.enterPassword(INVALID_PASSWORD);
         loginPage.clickLogin();
 
@@ -142,8 +142,8 @@ public class LoginTest extends AbstractTest {
 
         loginPage.open();
 
-        loginPage.enterUsername(loginPage.username());
-        loginPage.enterPassword(loginPage.password());
+        loginPage.enterUsername(userData.getUsername());
+        loginPage.enterPassword(userData.getPassword());
         loginPage.clickLogin();
         loginPage.clickAcceptTC();
 
@@ -160,8 +160,8 @@ public class LoginTest extends AbstractTest {
 
         loginPage.open();
 
-        loginPage.enterUsername(loginPage.username());
-        loginPage.enterPassword(loginPage.password());
+        loginPage.enterUsername(userData.getUsername());
+        loginPage.enterPassword(userData.getPassword());
         loginPage.clickRememberMe();
         loginPage.clickLogin();
         //loginPage.clickAcceptTC();
@@ -171,7 +171,7 @@ public class LoginTest extends AbstractTest {
 
         loginPage.logout();
 
-        Assert.assertTrue(loginPage.getUsernameInputText().equals(loginPage.username()), "Username was not saved");
+        Assert.assertTrue(loginPage.getUsernameInputText().equals(userData.getUsername()), "Username was not saved");
         Assert.assertTrue(loginPage.isRememberMeChecked(), "Remember did not remain checked");
     }
 }

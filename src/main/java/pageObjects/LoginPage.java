@@ -2,6 +2,7 @@ package pageObjects;
 
 import enums.Platform;
 import org.openqa.selenium.By;
+import springConstructors.UserData;
 import utils.DataProvider;
 import utils.Driver;
 
@@ -21,10 +22,10 @@ public class LoginPage extends AbstractFortunaPage {
 
     private static final By BUTTON_ACCEPT_TC = By.cssSelector("span.fn-accept");
 
-    public void login() {
+    public void login(UserData userData) {
         open();
-        enterUsername(username());
-        enterPassword(password());
+        enterUsername(userData.getUsername());
+        enterPassword(userData.getPassword());
         clickLogin();
         clickAcceptTC();
         isDashboardPageOpened();

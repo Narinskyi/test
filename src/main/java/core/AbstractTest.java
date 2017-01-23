@@ -25,10 +25,11 @@ public abstract class AbstractTest extends AbstractTestNGSpringContextTests{
 
     //used to distinguish mobile tests
     protected static boolean isMobile = DataProvider.getCurrentPlatform().equals(Platform.mobile);
+    protected UserData userData;
 
     @Autowired
     @Qualifier("userData")
-    private UserData userData;
+    private UserData springUserData;
 
     @Autowired
     @Qualifier("imsData")
@@ -36,24 +37,26 @@ public abstract class AbstractTest extends AbstractTestNGSpringContextTests{
 
     @BeforeClass(alwaysRun = true)
     public void start(){
-
+        //clone user data for each test class
+        userData = getClonedUserData();
+        //save its default state
         DataProvider.setUserData(userData);
         DataProvider.setIMSData(imsData);
         //start browser, specified in .properties file (redundant since also called in WebDriverUtils - left for clarity)
         WebDriverFactory.getInstance().getDriver();
-        log.info("Browser started");
+       // log.info("Browser started");
 
     }
 
     @AfterClass(alwaysRun = true)
     public void stop(){
         WebDriverFactory.getInstance().quitDriver();
-        log.info("Browser stopped");
+        //log.info("Browser stopped");
     }
 
     @BeforeMethod(alwaysRun = true)
     public void displayCurrentTestName(Method method){
-        log.info("**---------------------------- "+method.getName()+" ----------------------------**");
+        //log.info("**---------------------------- "+method.getName()+" ----------------------------**");
     }
 
     protected void restart() {
@@ -66,5 +69,9 @@ public abstract class AbstractTest extends AbstractTestNGSpringContextTests{
         Assert.fail(message);
     }
 
+    //provide a cloned object for every test class
+    public UserData getClonedUserData() {
+        return springUserData.clone();
+    }
 }
 

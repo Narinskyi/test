@@ -9,7 +9,6 @@ import org.testng.annotations.Test;
 import pageObjects.DashboardPage;
 import ru.yandex.qatools.allure.annotations.Features;
 import ru.yandex.qatools.allure.annotations.Stories;
-import utils.DataProvider;
 
 @Features("User")
 @Stories("Dashboard")
@@ -19,7 +18,7 @@ public class DashboardTest extends AbstractTest {
 
     @BeforeClass(alwaysRun = true)
     public void loginWithExisitingUser (){
-        dashboardPage.loginWithExisitingUser();
+        dashboardPage.loginWithExisitingUser(userData);
     }
 
     @Test (groups = {"desktop", "tablet", "mobile"})
@@ -27,9 +26,9 @@ public class DashboardTest extends AbstractTest {
         dashboardPage.open();
 
         //verify that actual user data is displayed
-        Assert.assertTrue(dashboardPage.getName().equals(DataProvider.getUserData().getFirstName()), "Name was incorrect");
-        Assert.assertTrue(dashboardPage.getSurname().equals(DataProvider.getUserData().getLastName()), "Surname was incorrect");
-        Assert.assertTrue(dashboardPage.getUsername().equals(DataProvider.getUserData().getUsername()), "Username was incorrect");
+        Assert.assertTrue(dashboardPage.getName().equals(userData.getFirstName()), "Name was incorrect");
+        Assert.assertTrue(dashboardPage.getSurname().equals(userData.getLastName()), "Surname was incorrect");
+        Assert.assertTrue(dashboardPage.getUsername().equals(userData.getUsername()), "Username was incorrect");
     }
 
     @Test (groups = {"desktop", "tablet", "mobile"})

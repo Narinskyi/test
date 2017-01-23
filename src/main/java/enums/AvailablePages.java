@@ -10,6 +10,7 @@ public enum AvailablePages {
     contactUsUser("contact-us-user"),
     dashboard("dashboard"),
     deposit("deposit"),
+    favouriteSports("favourite-sports"),
     forgottenPassword("forgotten-password"),
     inbox("inbox"),
     liveBetslipHistory("live-betslip-history"),
@@ -45,6 +46,8 @@ public enum AvailablePages {
             case dashboard: page = new DashboardPage();
                 break;
             case deposit: page = new DepositPage();
+                break;
+            case favouriteSports: page = new FavouriteSportsPage();
                 break;
             case forgottenPassword: page = new ForgottenPasswordPage();
                 break;

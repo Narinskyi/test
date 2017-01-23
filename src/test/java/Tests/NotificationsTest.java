@@ -18,7 +18,7 @@ public class NotificationsTest extends AbstractTest {
 
     @BeforeClass(alwaysRun = true)
     public void loginWithExisitingUser (){
-        notificationsPage.loginWithExisitingUser();
+        notificationsPage.loginWithExisitingUser(userData);
     }
 
     @Test(groups = {"desktop", "tablet", "mobile"})

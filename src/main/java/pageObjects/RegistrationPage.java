@@ -1,6 +1,5 @@
 package pageObjects;
 
-import enums.Platform;
 import org.openqa.selenium.By;
 import utils.DataProvider;
 import utils.Driver;

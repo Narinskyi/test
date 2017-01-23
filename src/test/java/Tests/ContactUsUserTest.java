@@ -18,7 +18,7 @@ public class ContactUsUserTest extends AbstractTest {
 
     @BeforeClass(alwaysRun = true)
     public void loginWithExisitingUser (){
-        contactUsPage.loginWithExisitingUser();
+        contactUsPage.loginWithExisitingUser(userData);
     }
    
     @Test (groups = {"desktop", "tablet", "mobile"})

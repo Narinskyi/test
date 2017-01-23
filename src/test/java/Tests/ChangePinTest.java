@@ -10,7 +10,6 @@ import org.testng.annotations.Test;
 import pageObjects.ChangePinPage;
 import ru.yandex.qatools.allure.annotations.Features;
 import ru.yandex.qatools.allure.annotations.Stories;
-import utils.DataProvider;
 
 @Features("User")
 @Stories("Change Pin")
@@ -20,7 +19,7 @@ public class ChangePinTest extends AbstractTest {
 
     @BeforeClass(alwaysRun = true)
     public void prepareUserAndLogin (){
-        PreconditionalSteps.prepareUserAndLogin();
+        PreconditionalSteps.prepareUserAndLogin(userData);
     }
 
     @Test (groups = {"desktop", "tablet", "mobile"})
@@ -171,7 +170,7 @@ public class ChangePinTest extends AbstractTest {
 
         pinPage.fillNewPin("1234");
         pinPage.fillRetypePin("1234");
-        pinPage.fillCurrentPassword(DataProvider.getUserData().getPassword());
+        pinPage.fillCurrentPassword(userData.getPassword());
         pinPage.clickSubmit();
 
         //all fields should be cleared on success
@@ -194,7 +193,7 @@ public class ChangePinTest extends AbstractTest {
 
         pinPage.fillNewPin("1111");
         pinPage.fillRetypePin("1111");
-        pinPage.fillCurrentPassword(DataProvider.getUserData().getPassword());
+        pinPage.fillCurrentPassword(userData.getPassword());
         pinPage.clickSubmit();
 
         //all fields should be cleared on success

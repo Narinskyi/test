@@ -2,7 +2,7 @@ package pageObjects;
 
 import enums.Platform;
 import org.openqa.selenium.By;
-import utils.DataProvider;
+import springConstructors.UserData;
 import utils.Driver;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -44,8 +44,8 @@ public class FortunaextdevPage extends AbstractFortunaPage {
 
     }
 
-    public void loginWithDefaultCredentials(){
-        loginWithCredentials(username(), password());
+    public void loginWithDefaultCredentials(UserData userData){
+        loginWithCredentials(userData.getUsername(), userData.getPassword());
     }
 
 

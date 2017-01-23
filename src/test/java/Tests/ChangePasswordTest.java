@@ -9,18 +9,16 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObjects.ChangePasswordPage;
 import ru.yandex.qatools.allure.annotations.*;
-import springConstructors.UserData;
-import utils.DataProvider;
 
 @Features("User")
 @Stories("Change Password")
-public class ChangePasswordTest extends AbstractTest{
+public class ChangePasswordTest extends AbstractTest {
 
     private ChangePasswordPage passwordPage = PageFactory.getPage(AvailablePages.changePassword);
 
     @BeforeClass(alwaysRun = true)
-    public void prepareUserAndLogin (){
-        PreconditionalSteps.prepareUserAndLogin();
+    public void prepareUserAndLogin(){
+        PreconditionalSteps.prepareUserAndLogin(userData);
     }
 
     @Test (groups = {"desktop", "tablet", "mobile"})
@@ -115,7 +113,6 @@ public class ChangePasswordTest extends AbstractTest{
         //verify the flow when new password is the same as current
         passwordPage.open();
 
-        UserData userData= DataProvider.getUserData();
         String password = userData.getPassword();
 
         passwordPage.fillCurrentPassword(password);
@@ -208,7 +205,6 @@ public class ChangePasswordTest extends AbstractTest{
         passwordPage.open();
 
         //fill the fields with valid data
-        UserData userData= DataProvider.getUserData();
         passwordPage.fillCurrentPassword(userData.getPassword());
         //save new password to userdata
         userData.setPassword(newPassword);
@@ -230,7 +226,8 @@ public class ChangePasswordTest extends AbstractTest{
 
         //try to logout and then login again with new password (it's saved in user data)
         passwordPage.logout();
-        passwordPage.loginWithExisitingUser();
+        passwordPage.open();
+        passwordPage.loginWithExisitingUser(userData);
 
         Assert.assertTrue(passwordPage.isDashboardPageOpened(), "Login with new password failed");
 
@@ -243,12 +240,9 @@ public class ChangePasswordTest extends AbstractTest{
         //!test implies that previous positive test was successful
         passwordPage.open();
 
-        UserData userData= DataProvider.getUserData();
-        String password = userData.getPassword();
-
         passwordPage.fillCurrentPassword(userData.getPassword());
-        passwordPage.fillNewPassword(password);
-        passwordPage.fillRetypePassword(password);
+        passwordPage.fillNewPassword("Password1");
+        passwordPage.fillRetypePassword("Password1");
 
         passwordPage.clickSubmit();
 

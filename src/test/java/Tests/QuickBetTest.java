@@ -19,7 +19,7 @@ public class QuickBetTest extends AbstractTest {
 
     @BeforeClass(alwaysRun = true)
     public void prepareUserAndLogin (){
-        PreconditionalSteps.prepareUserAndLogin();
+        PreconditionalSteps.prepareUserAndLogin(userData);
     }
 
     @Test (groups = {"desktop", "tablet", "mobile"}, priority = -1)

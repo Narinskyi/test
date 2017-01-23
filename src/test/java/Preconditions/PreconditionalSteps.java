@@ -13,42 +13,41 @@ public class PreconditionalSteps extends AbstractTest {
     private static FortunaextdevPage fortunaextdevPage = new FortunaextdevPage();
     private static RegistrationPage registrationPage = new RegistrationPage();
     private static LoginPage loginPage = new LoginPage();
-    private static UserData userData = DataProvider.getUserData();
 
-    public void loginWithExisitingUser() {
-        loginPage.login();
+    public void loginWithExisitingUser(UserData userData) {
+        loginPage.login(userData);
     }
 
-    public static void prepareUser() {
-        generateUniqueUserdata();
-        registerThroughBackend();
-        loginToFortunaExtdev();
+    public static void prepareUser(UserData userData) {
+        generateUniqueUserdata(userData);
+        registerThroughBackend(userData);
+        loginToFortunaExtdev(userData);
     }
 
-    public static void prepareUserAndLogin() {
-        prepareUser();
-        loginPage.login();
+    public static void prepareUserAndLogin(UserData userData) {
+        prepareUser(userData);
+        loginPage.login(userData);
     }
 
-    private static void generateUniqueUserdata(){
+    private static synchronized void generateUniqueUserdata(UserData userData){
         String random = DataProvider.getRandomUsername();
         userData.setUsername(random);
         userData.setEmail(random+"@gmail.com");
     }
 
-    private static void registerThroughUI() {
+    private static void registerThroughUI(UserData userData) {
         registrationPage.open();
         registrationPage.registerUser();
         System.out.println("User with: "+userData.getUsername()+" username was registered successfully");
     }
 
-    private static void registerThroughBackend(){
-        Backend.createUser();
+    private static synchronized void registerThroughBackend(UserData userData){
+        Backend.createUser(userData);
     }
 
-    private static void loginToFortunaExtdev(){
+    private static void loginToFortunaExtdev(UserData userData){
         fortunaextdevPage.openFortunaextdev();
-        fortunaextdevPage.loginWithDefaultCredentials();
+        fortunaextdevPage.loginWithDefaultCredentials(userData);
     }
 
     private static void acceptTC(){

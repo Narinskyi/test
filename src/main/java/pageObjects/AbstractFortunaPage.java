@@ -55,17 +55,17 @@ public abstract class AbstractFortunaPage extends AbstractPage {
         logoutPage.logout();
     }
 
-    public void login() {
+    public void login(UserData userData) {
         LoginPage loginPage = PageFactory.getPage(AvailablePages.login);
         loginPage.open();
-        loginPage.login();
+        loginPage.login(userData);
     }
 
-    public void loginWithExisitingUser(){
+    public void loginWithExisitingUser(UserData userData){
         LoginPage loginPage = PageFactory.getPage(AvailablePages.login);
         loginPage.open();
-        loginPage.enterUsername(username());
-        loginPage.enterPassword(password());
+        loginPage.enterUsername(userData.getUsername());
+        loginPage.enterPassword(userData.getPassword());
         clickSubmit();
         isDashboardPageOpened();
     }
@@ -76,15 +76,7 @@ public abstract class AbstractFortunaPage extends AbstractPage {
     }
 
     public void quietLogout(){
-        Driver.executeJavascript("require('managers/auth.manager').quietLogout();");
-    }
-
-    public String username() {
-        return DataProvider.getUserData().getUsername();
-    }
-
-    public String password() {
-        return DataProvider.getUserData().getPassword();
+        Driver.executeJavascript("require('auth').quietLogout();");
     }
 
 }
