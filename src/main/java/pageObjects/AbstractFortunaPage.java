@@ -67,6 +67,7 @@ public abstract class AbstractFortunaPage extends AbstractPage {
         loginPage.enterUsername(username());
         loginPage.enterPassword(password());
         clickSubmit();
+        isDashboardPageOpened();
     }
 
     public boolean isDashboardPageOpened() {

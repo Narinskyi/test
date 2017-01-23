@@ -6,6 +6,8 @@ public enum AvailablePages {
 
     changePassword("change-password"),
     changePin("change-pin"),
+    contactUsGuest("contact-us"),
+    contactUsUser("contact-us-user"),
     dashboard("dashboard"),
     deposit("deposit"),
     forgottenPassword("forgotten-password"),
@@ -35,6 +37,10 @@ public enum AvailablePages {
             case changePassword: page = new ChangePasswordPage();
                 break;
             case changePin: page = new ChangePinPage();
+                break;
+            case contactUsGuest: page = new ContactUsGuestPage();
+                break;
+            case contactUsUser: page = new ContactUsUserPage();
                 break;
             case dashboard: page = new DashboardPage();
                 break;
