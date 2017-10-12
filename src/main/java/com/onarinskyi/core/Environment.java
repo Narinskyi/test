@@ -1,6 +1,6 @@
 package com.onarinskyi.core;
 
-import com.onarinskyi.springConstructors.UserData;
+import com.onarinskyi.spring.UserData;
 
 import java.net.MalformedURLException;
 import java.net.URL;

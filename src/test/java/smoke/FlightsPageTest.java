@@ -2,8 +2,7 @@ package smoke;
 
 import com.onarinskyi.annotations.PageObject;
 import com.onarinskyi.core.AbstractTest;
-import com.onarinskyi.pageObjects.FlightsPage;
-import com.onarinskyi.pageObjects.HotelsPage;
+import com.onarinskyi.pages.FlightsPage;
 import com.onarinskyi.utils.Driver;
 import org.testng.Assert;
 import org.testng.annotations.Test;

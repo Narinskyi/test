@@ -1,4 +1,4 @@
-package com.onarinskyi.springConstructors;
+package com.onarinskyi.spring;
 
 public class IMSData {
 

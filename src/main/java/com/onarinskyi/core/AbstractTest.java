@@ -2,7 +2,7 @@ package com.onarinskyi.core;
 
 import com.onarinskyi.listeners.OnTestFailureListener;
 import com.onarinskyi.reflection.ReflectionUtils;
-import com.onarinskyi.springConstructors.UserData;
+import com.onarinskyi.spring.UserData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;

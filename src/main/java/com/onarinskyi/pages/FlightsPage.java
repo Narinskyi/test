@@ -1,4 +1,4 @@
-package com.onarinskyi.pageObjects;
+package com.onarinskyi.pages;
 
 import com.onarinskyi.annotations.Url;
 import com.onarinskyi.core.AbstractPage;
