@@ -1,8 +1,8 @@
 package com.onarinskyi.utils;
 
 import com.onarinskyi.core.AbstractTest;
+import com.onarinskyi.core.DataProvider;
 import com.onarinskyi.core.WebDriverFactory;
-import com.onarinskyi.enums.ConfiguredBrowsers;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -20,7 +20,9 @@ public class Driver {
     private static final int TIMEOUT = 15;
 
 
-    /**---------------------------- Waiters ----------------------------*/
+    /**
+     * ---------------------------- Waiters ----------------------------
+     */
 
     //regular sleep with configurable timeout
     public static void waitFor(long millisec) {
@@ -37,13 +39,13 @@ public class Driver {
     }
 
     //wait for element visibility with default timeout
-    public static void waitForElementVisibility (By locator) {
+    public static void waitForElementVisibility(By locator) {
         waitForElementVisibility(locator, TIMEOUT);
     }
 
     //wait for element visibility
-    public static void waitForElementVisibility (By locator, long timeoutInSeconds) {
-        WebDriverWait wait = new WebDriverWait(driver(),timeoutInSeconds);
+    public static void waitForElementVisibility(By locator, long timeoutInSeconds) {
+        WebDriverWait wait = new WebDriverWait(driver(), timeoutInSeconds);
 
         log.info("Waiting for visibility of element " + locator);
         try {
@@ -54,8 +56,8 @@ public class Driver {
     }
 
     //wait for element text to change
-    public static boolean isElementTextChangedTo(By locator, String newText){
-        WebDriverWait wait = new WebDriverWait(driver(),TIMEOUT);
+    public static boolean isElementTextChangedTo(By locator, String newText) {
+        WebDriverWait wait = new WebDriverWait(driver(), TIMEOUT);
         log.info("Waiting for element change " + locator);
         try {
             wait.until(new ExpectedCondition<Boolean>() {
@@ -70,26 +72,24 @@ public class Driver {
     }
 
 
-    /**---------------------------- Input ----------------------------*/
+    /**
+     * ---------------------------- Input ----------------------------
+     */
 
     //click
-    public static void click (By locator) {
+    public static void click(By locator) {
         try {
-            if (DataProvider.getBrowser().equals(ConfiguredBrowsers.edge)) {
-                clickJS(locator);
-            } else {
-                findVisibleElement(locator).click();
-            }
+            findVisibleElement(locator).click();
         } catch (WebDriverException e) {
             AbstractTest.failTest("It was not possible to click element " + locator);
         }
     }
 
-    public static void tap (String selector) {
-        JavascriptExecutor executor = (JavascriptExecutor)driver();
+    public static void tap(String selector) {
+        JavascriptExecutor executor = (JavascriptExecutor) driver();
         //String js = "var event = $.Event( 'touchstart', { pageX:200, pageY:200 } );";
         executor.executeScript("var event = $.Event( 'touchstart', { pageX:200, pageY:200 } );"
-                + "$('"+selector+"').trigger( event );");
+                + "$('" + selector + "').trigger( event );");
     }
 
     public static void clearField(By locator) {
@@ -124,17 +124,19 @@ public class Driver {
     }
 
     public static void clickJS(By locator) {
-        JavascriptExecutor executor = (JavascriptExecutor)driver();
+        JavascriptExecutor executor = (JavascriptExecutor) driver();
         log.info("Clicking the element via Javascript");
         executor.executeScript("arguments[0].click();", findElement(locator));
     }
 
 
-    /**---------------------------- Navigation ----------------------------*/
+    /**
+     * ---------------------------- Navigation ----------------------------
+     */
 
     //navigate to URL
     public static void openPage(String url) {
-        log.info("Navigating to URL: "+ url);
+        log.info("Navigating to URL: " + url);
         driver().navigate().to(url);
     }
 
@@ -145,13 +147,15 @@ public class Driver {
     }
 
     //go back to previous page
-    public static void backToPreviousPage(){
+    public static void backToPreviousPage() {
         log.info("Navigating to previous page");
         driver().navigate().back();
     }
 
 
-    /**---------------------------- Getters ----------------------------*/
+    /**
+     * ---------------------------- Getters ----------------------------
+     */
 
     //get text of the element
     public static String getElementText(By locator) {
@@ -162,7 +166,7 @@ public class Driver {
     public static boolean isElementText(By locator, String text) {
         log.info("Getting asynchronous text of " + locator + " element");
         WebDriverWait wait = new WebDriverWait(driver(), TIMEOUT);
-        return wait.until(ExpectedConditions.textToBePresentInElementValue(findElement(locator),text));
+        return wait.until(ExpectedConditions.textToBePresentInElementValue(findElement(locator), text));
     }
 
     public static boolean isCheckboxChecked(By locator) {
@@ -171,26 +175,26 @@ public class Driver {
     }
 
     public static String getAttribute(By locator, String attribute) {
-        log.info("Getting "+ attribute + " value of " + locator + " element");
+        log.info("Getting " + attribute + " value of " + locator + " element");
         return findElement(locator).getAttribute(attribute);
     }
 
     public static String getCssValue(By locator, String cssKey) {
-        log.info("Getting css "+ cssKey + " value of " + locator + " element");
+        log.info("Getting css " + cssKey + " value of " + locator + " element");
         return findElement(locator).getCssValue(cssKey);
     }
 
-    public static String getCurrentUrl(){
+    public static String getCurrentUrl() {
         return driver().getCurrentUrl();
     }
 
     public static String getURLSuffix() {
         return driver().getCurrentUrl().
-                replaceAll(DataProvider.getBaseUrl(),"");
+                replaceAll(DataProvider.getBaseUrl(), "");
     }
 
     public static String getSelectedOption(By locator) {
-        log.info("Getting selected option of: "+ locator + " dropdown");
+        log.info("Getting selected option of: " + locator + " dropdown");
 
         Select select = new Select(findElement(locator));
         WebElement selectedOption = select.getFirstSelectedOption();
@@ -201,18 +205,20 @@ public class Driver {
         return ((TakesScreenshot) driver()).getScreenshotAs(OutputType.BYTES);
     }
 
-    /**---------------------------- Booleans ----------------------------*/
+    /**
+     * ---------------------------- Booleans ----------------------------
+     */
 
     //is element visible?
     public static boolean isElementVisible(By locator) {
         log.info("Checking if " + locator + " is visible");
-        return findVisibleElement(locator)!=null;
+        return findVisibleElement(locator) != null;
     }
 
     //is element present?
     public static boolean isElementPresent(By locator) {
         log.info("Checking if " + locator + " is present");
-        return findElement(locator)!=null;
+        return findElement(locator) != null;
     }
 
     //are multiple element visible?
@@ -223,25 +229,25 @@ public class Driver {
         List<WebElement> elements = findElements(locator);
         result = (elements.size() == expectedElementsCount);
 
-        for (WebElement element: elements) {
-            result&=element.isDisplayed();
+        for (WebElement element : elements) {
+            result &= element.isDisplayed();
         }
 
         return result;
     }
 
-    public static boolean isNewTabOpened(String expectedURLSuffix){
+    public static boolean isNewTabOpened(String expectedURLSuffix) {
 
         //get window handlers as list
         List<String> browserTabs = new ArrayList<>(driver().getWindowHandles());
 
         //try to switch to new tab (wait until it's opened)
-        for (int i=0; i<3; i++) {
+        for (int i = 0; i < 3; i++) {
             try {
                 driver().switchTo().window(browserTabs.get(1));
                 break;
             } catch (IndexOutOfBoundsException e) {
-                if (i==2) return false;
+                if (i == 2) return false;
                 waitFor(500);
             }
         }
@@ -258,12 +264,12 @@ public class Driver {
         List<String> browserTabs = new ArrayList<>(driver().getWindowHandles());
 
         //try to switch to new tab (wait until it's opened)
-        for (int i=0; i<3; i++) {
+        for (int i = 0; i < 3; i++) {
             try {
                 driver().switchTo().window(browserTabs.get(1));
                 break;
             } catch (IndexOutOfBoundsException e) {
-                if (i==2) return false;
+                if (i == 2) return false;
                 waitFor(1000);
             }
         }
@@ -275,9 +281,11 @@ public class Driver {
     }
 
 
-    /**---------------------------- Private service methods ----------------------------*/
+    /**
+     * ---------------------------- Private service methods ----------------------------
+     */
     //current driver
-    private static WebDriver driver(){
+    private static WebDriver driver() {
         return WebDriverFactory.getInstance().getDriver();
     }
 

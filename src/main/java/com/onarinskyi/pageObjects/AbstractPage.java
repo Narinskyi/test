@@ -1,7 +1,7 @@
 package com.onarinskyi.pageObjects;
 
 import com.onarinskyi.reflection.ReflectionUtils;
-import com.onarinskyi.utils.DataProvider;
+import com.onarinskyi.core.DataProvider;
 import com.onarinskyi.utils.Driver;
 
 public abstract class AbstractPage {

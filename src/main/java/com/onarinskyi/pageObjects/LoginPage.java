@@ -1,7 +1,6 @@
 package com.onarinskyi.pageObjects;
 
-import com.onarinskyi.enums.Platform;
-import com.onarinskyi.utils.DataProvider;
+import com.onarinskyi.core.DataProvider;
 import org.openqa.selenium.By;
 import com.onarinskyi.utils.Driver;
 
@@ -66,14 +65,6 @@ public class LoginPage extends AbstractPage {
 
     public String getPasswordPlaceholder() {
         return Driver.getAttribute(INPUT_PASSWORD, "placeholder");
-    }
-
-    public void clickEyeIcon() {
-        if (DataProvider.getCurrentPlatform().equals(Platform.tablet)) {
-            Driver.tap(EYE_ICON_CSS);
-        } else {
-            Driver.click(EYE_ICON);
-        }
     }
 
     public boolean isPasswordVisible() {

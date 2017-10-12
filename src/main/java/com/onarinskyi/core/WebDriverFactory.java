@@ -1,8 +1,6 @@
 package com.onarinskyi.core;
 
-import com.onarinskyi.enums.ConfiguredBrowsers;
 import org.openqa.selenium.WebDriver;
-import com.onarinskyi.utils.DataProvider;
 
 public class WebDriverFactory {
 
