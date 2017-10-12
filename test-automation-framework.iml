@@ -61,8 +61,6 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-core:4.2.1.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-expression:4.2.1.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-test:4.2.1.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: org.json:json:20140107" level="project" />
-    <orderEntry type="library" name="Maven: com.playtech.qatools.openapi:connector:1.0.1" level="project" />
     <orderEntry type="library" name="Maven: ru.yandex.qatools.allure:allure-maven-plugin:2.6" level="project" />
     <orderEntry type="library" name="Maven: ru.yandex.qatools.clay:clay-aether:2.5" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.aether:aether-api:1.0.1.v20141111" level="project" />
