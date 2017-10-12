@@ -1,8 +1,9 @@
 package com.onarinskyi.utils;
 
 import com.onarinskyi.core.AbstractTest;
-import com.onarinskyi.core.DataProvider;
+import com.onarinskyi.core.Environment;
 import com.onarinskyi.core.WebDriverFactory;
+import com.onarinskyi.interfaces.Page;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -140,6 +141,12 @@ public class Driver {
         driver().navigate().to(url);
     }
 
+    public static void openPage(Page page) {
+        String url = UrlResolver.resolveUrlFor(page);
+        log.info("Navigating to URL: " + url);
+        driver().navigate().to(url);
+    }
+
     //refresh page
     public static void refreshPage() {
         log.info("Refreshing page...");
@@ -190,7 +197,7 @@ public class Driver {
 
     public static String getURLSuffix() {
         return driver().getCurrentUrl().
-                replaceAll(DataProvider.getBaseUrl(), "");
+                replaceAll(Environment.getBaseUrl(), "");
     }
 
     public static String getSelectedOption(By locator) {

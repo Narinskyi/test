@@ -12,7 +12,7 @@ public class OnTestFailureListener extends TestListenerAdapter {
         makeScreenshot();
     }
 
-    @Attachment(value = "Page screenshot", type = "image/png")
+    @Attachment(value = "PageObject screenshot", type = "image/png")
     private byte[] makeScreenshot() {
         return Driver.makeScreenshot();
     }

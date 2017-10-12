@@ -20,7 +20,6 @@ import java.util.logging.Logger;
 public abstract class AbstractTest extends AbstractTestNGSpringContextTests {
 
     private static Logger log = Logger.getAnonymousLogger();
-    protected UserData userData;
 
     @Autowired
     @Qualifier("userData")

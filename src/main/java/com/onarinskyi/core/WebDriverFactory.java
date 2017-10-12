@@ -14,7 +14,7 @@ public class WebDriverFactory {
     }
 
     //which browser is used now
-    private static ConfiguredBrowsers browser = DataProvider.getBrowser();
+    private static ConfiguredBrowsers browser = Environment.getBrowser();
 
     // thread local driver object for webdriver
     private ThreadLocal<WebDriver> driver = ThreadLocal.withInitial(() -> browser.getDriver());

@@ -23,10 +23,10 @@ public enum ConfiguredBrowsers {
     public WebDriver getDriver(){
 
         //if grid = true, use RemoteWebDriver
-        boolean useGrid = DataProvider.shouldUseGrid();
+        boolean useGrid = Environment.shouldUseGrid();
 
         //get host of the grid hub
-        URL host = DataProvider.getHubURL();
+        URL host = Environment.getHubURL();
 
         //if grid is turned on - use RemoteWebDriver
         if (useGrid) {

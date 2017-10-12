@@ -1,6 +1,6 @@
 package com.onarinskyi.pageObjects;
 
-import com.onarinskyi.core.DataProvider;
+import com.onarinskyi.core.AbstractPage;
 import org.openqa.selenium.By;
 import com.onarinskyi.utils.Driver;
 

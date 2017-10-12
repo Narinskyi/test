@@ -10,14 +10,14 @@ import java.util.ResourceBundle;
 import java.util.UUID;
 import java.util.logging.Logger;
 
-public class DataProvider {
+public class Environment {
 
     private static Logger log = Logger.getAnonymousLogger();
     private static ResourceBundle resources = ResourceBundle.getBundle("application");
     private static UserData userData;
 
     public static void setUserData(UserData userData) {
-        DataProvider.userData = userData;
+        Environment.userData = userData;
     }
 
     public static UserData getUserData() {
