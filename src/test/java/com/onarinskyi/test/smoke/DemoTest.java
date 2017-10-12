@@ -13,6 +13,5 @@ public class DemoTest extends AbstractTest {
     @Test
     public void demo1() {
         hotelsPage.open();
-        hotelsPage.sayHello();
     }
 }

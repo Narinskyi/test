@@ -12,6 +12,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
+import org.testng.asserts.SoftAssert;
 
 import java.util.logging.Logger;
 
@@ -20,6 +21,8 @@ import java.util.logging.Logger;
 public abstract class AbstractTest extends AbstractTestNGSpringContextTests {
 
     private static Logger log = Logger.getAnonymousLogger();
+
+    protected SoftAssert softly = new SoftAssert();
 
     @Autowired
     @Qualifier("userData")
