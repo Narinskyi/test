@@ -140,8 +140,6 @@
             <artifactId>connector</artifactId>
             <version>1.0.1</version>
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/ru.yandex.qatools.allure/allure-maven-plugin -->
         <dependency>
             <groupId>ru.yandex.qatools.allure</groupId>
             <artifactId>allure-maven-plugin</artifactId>
