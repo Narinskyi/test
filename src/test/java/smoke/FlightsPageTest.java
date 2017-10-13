@@ -3,7 +3,6 @@ package smoke;
 import com.onarinskyi.annotations.PageObject;
 import com.onarinskyi.core.AbstractTest;
 import com.onarinskyi.pages.FlightsPage;
-import com.onarinskyi.utils.Driver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.yandex.qatools.allure.annotations.Features;
@@ -17,7 +16,6 @@ public class FlightsPageTest extends AbstractTest {
     @Test
     public void demoFlights() {
         flightsPage.open();
-        Driver.waitFor(3000);
         Assert.assertTrue(flightsPage.isFlightsLabelDisplayed());
     }
 }

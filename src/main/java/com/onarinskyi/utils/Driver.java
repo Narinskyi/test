@@ -4,6 +4,7 @@ import com.onarinskyi.core.AbstractTest;
 import com.onarinskyi.core.Environment;
 import com.onarinskyi.core.WebDriverFactory;
 import com.onarinskyi.interfaces.Page;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -12,21 +13,25 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
+
+import static com.onarinskyi.time.Timeout.EXPLICIT_WAIT;
 
 public class Driver {
 
-    private static Logger log = Logger.getAnonymousLogger();
-    //timeout constants
-    private static final int TIMEOUT = 15;
+    private WebDriver driver;
 
+    public Driver() {
+        this.driver = WebDriverFactory.getInstance().getDriver();
+    }
+
+    private final Logger log = Logger.getLogger(Driver.class);
 
     /**
      * ---------------------------- Waiters ----------------------------
      */
 
     //regular sleep with configurable timeout
-    public static void waitFor(long millisec) {
+    public void waitFor(long millisec) {
         log.info("Waiting for " + millisec + " ms");
         if (millisec > 0) {
             try {
@@ -40,13 +45,13 @@ public class Driver {
     }
 
     //wait for element visibility with default timeout
-    public static void waitForElementVisibility(By locator) {
-        waitForElementVisibility(locator, TIMEOUT);
+    public void waitForElementVisibility(By locator) {
+        waitForElementVisibility(locator, EXPLICIT_WAIT);
     }
 
     //wait for element visibility
-    public static void waitForElementVisibility(By locator, long timeoutInSeconds) {
-        WebDriverWait wait = new WebDriverWait(driver(), timeoutInSeconds);
+    public void waitForElementVisibility(By locator, long timeoutInSeconds) {
+        WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
 
         log.info("Waiting for visibility of element " + locator);
         try {
@@ -57,13 +62,13 @@ public class Driver {
     }
 
     //wait for element text to change
-    public static boolean isElementTextChangedTo(By locator, String newText) {
-        WebDriverWait wait = new WebDriverWait(driver(), TIMEOUT);
+    public boolean isElementTextChangedTo(By locator, String newText) {
+        WebDriverWait wait = new WebDriverWait(driver, EXPLICIT_WAIT);
         log.info("Waiting for element change " + locator);
         try {
             wait.until(new ExpectedCondition<Boolean>() {
                 public Boolean apply(WebDriver driver) {
-                    return (driver().findElement(locator).getText()).equalsIgnoreCase(newText);
+                    return (driver.findElement(locator).getText()).equalsIgnoreCase(newText);
                 }
             });
         } catch (TimeoutException timeIsOut) {
@@ -78,7 +83,7 @@ public class Driver {
      */
 
     //click
-    public static void click(By locator) {
+    public void click(By locator) {
         try {
             findVisibleElement(locator).click();
         } catch (WebDriverException e) {
@@ -86,46 +91,46 @@ public class Driver {
         }
     }
 
-    public static void tap(String selector) {
-        JavascriptExecutor executor = (JavascriptExecutor) driver();
+    public void tap(String selector) {
+        JavascriptExecutor executor = (JavascriptExecutor) driver;
         //String js = "var event = $.Event( 'touchstart', { pageX:200, pageY:200 } );";
         executor.executeScript("var event = $.Event( 'touchstart', { pageX:200, pageY:200 } );"
                 + "$('" + selector + "').trigger( event );");
     }
 
-    public static void clearField(By locator) {
+    public void clearField(By locator) {
         findVisibleElement(locator).clear();
     }
 
-    public static void inputTextToField(By locator, String text) {
+    public void inputTextToField(By locator, String text) {
         findVisibleElement(locator).sendKeys(String.valueOf(text));
     }
 
     //when unable to focus the field
-    public static void inputTextToInvisibleField(By locator, String text) {
+    public void inputTextToInvisibleField(By locator, String text) {
         findElement(locator).sendKeys(String.valueOf(text));
     }
 
-    public static void clearAndInputTextToField(By locator, String text) {
+    public void clearAndInputTextToField(By locator, String text) {
         clearField(locator);
         inputTextToField(locator, text);
     }
 
-    public static void inputTextToTextArea(By locator, String text) {
+    public void inputTextToTextArea(By locator, String text) {
         findElement(locator).sendKeys(text);
     }
 
-    public static void setDropdownOptionByValue(By locator, String value) {
+    public void setDropdownOptionByValue(By locator, String value) {
         Select select = new Select(findElement(locator));
         select.selectByValue(value);
     }
 
-    public static void executeJavascript(String javascript) {
-        ((JavascriptExecutor) driver()).executeScript(javascript);
+    public void executeJavascript(String javascript) {
+        ((JavascriptExecutor) driver).executeScript(javascript);
     }
 
-    public static void clickJS(By locator) {
-        JavascriptExecutor executor = (JavascriptExecutor) driver();
+    public void clickJS(By locator) {
+        JavascriptExecutor executor = (JavascriptExecutor) driver;
         log.info("Clicking the element via Javascript");
         executor.executeScript("arguments[0].click();", findElement(locator));
     }
@@ -136,27 +141,27 @@ public class Driver {
      */
 
     //navigate to URL
-    public static void openPage(String url) {
+    public void openPage(String url) {
         log.info("Navigating to URL: " + url);
-        driver().navigate().to(url);
+        driver.navigate().to(url);
     }
 
-    public static void openPage(Page page) {
+    public void openPage(Page page) {
         String url = UrlResolver.resolveUrlFor(page);
         log.info("Navigating to URL: " + url);
-        driver().navigate().to(url);
+        driver.navigate().to(url);
     }
 
     //refresh page
-    public static void refreshPage() {
+    public void refreshPage() {
         log.info("Refreshing page...");
-        driver().navigate().refresh();
+        driver.navigate().refresh();
     }
 
     //go back to previous page
-    public static void backToPreviousPage() {
+    public void backToPreviousPage() {
         log.info("Navigating to previous page");
-        driver().navigate().back();
+        driver.navigate().back();
     }
 
 
@@ -165,42 +170,42 @@ public class Driver {
      */
 
     //get text of the element
-    public static String getElementText(By locator) {
+    public String getElementText(By locator) {
         log.info("Getting text of " + locator + " element");
         return findElement(locator).getText();
     }
 
-    public static boolean isElementText(By locator, String text) {
+    public boolean isElementText(By locator, String text) {
         log.info("Getting asynchronous text of " + locator + " element");
-        WebDriverWait wait = new WebDriverWait(driver(), TIMEOUT);
+        WebDriverWait wait = new WebDriverWait(driver, EXPLICIT_WAIT);
         return wait.until(ExpectedConditions.textToBePresentInElementValue(findElement(locator), text));
     }
 
-    public static boolean isCheckboxChecked(By locator) {
+    public boolean isCheckboxChecked(By locator) {
         log.info("Getting text of " + locator + " element");
         return findElement(locator).isSelected();
     }
 
-    public static String getAttribute(By locator, String attribute) {
+    public String getAttribute(By locator, String attribute) {
         log.info("Getting " + attribute + " value of " + locator + " element");
         return findElement(locator).getAttribute(attribute);
     }
 
-    public static String getCssValue(By locator, String cssKey) {
+    public String getCssValue(By locator, String cssKey) {
         log.info("Getting css " + cssKey + " value of " + locator + " element");
         return findElement(locator).getCssValue(cssKey);
     }
 
-    public static String getCurrentUrl() {
-        return driver().getCurrentUrl();
+    public String getCurrentUrl() {
+        return driver.getCurrentUrl();
     }
 
-    public static String getURLSuffix() {
-        return driver().getCurrentUrl().
+    public String getURLSuffix() {
+        return driver.getCurrentUrl().
                 replaceAll(Environment.getBaseUrl(), "");
     }
 
-    public static String getSelectedOption(By locator) {
+    public String getSelectedOption(By locator) {
         log.info("Getting selected option of: " + locator + " dropdown");
 
         Select select = new Select(findElement(locator));
@@ -208,8 +213,8 @@ public class Driver {
         return selectedOption.getText();
     }
 
-    public static byte[] makeScreenshot() {
-        return ((TakesScreenshot) driver()).getScreenshotAs(OutputType.BYTES);
+    public byte[] makeScreenshot() {
+        return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
     }
 
     /**
@@ -217,19 +222,19 @@ public class Driver {
      */
 
     //is element visible?
-    public static boolean isElementVisible(By locator) {
+    public boolean isElementVisible(By locator) {
         log.info("Checking if " + locator + " is visible");
         return findVisibleElement(locator) != null;
     }
 
     //is element present?
-    public static boolean isElementPresent(By locator) {
+    public boolean isElementPresent(By locator) {
         log.info("Checking if " + locator + " is present");
         return findElement(locator) != null;
     }
 
     //are multiple element visible?
-    public static boolean areSeveralElementsVisible(By locator, int expectedElementsCount) {
+    public boolean areSeveralElementsVisible(By locator, int expectedElementsCount) {
         boolean result;
 
         log.info("Checking if multiple elements:" + locator + " are visible");
@@ -243,15 +248,15 @@ public class Driver {
         return result;
     }
 
-    public static boolean isNewTabOpened(String expectedURLSuffix) {
+    public boolean isNewTabOpened(String expectedURLSuffix) {
 
         //get window handlers as list
-        List<String> browserTabs = new ArrayList<>(driver().getWindowHandles());
+        List<String> browserTabs = new ArrayList<>(driver.getWindowHandles());
 
         //try to switch to new tab (wait until it's opened)
         for (int i = 0; i < 3; i++) {
             try {
-                driver().switchTo().window(browserTabs.get(1));
+                driver.switchTo().window(browserTabs.get(1));
                 break;
             } catch (IndexOutOfBoundsException e) {
                 if (i == 2) return false;
@@ -259,21 +264,21 @@ public class Driver {
             }
         }
 
-        boolean isOpened = Driver.getURLSuffix().equals(expectedURLSuffix);
+        boolean isOpened = getURLSuffix().equals(expectedURLSuffix);
         // then close tab and get back
-        driver().close();
-        driver().switchTo().window(browserTabs.get(0));
+        driver.close();
+        driver.switchTo().window(browserTabs.get(0));
         return isOpened;
     }
 
-    public static boolean isNewTabOpened() {
+    public boolean isNewTabOpened() {
         //get window handlers as list
-        List<String> browserTabs = new ArrayList<>(driver().getWindowHandles());
+        List<String> browserTabs = new ArrayList<>(driver.getWindowHandles());
 
         //try to switch to new tab (wait until it's opened)
         for (int i = 0; i < 3; i++) {
             try {
-                driver().switchTo().window(browserTabs.get(1));
+                driver.switchTo().window(browserTabs.get(1));
                 break;
             } catch (IndexOutOfBoundsException e) {
                 if (i == 2) return false;
@@ -282,8 +287,8 @@ public class Driver {
         }
 
         // then close tab and get back
-        driver().close();
-        driver().switchTo().window(browserTabs.get(0));
+        driver.close();
+        driver.switchTo().window(browserTabs.get(0));
         return true;
     }
 
@@ -291,49 +296,46 @@ public class Driver {
     /**
      * ---------------------------- Private service methods ----------------------------
      */
-    //current driver
-    private static WebDriver driver() {
-        return WebDriverFactory.getInstance().getDriver();
-    }
+
 
     //findElement element
-    private static WebElement findElement(By locator) {
+    private WebElement findElement(By locator) {
 
-        WebDriverWait wait = new WebDriverWait(driver(), TIMEOUT);
+        WebDriverWait wait = new WebDriverWait(driver, EXPLICIT_WAIT);
 
         log.info("Waiting for presence of element " + locator);
         try {
             wait.until(ExpectedConditions.presenceOfElementLocated(locator));
         } catch (TimeoutException e) {
-            AbstractTest.failTest("Element: " + locator + " was not present in DOM after: " + TIMEOUT + " s");
+            AbstractTest.failTest("Element: " + locator + " was not present in DOM after: " + EXPLICIT_WAIT + " s");
         }
-        return driver().findElement(locator);
+        return driver.findElement(locator);
     }
 
-    private static List<WebElement> findElements(By locator) {
+    private List<WebElement> findElements(By locator) {
 
-        WebDriverWait wait = new WebDriverWait(driver(), TIMEOUT);
+        WebDriverWait wait = new WebDriverWait(driver, EXPLICIT_WAIT);
 
         log.info("Waiting for presence of elements " + locator);
         try {
             wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator));
         } catch (TimeoutException e) {
-            AbstractTest.failTest("Elements: " + locator + " were not present in DOM after: " + TIMEOUT + " s");
+            AbstractTest.failTest("Elements: " + locator + " were not present in DOM after: " + EXPLICIT_WAIT + " s");
         }
-        return driver().findElements(locator);
+        return driver.findElements(locator);
     }
 
-    private static WebElement findVisibleElement(By locator) {
+    private WebElement findVisibleElement(By locator) {
 
-        WebDriverWait wait = new WebDriverWait(driver(), TIMEOUT);
+        WebDriverWait wait = new WebDriverWait(driver, EXPLICIT_WAIT);
 
         log.info("Waiting for visibility of element " + locator);
         try {
             wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
         } catch (TimeoutException e) {
-            AbstractTest.failTest("Element: " + locator + " was not visible after: " + TIMEOUT + " s");
+            AbstractTest.failTest("Element: " + locator + " was not visible after: " + EXPLICIT_WAIT + " s");
         }
-        return driver().findElement(locator);
+        return driver.findElement(locator);
 
     }
 

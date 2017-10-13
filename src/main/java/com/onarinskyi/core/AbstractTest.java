@@ -1,7 +1,8 @@
 package com.onarinskyi.core;
 
+import com.onarinskyi.annotations.PageObject;
 import com.onarinskyi.listeners.OnTestFailureListener;
-import com.onarinskyi.reflection.ReflectionUtils;
+import com.onarinskyi.reflection.Reflection;
 import com.onarinskyi.spring.UserData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -29,7 +30,7 @@ public abstract class AbstractTest extends AbstractTestNGSpringContextTests {
 
     @BeforeClass(alwaysRun = true)
     public void start(){
-        ReflectionUtils.instantiatePageObjectFields(this);
+        Reflection.instantiateAnnotatedField(this, PageObject.class);
     }
 
     @AfterClass(alwaysRun = true)

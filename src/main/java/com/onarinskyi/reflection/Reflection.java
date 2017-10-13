@@ -5,14 +5,15 @@ import com.onarinskyi.annotations.Url;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.springframework.cglib.core.ReflectUtils;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.List;
 
 
-public class ReflectionUtils {
+public class Reflection {
 
-    public static void instantiatePageObjectFields(Object targetObject) {
-        List<Field> annotatedFields = FieldUtils.getFieldsListWithAnnotation(targetObject.getClass(), PageObject.class);
+    public static void instantiateAnnotatedField(Object targetObject, Class <? extends Annotation> annotation) {
+        List<Field> annotatedFields = FieldUtils.getFieldsListWithAnnotation(targetObject.getClass(), annotation);
         annotatedFields.forEach(field -> {
             try {
                 field.setAccessible(true);
@@ -21,7 +22,6 @@ public class ReflectionUtils {
                 e.printStackTrace();
             }
         });
-
     }
 
     public static String getUrlAnnotationValue(Class<?> clazz) {
