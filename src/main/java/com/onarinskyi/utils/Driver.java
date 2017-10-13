@@ -20,8 +20,12 @@ public class Driver {
 
     private WebDriver driver;
 
-    public Driver() {
+    private Driver() {
         this.driver = WebDriverFactory.getInstance().getDriver();
+    }
+
+    public static Driver get() {
+        return new Driver();
     }
 
     private final Logger log = Logger.getLogger(Driver.class);
@@ -37,10 +41,10 @@ public class Driver {
             try {
                 Thread.sleep(millisec);
             } catch (InterruptedException e) {
-                AbstractTest.failTest("Sleep failed");
+                log.fatal("Sleep failed");
             }
         } else {
-            AbstractTest.failTest("Please set correct wait time");
+            log.fatal("Please set correct wait time");
         }
     }
 
@@ -57,7 +61,7 @@ public class Driver {
         try {
             wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
         } catch (TimeoutException e) {
-            AbstractTest.failTest("Element: " + locator + " was not visible after: " + timeoutInSeconds + " s");
+            log.fatal("Element: " + locator + " was not visible after: " + timeoutInSeconds + " s");
         }
     }
 
@@ -87,7 +91,7 @@ public class Driver {
         try {
             findVisibleElement(locator).click();
         } catch (WebDriverException e) {
-            AbstractTest.failTest("It was not possible to click element " + locator);
+            log.fatal("It was not possible to click element " + locator);
         }
     }
 
@@ -307,7 +311,7 @@ public class Driver {
         try {
             wait.until(ExpectedConditions.presenceOfElementLocated(locator));
         } catch (TimeoutException e) {
-            AbstractTest.failTest("Element: " + locator + " was not present in DOM after: " + EXPLICIT_WAIT + " s");
+            log.fatal("Element: " + locator + " was not present in DOM after: " + EXPLICIT_WAIT + " s");
         }
         return driver.findElement(locator);
     }
@@ -320,7 +324,7 @@ public class Driver {
         try {
             wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator));
         } catch (TimeoutException e) {
-            AbstractTest.failTest("Elements: " + locator + " were not present in DOM after: " + EXPLICIT_WAIT + " s");
+            log.fatal("Elements: " + locator + " were not present in DOM after: " + EXPLICIT_WAIT + " s");
         }
         return driver.findElements(locator);
     }
@@ -333,11 +337,8 @@ public class Driver {
         try {
             wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
         } catch (TimeoutException e) {
-            AbstractTest.failTest("Element: " + locator + " was not visible after: " + EXPLICIT_WAIT + " s");
+            log.fatal("Element: " + locator + " was not visible after: " + EXPLICIT_WAIT + " s");
         }
         return driver.findElement(locator);
-
     }
-
-
 }

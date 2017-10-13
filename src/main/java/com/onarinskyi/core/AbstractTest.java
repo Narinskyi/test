@@ -3,9 +3,7 @@ package com.onarinskyi.core;
 import com.onarinskyi.annotations.PageObject;
 import com.onarinskyi.listeners.OnTestFailureListener;
 import com.onarinskyi.reflection.Reflection;
-import com.onarinskyi.spring.UserData;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.apache.log4j.Logger;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
@@ -14,19 +12,13 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.asserts.SoftAssert;
 
-import java.util.logging.Logger;
-
 @Listeners({OnTestFailureListener.class})
 @ContextConfiguration(locations={"/spring-config.xml"})
 public abstract class AbstractTest extends AbstractTestNGSpringContextTests {
 
-    private static Logger log = Logger.getAnonymousLogger();
+    private Logger log = Logger.getLogger(this.getClass());
 
     protected SoftAssert softly = new SoftAssert();
-
-    @Autowired
-    @Qualifier("userData")
-    private UserData springUserData;
 
     @BeforeClass(alwaysRun = true)
     public void start(){
@@ -38,8 +30,8 @@ public abstract class AbstractTest extends AbstractTestNGSpringContextTests {
         WebDriverFactory.getInstance().quitDriver();
     }
 
-    public static void failTest(String message) {
-        log.severe(message);
+    public void failTest(String message) {
+        log.fatal(message);
         Assert.fail(message);
     }
 }

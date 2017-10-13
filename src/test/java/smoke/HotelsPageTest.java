@@ -2,7 +2,7 @@ package smoke;
 
 import com.onarinskyi.annotations.PageObject;
 import com.onarinskyi.core.AbstractTest;
-import com.onarinskyi.pages.HotelsPage;
+import pages.HotelsPage;
 import org.testng.annotations.Test;
 import ru.yandex.qatools.allure.annotations.Features;
 
