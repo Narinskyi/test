@@ -1,6 +1,6 @@
 package com.onarinskyi.listeners;
 
-import com.onarinskyi.utils.Driver;
+import com.onarinskyi.driver.Driver;
 import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
 import ru.yandex.qatools.allure.annotations.Attachment;
@@ -14,6 +14,6 @@ public class OnTestFailureListener extends TestListenerAdapter {
 
     @Attachment(value = "PageObject screenshot", type = "image/png")
     private byte[] makeScreenshot() {
-        return Driver.get().makeScreenshot();
+        return new Driver().makeScreenshot();
     }
 }

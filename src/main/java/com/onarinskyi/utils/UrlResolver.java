@@ -8,11 +8,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.logging.Logger;
 
-class UrlResolver {
+public class UrlResolver {
 
     private static final Logger log = Logger.getAnonymousLogger();
 
-    static String resolveUrlFor(Page page) {
+    public static String resolveUrlFor(Page page) {
         try {
             return getPropertiesBasedUrl(page);
         } catch (MalformedURLException e1) {

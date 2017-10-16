@@ -6,8 +6,10 @@ import pages.FlightsPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.Stories;
 
 @Features("Flights")
+@Stories("Demo test")
 public class FlightsPageTest extends AbstractTest {
 
     @PageObject

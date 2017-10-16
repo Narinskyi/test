@@ -15,11 +15,11 @@ public class Environment {
         return resources.getString("base.url");
     }
 
-    public static boolean shouldUseGrid() {
+    static boolean shouldUseGrid() {
         return Boolean.valueOf(getParameterValue("grid"));
     }
 
-    public static URL getHubURL() {
+    static URL getHubURL() {
         String url = getParameterValue("hub");
         try {
             return new URL(url);
@@ -43,10 +43,6 @@ public class Environment {
             browser = ConfiguredBrowsers.chrome;
         }
         return browser;
-    }
-
-    public static String getRandomUsername() {
-        return UUID.randomUUID().toString().substring(0, 7);
     }
 
     //try to extract parameter from session. If no such - get it from .properties file

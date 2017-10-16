@@ -1,9 +1,8 @@
-package com.onarinskyi.utils;
+package com.onarinskyi.driver;
 
-import com.onarinskyi.core.AbstractTest;
 import com.onarinskyi.core.Environment;
-import com.onarinskyi.core.WebDriverFactory;
 import com.onarinskyi.interfaces.Page;
+import com.onarinskyi.utils.UrlResolver;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -20,19 +19,15 @@ public class Driver {
 
     private WebDriver driver;
 
-    private Driver() {
-        this.driver = WebDriverFactory.getInstance().getDriver();
-    }
-
-    public static Driver get() {
-        return new Driver();
+    public Driver() {
+        this.driver = DriverManager.getDriver();
+        System.out.println("New driver was created: "+driver.toString()+" fot Thread: "+Thread.currentThread().getName());
     }
 
     private final Logger log = Logger.getLogger(Driver.class);
 
-    /**
-     * ---------------------------- Waiters ----------------------------
-     */
+
+
 
     //regular sleep with configurable timeout
     public void waitFor(long millisec) {

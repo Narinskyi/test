@@ -1,6 +1,7 @@
 package com.onarinskyi.core;
 
 import com.onarinskyi.annotations.PageObject;
+import com.onarinskyi.driver.DriverManager;
 import com.onarinskyi.listeners.OnTestFailureListener;
 import com.onarinskyi.reflection.Reflection;
 import org.apache.log4j.Logger;
@@ -27,7 +28,7 @@ public abstract class AbstractTest extends AbstractTestNGSpringContextTests {
 
     @AfterClass(alwaysRun = true)
     public void stop(){
-        WebDriverFactory.getInstance().quitDriver();
+       DriverManager.quit();
     }
 
     public void failTest(String message) {
