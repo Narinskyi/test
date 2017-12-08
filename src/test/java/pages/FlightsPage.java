@@ -1,15 +1,17 @@
 package pages;
 
+import com.onarinskyi.annotations.FindBy;
 import com.onarinskyi.annotations.Url;
-import com.onarinskyi.core.AbstractPage;
 import org.openqa.selenium.By;
+import pages.base.BasePage;
 
 @Url("/flight")
-public class FlightsPage extends AbstractPage {
+public class FlightsPage extends BasePage {
 
-    private static final By LABEL_FLIGHTS = By.cssSelector(".flight-price-grids");
+    @FindBy(css = ".flight-price-grids")
+    private By labelFlights;
 
     public boolean isFlightsLabelDisplayed() {
-        return driver.isElementVisible(LABEL_FLIGHTS);
+        return driver.isElementVisible(labelFlights);
     }
 }

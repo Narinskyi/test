@@ -1,11 +1,11 @@
 package pages;
 
 import com.onarinskyi.annotations.Url;
-import com.onarinskyi.core.AbstractPage;
 import org.openqa.selenium.By;
+import pages.base.BasePage;
 
 @Url("hotels")
-public class HotelsPage extends AbstractPage {
+public class HotelsPage extends BasePage {
 
     private static final By LOCATOR = By.id("");
     public void sayHello() {

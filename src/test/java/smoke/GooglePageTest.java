@@ -1,18 +1,18 @@
 package smoke;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.yandex.qatools.allure.annotations.Features;
 import ru.yandex.qatools.allure.annotations.Stories;
 import smoke.base.BaseTest;
 
-@Features("Hotels")
+@Features("Google")
 @Stories("Demo test")
-public class HotelsPageTest extends BaseTest {
+public class GooglePageTest extends BaseTest {
 
     @Test
-    public void demoHotels() {
-        hotelsPage.open();
-        softly.assertFalse(true);
-        softly.assertAll();
+    public void demoFlights() {
+        googlePage.open();
+        Assert.assertTrue(googlePage.isButtonVisible());
     }
 }

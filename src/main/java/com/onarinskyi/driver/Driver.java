@@ -50,8 +50,6 @@ public class Driver {
 
     private WebElement findVisibleElement(By locator) {
 
-        WebDriverWait wait = new WebDriverWait(driver, EXPLICIT_WAIT);
-
         log.info("Waiting for visibility of element " + locator);
         try {
             wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
