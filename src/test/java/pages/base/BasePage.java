@@ -1,6 +1,6 @@
 package pages.base;
 
-import com.onarinskyi.framework.core.AbstractPage;
+import com.onarinskyi.core.AbstractPage;
 
 public class BasePage extends AbstractPage {
 

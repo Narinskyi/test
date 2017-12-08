@@ -1,4 +1,4 @@
-package com.onarinskyi.framework.annotations;
+package com.onarinskyi.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -6,7 +6,5 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-public @interface Url {
-    String value() default "";
-}
+@Target(ElementType.FIELD)
+public @interface PageObject {}

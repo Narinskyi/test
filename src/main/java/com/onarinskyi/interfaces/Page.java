@@ -1,6 +1,6 @@
-package com.onarinskyi.framework.interfaces;
+package com.onarinskyi.interfaces;
 
-import com.onarinskyi.framework.reflection.Reflection;
+import com.onarinskyi.reflection.Reflection;
 
 public interface Page {
     void open();

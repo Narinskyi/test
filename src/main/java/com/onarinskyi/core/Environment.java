@@ -1,8 +1,9 @@
-package com.onarinskyi.framework.core;
+package com.onarinskyi.core;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 public class Environment {

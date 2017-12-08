@@ -1,7 +1,7 @@
-package com.onarinskyi.framework.reflection;
+package com.onarinskyi.reflection;
 
-import com.onarinskyi.framework.annotations.FindBy;
-import com.onarinskyi.framework.annotations.Url;
+import com.onarinskyi.annotations.FindBy;
+import com.onarinskyi.annotations.Url;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.springframework.cglib.core.ReflectUtils;
 

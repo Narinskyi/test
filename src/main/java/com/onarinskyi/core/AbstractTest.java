@@ -1,9 +1,9 @@
-package com.onarinskyi.framework.core;
+package com.onarinskyi.core;
 
-import com.onarinskyi.framework.annotations.PageObject;
-import com.onarinskyi.framework.driver.DriverManager;
-import com.onarinskyi.framework.listeners.OnTestFailureListener;
-import com.onarinskyi.framework.reflection.Reflection;
+import com.onarinskyi.annotations.PageObject;
+import com.onarinskyi.driver.DriverManager;
+import com.onarinskyi.listeners.OnTestFailureListener;
+import com.onarinskyi.reflection.Reflection;
 import org.apache.log4j.Logger;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;

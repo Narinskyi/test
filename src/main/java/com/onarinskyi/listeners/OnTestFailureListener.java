@@ -1,6 +1,6 @@
-package com.onarinskyi.framework.listeners;
+package com.onarinskyi.listeners;
 
-import com.onarinskyi.framework.driver.Driver;
+import com.onarinskyi.driver.Driver;
 import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
 import ru.yandex.qatools.allure.annotations.Attachment;
