@@ -1,6 +1,6 @@
-package com.onarinskyi.driver;
+package com.onarinskyi.framework.driver;
 
-import com.onarinskyi.core.Environment;
+import com.onarinskyi.framework.core.Environment;
 import org.openqa.selenium.WebDriver;
 
 public class DriverManager {

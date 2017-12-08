@@ -1,19 +1,17 @@
-package com.onarinskyi.driver;
+package com.onarinskyi.framework.driver;
 
-import com.onarinskyi.core.Environment;
-import com.onarinskyi.interfaces.Page;
-import com.onarinskyi.utils.UrlResolver;
+import com.onarinskyi.framework.core.Environment;
+import com.onarinskyi.framework.interfaces.Page;
+import com.onarinskyi.framework.utils.UrlResolver;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import static com.onarinskyi.time.Timeout.EXPLICIT_WAIT;
+import static com.onarinskyi.framework.time.Timeout.EXPLICIT_WAIT;
 
 public class Driver {
 

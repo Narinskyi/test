@@ -1,5 +1,4 @@
-package com.onarinskyi.annotations;
-
+package com.onarinskyi.framework.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -8,9 +7,4 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface FindBy {
-    String id() default "";
-    String name() default "";
-    String css() default "";
-    String xpath() default "";
-}
+public @interface PageObject {}

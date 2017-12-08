@@ -1,8 +1,8 @@
-package com.onarinskyi.core;
+package com.onarinskyi.framework.core;
 
-import com.onarinskyi.driver.Driver;
-import com.onarinskyi.interfaces.Page;
-import com.onarinskyi.reflection.Reflection;
+import com.onarinskyi.framework.driver.Driver;
+import com.onarinskyi.framework.interfaces.Page;
+import com.onarinskyi.framework.reflection.Reflection;
 
 public abstract class AbstractPage implements Page {
 

@@ -1,8 +1,8 @@
-package com.onarinskyi.utils;
+package com.onarinskyi.framework.utils;
 
-import com.onarinskyi.core.Environment;
-import com.onarinskyi.interfaces.Page;
-import com.onarinskyi.reflection.Reflection;
+import com.onarinskyi.framework.core.Environment;
+import com.onarinskyi.framework.interfaces.Page;
+import com.onarinskyi.framework.reflection.Reflection;
 
 import java.net.MalformedURLException;
 import java.net.URL;

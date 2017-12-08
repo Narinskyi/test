@@ -1,4 +1,4 @@
-package com.onarinskyi.core;
+package com.onarinskyi.framework.core;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;

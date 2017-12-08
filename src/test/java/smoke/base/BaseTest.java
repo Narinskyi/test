@@ -1,7 +1,7 @@
 package smoke.base;
 
-import com.onarinskyi.annotations.PageObject;
-import com.onarinskyi.core.AbstractTest;
+import com.onarinskyi.framework.annotations.PageObject;
+import com.onarinskyi.framework.core.AbstractTest;
 import pages.FlightsPage;
 import pages.GooglePage;
 import pages.HotelsPage;
