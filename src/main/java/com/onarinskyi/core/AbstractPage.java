@@ -1,5 +1,6 @@
 package com.onarinskyi.core;
 
+import com.onarinskyi.annotations.Component;
 import com.onarinskyi.driver.Driver;
 import com.onarinskyi.interfaces.Page;
 import com.onarinskyi.reflection.Reflection;
@@ -10,6 +11,7 @@ public abstract class AbstractPage implements Page {
 
     {
         Reflection.instantiateFieldsAnnotatedWithBy(this);
+        Reflection.instantiateAnnotatedField(this, Component.class);
     }
 
     @Override

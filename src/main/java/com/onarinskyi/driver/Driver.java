@@ -5,12 +5,10 @@ import com.onarinskyi.interfaces.Page;
 import com.onarinskyi.utils.UrlResolver;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.onarinskyi.time.Timeout.EXPLICIT_WAIT;
@@ -37,9 +35,9 @@ public class Driver {
         return driver.findElement(locator);
     }
 
-    private List<WebElement> findElements(By locator) {
+    public List<WebElement> findElements(By locator) {
 
-        log.info("Waiting for presence of all elements: " + locator);
+        log.info("Waiting for presence of all gui: " + locator);
         try {
             wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator));
         } catch (TimeoutException e) {
@@ -68,11 +66,11 @@ public class Driver {
         }
     }
 
-    public void click(By locator) {
+    public void clickOn(By locator) {
         try {
             findVisibleElement(locator).click();
         } catch (WebDriverException e) {
-            log.fatal("It was not possible to click element " + locator);
+            log.fatal("It was not possible to clickOn element " + locator);
         }
     }
 
@@ -87,13 +85,13 @@ public class Driver {
         findVisibleElement(locator).clear();
     }
 
-    public void inputTextToField(By locator, String text) {
+    public void type(By locator, String text) {
         findVisibleElement(locator).sendKeys(String.valueOf(text));
     }
 
     public void clearAndInputTextToField(By locator, String text) {
         clearField(locator);
-        inputTextToField(locator, text);
+        type(locator, text);
     }
 
     public void inputTextToInvisibleField(By locator, String text) {
@@ -103,6 +101,11 @@ public class Driver {
     public void selectDropdownOptionByValue(By locator, String value) {
         Select select = new Select(findElement(locator));
         select.selectByValue(value);
+    }
+
+    public void selectDropdownOptionByVisibleText(By locator, String text) {
+        Select select = new Select(findElement(locator));
+        select.selectByVisibleText(text);
     }
 
     public String getSelectedDropdownValue(By locator) {
@@ -181,7 +184,7 @@ public class Driver {
     public boolean areSeveralElementsVisible(By locator, int expectedElementsCount) {
         boolean result;
 
-        log.info("Checking if multiple elements:" + locator + " are visible");
+        log.info("Checking if multiple gui:" + locator + " are visible");
         List<WebElement> elements = findElements(locator);
         result = (elements.size() == expectedElementsCount);
 
