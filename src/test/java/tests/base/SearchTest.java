@@ -13,7 +13,7 @@ public abstract class SearchTest extends AbstractTest {
     @Component
     private ResultsFilter resultsFilter;
 
-    public List<String> getFoundCategories() {
+    protected List<String> getFoundCategories() {
         return resultsFilter.getFoundCategoriesHeaders()
                 .stream().map(WebElement::getText)
                 .collect(Collectors.toList());
