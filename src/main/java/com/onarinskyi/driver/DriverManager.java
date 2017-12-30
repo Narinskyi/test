@@ -4,6 +4,7 @@ import com.onarinskyi.core.Environment;
 import org.openqa.selenium.WebDriver;
 
 public class DriverManager {
+
     private static ThreadLocal<WebDriver> driverThreadLocal =
             ThreadLocal.withInitial(() -> Environment.getBrowser().getDriver());
 
