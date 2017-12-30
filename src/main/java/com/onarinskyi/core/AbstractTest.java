@@ -1,6 +1,6 @@
 package com.onarinskyi.core;
 
-import com.onarinskyi.annotations.Component;
+import com.onarinskyi.annotations.PageComponent;
 import com.onarinskyi.annotations.PageObject;
 import com.onarinskyi.config.AppConfig;
 import com.onarinskyi.driver.DriverManager;
@@ -20,7 +20,7 @@ public abstract class AbstractTest extends AbstractTestNGSpringContextTests {
 
     {
         Reflection.instantiateAnnotatedField(this, PageObject.class);
-        Reflection.instantiateAnnotatedField(this, Component.class);
+        Reflection.instantiateAnnotatedField(this, PageComponent.class);
     }
 
     @AfterClass(alwaysRun = true)

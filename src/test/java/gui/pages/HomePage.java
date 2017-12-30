@@ -1,6 +1,6 @@
 package gui.pages;
 
-import com.onarinskyi.annotations.Component;
+import com.onarinskyi.annotations.PageComponent;
 import com.onarinskyi.annotations.Url;
 import gui.components.Header;
 import gui.components.PromoArea;
@@ -8,10 +8,10 @@ import gui.components.PromoArea;
 @Url("/")
 public class HomePage extends BasePage {
 
-    @Component
+    @PageComponent
     private PromoArea promoArea;
 
-    @Component
+    @PageComponent
     private Header header;
 
     public boolean isPromoAreaVisible() {

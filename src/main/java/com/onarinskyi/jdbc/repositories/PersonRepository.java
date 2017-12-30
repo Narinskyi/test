@@ -12,7 +12,6 @@ public class PersonRepository {
     private final JdbcTemplate template;
 
     @Autowired
-
     public PersonRepository(JdbcTemplate template) {
         this.template = template;
     }

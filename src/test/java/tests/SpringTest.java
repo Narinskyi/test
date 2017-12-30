@@ -16,7 +16,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class SpringTest {
 
     @Autowired
-    PersonService service;
+    private PersonService service;
 
     @Test
     public void testUser() {
