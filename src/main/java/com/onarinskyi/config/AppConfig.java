@@ -7,4 +7,5 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @ComponentScan(basePackages = "com.onarinskyi")
 @EnableTransactionManagement
-public class AppConfig {}
+public class AppConfig {
+}

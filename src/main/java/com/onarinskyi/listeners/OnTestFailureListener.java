@@ -1,11 +1,21 @@
 package com.onarinskyi.listeners;
 
-import com.onarinskyi.driver.Driver;
+import com.onarinskyi.driver.WebDriverFacade;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
 import ru.yandex.qatools.allure.annotations.Attachment;
 
+@Component
 public class OnTestFailureListener extends TestListenerAdapter {
+
+    private final WebDriverFacade driver;
+
+    @Autowired
+    public OnTestFailureListener(WebDriverFacade driver) {
+        this.driver = driver;
+    }
 
     @Override
     public void onTestFailure(ITestResult result) {
@@ -14,6 +24,6 @@ public class OnTestFailureListener extends TestListenerAdapter {
 
     @Attachment(value = "PageObject screenshot", type = "image/png")
     private byte[] makeScreenshot() {
-        return new Driver().makeScreenshot();
+        return driver.makeScreenshot();
     }
 }

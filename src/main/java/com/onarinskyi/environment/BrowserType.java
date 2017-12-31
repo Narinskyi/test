@@ -6,7 +6,8 @@ public enum BrowserType {
 
     FIREFOX("firefox"),
     CHROME("chrome"),
-    SAFARI("safari");
+    MOBILE_EMULATOR_CHROME("mobileEmulatorChrome"),
+    TABLET_EMULATOR_CHROME("tabletEmulatorChrome");
 
     private String value;
 

@@ -1,6 +1,7 @@
 package com.onarinskyi.driver;
 
-import com.onarinskyi.core.Environment;
+import com.onarinskyi.config.DriverConfig;
+import com.onarinskyi.environment.Timeout;
 import com.onarinskyi.interfaces.Page;
 import com.onarinskyi.utils.UrlResolver;
 import org.apache.log4j.Logger;
@@ -8,20 +9,34 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static com.onarinskyi.time.Timeout.EXPLICIT_WAIT;
 
-public class Driver {
+@Component
+@Scope("prototype")
+public class WebDriverFacade {
 
-    private final Logger log = Logger.getLogger(Driver.class);
+    private final Logger log = Logger.getLogger(WebDriverFacade.class);
     private WebDriver driver;
     private WebDriverWait wait;
+    private final UrlResolver urlResolver;
 
-    public Driver() {
-        this.driver = DriverManager.getDriver();
-        wait = new WebDriverWait(driver, EXPLICIT_WAIT);
+    @Autowired
+    public WebDriverFacade(WebDriver driver, Timeout timeout, UrlResolver urlResolver) {
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver, timeout.explicitWait());
+        this.driver.manage().timeouts().implicitlyWait(timeout.implicitWait(), TimeUnit.MILLISECONDS);
+        this.urlResolver = urlResolver;
+    }
+
+    public void quit() {
+        DriverConfig.quitDriver();
     }
 
     private WebElement findElement(By locator) {
@@ -127,7 +142,7 @@ public class Driver {
     }
 
     public void openPage(Page page) {
-        String url = UrlResolver.resolveUrlFor(page);
+        String url = urlResolver.resolveUrlFor(page);
         log.info("Navigating to URL: " + url);
         driver.navigate().to(url);
     }
@@ -158,7 +173,7 @@ public class Driver {
 
     public String getURLSuffix() {
         return driver.getCurrentUrl().
-                replaceAll(Environment.getBaseUrl(), "");
+                replaceAll(urlResolver.getApplicationBaseUrl(), "");
     }
 
     public boolean isElementTextChangedTo(By locator, String text) {

@@ -1,40 +1,50 @@
 package com.onarinskyi.utils;
 
-import com.onarinskyi.core.Environment;
 import com.onarinskyi.interfaces.Page;
 import com.onarinskyi.reflection.Reflection;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.logging.Logger;
 
+@Component
+@PropertySource("classpath:application.properties")
 public class UrlResolver {
 
-    private static final Logger log = Logger.getAnonymousLogger();
+    private static final Logger logger = Logger.getLogger(UrlResolver.class);
 
-    public static String resolveUrlFor(Page page) {
+    @Value("${base.url}")
+    private String applicationBaseUrl;
+
+    public String getApplicationBaseUrl() {
+        return applicationBaseUrl;
+    }
+
+    public String resolveUrlFor(Page page) {
         try {
             return getPropertiesBasedUrl(page);
         } catch (MalformedURLException e1) {
-            log.warning("Application base url in application.properties is malformed. Please review it!");
+            logger.warn("Application base url is malformed. Please review it!");
             try {
                 return getClassAnnotationBasedUrl(page);
             } catch (MalformedURLException e2) {
-                log.warning("Application url in class: " + page.getClass().getSimpleName() + " is malformed. Please review it!");
+                logger.warn("Application url in class: " + page.getClass().getSimpleName() + " is malformed. Please review it!");
                 throw new RuntimeException("No valid URL was found in page declaration or application.properties file");
             }
         }
     }
 
-    private static String getPropertiesBasedUrl(Page page) throws MalformedURLException {
-        String baseUrl = Environment.getBaseUrl();
-        baseUrl = baseUrl.endsWith("/") ? baseUrl : baseUrl + "/";
-        new URL(baseUrl);
+    private String getPropertiesBasedUrl(Page page) throws MalformedURLException {
+        applicationBaseUrl = applicationBaseUrl.endsWith("/") ? applicationBaseUrl : applicationBaseUrl + "/";
+        new URL(applicationBaseUrl);
 
         String currentPageUrlAnnotationValue = Reflection.getUrlAnnotationValue(page.getClass());
         String currentPageFullUrl = currentPageUrlAnnotationValue.contains("http") ?
-                baseUrl + currentPageUrlAnnotationValue.substring(currentPageUrlAnnotationValue.lastIndexOf("/")) :
-                baseUrl + currentPageUrlAnnotationValue;
+                applicationBaseUrl + currentPageUrlAnnotationValue.substring(currentPageUrlAnnotationValue.lastIndexOf("/")) :
+                applicationBaseUrl + currentPageUrlAnnotationValue;
         currentPageFullUrl = currentPageFullUrl.replaceAll("//", "/");
         new URL(currentPageFullUrl);
 
