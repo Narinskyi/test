@@ -37,19 +37,19 @@ public class UrlResolver {
         }
     }
 
-    public URL resolveUrl(String hubHostString, boolean useGrid) {
-        try {
-            return new URL(hubHostString);
-        } catch (MalformedURLException e) {
-            if (useGrid){
-                throw new RuntimeException("No valid URL for grid was found environment.properties file");
-            }
-            else {
-                logger.warn("Grid URL in environment.properties file is malformed. Please review it!");
-            }
-        }
-        return null;
-    }
+//    public URL resolveUrl(String hubHostString, boolean useGrid) {
+//        try {
+//            return new URL(hubHostString);
+//        } catch (MalformedURLException e) {
+//            if (useGrid){
+//                throw new RuntimeException("No valid URL for grid was found environment.properties file");
+//            }
+//            else {
+//                logger.warn("Grid URL in environment.properties file is malformed. Please review it!");
+//            }
+//        }
+//        return null;
+//    }
 
     private String getPropertiesBasedUrl(Page page) throws MalformedURLException {
         applicationBaseUrl = applicationBaseUrl.endsWith("/") ? applicationBaseUrl : applicationBaseUrl + "/";

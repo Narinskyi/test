@@ -1,6 +1,5 @@
 package com.onarinskyi.driver;
 
-import com.onarinskyi.config.DriverConfig;
 import com.onarinskyi.core.Page;
 import com.onarinskyi.environment.Timeout;
 import com.onarinskyi.utils.UrlResolver;
@@ -14,20 +13,20 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import static com.onarinskyi.time.Timeout.EXPLICIT_WAIT;
-
 public class WebDriverDecorator implements WebDriver {
 
     private final Logger log = Logger.getLogger(WebDriverDecorator.class);
     private WebDriver driver;
     private WebDriverWait wait;
-    private final UrlResolver urlResolver;
+    private UrlResolver urlResolver;
+    private Timeout timeout;
 
     public WebDriverDecorator(WebDriver driver, Timeout timeout, UrlResolver urlResolver) {
         this.driver = driver;
+        this.urlResolver = urlResolver;
+        this.timeout = timeout;
         this.wait = new WebDriverWait(driver, timeout.explicitWait());
         this.driver.manage().timeouts().implicitlyWait(timeout.implicitWait(), TimeUnit.SECONDS);
-        this.urlResolver = urlResolver;
     }
 
     @Override
@@ -85,7 +84,7 @@ public class WebDriverDecorator implements WebDriver {
         try {
             wait.until(ExpectedConditions.presenceOfElementLocated(locator));
         } catch (TimeoutException e) {
-            log.fatal("Element: " + locator + " was not present in DOM after: " + EXPLICIT_WAIT + " s");
+            log.fatal("Element: " + locator + " was not present in DOM after: " + timeout.explicitWait() + " s");
         }
         return driver.findElement(locator);
     }
@@ -96,7 +95,7 @@ public class WebDriverDecorator implements WebDriver {
         try {
             wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator));
         } catch (TimeoutException e) {
-            log.fatal("Elements: " + locator + " were not present in DOM after: " + EXPLICIT_WAIT + " s");
+            log.fatal("Elements: " + locator + " were not present in DOM after: " + timeout.explicitWait() + " s");
         }
         return driver.findElements(locator);
     }
@@ -107,7 +106,7 @@ public class WebDriverDecorator implements WebDriver {
         try {
             wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
         } catch (TimeoutException e) {
-            log.fatal("Element: " + locator + " was not visible after: " + EXPLICIT_WAIT + " s");
+            log.fatal("Element: " + locator + " was not visible after: " + timeout.explicitWait() + " s");
         }
         return driver.findElement(locator);
     }

@@ -21,53 +21,23 @@ import java.net.URL;
 public class DriverConfig {
 
     private static ThreadLocal<WebDriverDecorator> threadLocalDriver;
-    private OperatingSystem operatingSystem;
-
-    @Value("${browser.type}")
-    private String browserType;
-
-    @Value("${implicit.wait}")
-    private String implicitWait;
-
-    @Value("${explicit.wait}")
-    private String explicitWait;
-
-    @Value("${use.grid}")
-    private boolean useGrid;
-
-    @Value("${grid.hub}")
-    private String hubHostString;
-
-    @Value("${system.os}")
-    private String systemOs;
-
-    @Value("${base.url}")
-    private String applicationBaseUrl;
 
     @Autowired
-    public DriverConfig(WebDriverFactory webDriverFactory, UrlResolver urlResolver, @Value("${system.os}") String systemOs,
-                        @Value("${grid.hub}") URL hubHostUrl, @Value("${use.grid}") boolean useGrid,
-                        @Value("${implicit.wait}")
-                             String implicitWait,
-                                    @Value("${explicit.wait}") String explicitWait, @Value("${browser.type}")
-                             String browserType) {
+    public DriverConfig(WebDriverFactory webDriverFactory,
+                        Timeout timeout,
+                        UrlResolver urlResolver,
+                        @Value("${browser.type}") String browser,
+                        @Value("${system.os}") String systemOs,
+                        @Value("${grid.hub}") URL hubHostUrl,
+                        @Value("${use.grid}") boolean useGrid) {
+
         initDrivers(OperatingSystem.of(systemOs));
 
-        WebDriver webDriver = useGrid ? webDriverFactory.getDriverOf(BrowserType.of(browserType), hubHostUrl) :
-                webDriverFactory.getDriverOf(BrowserType.of(browserType));
+        BrowserType browserType = BrowserType.of(browser);
+        WebDriver webDriver = useGrid ? webDriverFactory.getDriverOf(browserType, hubHostUrl) :
+                webDriverFactory.getDriverOf(browserType);
 
-        threadLocalDriver = ThreadLocal.withInitial(() -> new WebDriverDecorator(webDriver,
-                new Timeout(Long.valueOf(implicitWait), Long.valueOf(explicitWait)), urlResolver));
-    }
-
-    @Bean
-    public BrowserType browserType() {
-        return BrowserType.of(browserType);
-    }
-
-    @Bean
-    public Timeout timeout() {
-        return new Timeout(Long.valueOf(implicitWait), Long.valueOf(explicitWait));
+        threadLocalDriver = ThreadLocal.withInitial(() -> new WebDriverDecorator(webDriver, timeout, urlResolver));
     }
 
     @Bean
