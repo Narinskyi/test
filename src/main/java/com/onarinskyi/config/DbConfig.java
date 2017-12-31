@@ -13,7 +13,7 @@ import javax.sql.DataSource;
 import java.sql.SQLException;
 
 @Configuration
-@PropertySource("classpath:env/${env:qa}.properties")
+@PropertySource("classpath:database.properties")
 public class DbConfig {
 
     @Value("${db.url}")
