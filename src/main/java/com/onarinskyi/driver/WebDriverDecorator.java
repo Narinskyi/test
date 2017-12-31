@@ -26,7 +26,7 @@ public class WebDriverDecorator implements WebDriver {
     public WebDriverDecorator(WebDriver driver, Timeout timeout, UrlResolver urlResolver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, timeout.explicitWait());
-        this.driver.manage().timeouts().implicitlyWait(timeout.implicitWait(), TimeUnit.MILLISECONDS);
+        this.driver.manage().timeouts().implicitlyWait(timeout.implicitWait(), TimeUnit.SECONDS);
         this.urlResolver = urlResolver;
     }
 
@@ -76,7 +76,7 @@ public class WebDriverDecorator implements WebDriver {
     }
 
     public void quit() {
-        DriverConfig.quitDriver();
+        driver.quit();
     }
 
     public WebElement findElement(By locator) {

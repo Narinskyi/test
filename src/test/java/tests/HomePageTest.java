@@ -1,7 +1,10 @@
 package tests;
 
 import com.onarinskyi.annotations.PageObject;
+import com.onarinskyi.driver.WebDriverDecorator;
 import gui.pages.HomePage;
+import org.openqa.selenium.By;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.yandex.qatools.allure.annotations.Features;
@@ -13,11 +16,14 @@ import tests.base.SearchTest;
 public class HomePageTest extends SearchTest {
 
     @PageObject
-    private HomePage homePage;
+    private HomePage homePage = new HomePage();
+
+    @Autowired
+    WebDriverDecorator driver;
 
     @Test
     public void verifyThatPromoAreaIsDisplayed() {
-        homePage.open();
-        Assert.assertTrue(homePage.isPromoAreaVisible());
+        driver.openPage(homePage);
+        driver.findElement(By.cssSelector(".dummy"));
     }
 }

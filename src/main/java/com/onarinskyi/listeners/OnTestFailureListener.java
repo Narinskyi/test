@@ -7,7 +7,6 @@ import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
 import ru.yandex.qatools.allure.annotations.Attachment;
 
-@Component
 public class OnTestFailureListener extends TestListenerAdapter {
 
     private final WebDriverDecorator driver;

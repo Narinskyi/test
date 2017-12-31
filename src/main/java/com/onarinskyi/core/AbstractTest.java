@@ -16,9 +16,10 @@ import org.testng.annotations.Listeners;
 import org.testng.asserts.SoftAssert;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 @Component
-@Listeners({OnTestFailureListener.class})
+//@Listeners({OnTestFailureListener.class})
 @ContextConfiguration(classes = AppConfig.class)
 public abstract class AbstractTest extends AbstractTestNGSpringContextTests {
 
@@ -27,11 +28,15 @@ public abstract class AbstractTest extends AbstractTestNGSpringContextTests {
 
     protected SoftAssert softly = new SoftAssert();
 
-    //on first test listener
     @PostConstruct
     public void initializeAnnotatedFields() {
         Reflection.instantiateAnnotatedField(this, PageObject.class);
         Reflection.instantiateAnnotatedField(this, PageComponent.class);
+    }
+
+    @PreDestroy
+    public void destroy(){
+        driver.quit();
     }
 
     @AfterClass(alwaysRun = true)

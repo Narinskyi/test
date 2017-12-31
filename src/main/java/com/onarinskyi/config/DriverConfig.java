@@ -21,21 +21,22 @@ import java.net.URL;
 public class DriverConfig {
 
     private static ThreadLocal<WebDriverDecorator> threadLocalDriver;
+    private OperatingSystem operatingSystem;
 
     @Value("${browser.type}")
     private String browserType;
 
     @Value("${implicit.wait}")
-    private long implicitWait;
+    private String implicitWait;
 
     @Value("${explicit.wait}")
-    private long explicitWait;
+    private String explicitWait;
 
     @Value("${use.grid}")
     private boolean useGrid;
 
     @Value("${grid.hub}")
-    private URL hubHost;
+    private String hubHostString;
 
     @Value("${system.os}")
     private String systemOs;
@@ -44,13 +45,19 @@ public class DriverConfig {
     private String applicationBaseUrl;
 
     @Autowired
-    public DriverConfig(WebDriverFactory webDriverFactory, UrlResolver urlResolver) {
-        initDrivers();
+    public DriverConfig(WebDriverFactory webDriverFactory, UrlResolver urlResolver, @Value("${system.os}") String systemOs,
+                        @Value("${grid.hub}") URL hubHostUrl, @Value("${use.grid}") boolean useGrid,
+                        @Value("${implicit.wait}")
+                             String implicitWait,
+                                    @Value("${explicit.wait}") String explicitWait, @Value("${browser.type}")
+                             String browserType) {
+        initDrivers(OperatingSystem.of(systemOs));
 
-        WebDriver webDriver = useGrid ? webDriverFactory.getDriverOf(browserType(), hubHost) :
-                webDriverFactory.getDriverOf(browserType());
+        WebDriver webDriver = useGrid ? webDriverFactory.getDriverOf(BrowserType.of(browserType), hubHostUrl) :
+                webDriverFactory.getDriverOf(BrowserType.of(browserType));
 
-        threadLocalDriver = ThreadLocal.withInitial(() -> new WebDriverDecorator(webDriver, timeout(), urlResolver));
+        threadLocalDriver = ThreadLocal.withInitial(() -> new WebDriverDecorator(webDriver,
+                new Timeout(Long.valueOf(implicitWait), Long.valueOf(explicitWait)), urlResolver));
     }
 
     @Bean
@@ -60,7 +67,7 @@ public class DriverConfig {
 
     @Bean
     public Timeout timeout() {
-        return new Timeout(implicitWait, explicitWait);
+        return new Timeout(Long.valueOf(implicitWait), Long.valueOf(explicitWait));
     }
 
     @Bean
@@ -74,8 +81,8 @@ public class DriverConfig {
         threadLocalDriver.remove();
     }
 
-    private void initDrivers() {
-        switch (OperatingSystem.of(systemOs)) {
+    private void initDrivers(OperatingSystem systemOs) {
+        switch (systemOs) {
             case WINDOWS:
                 System.setProperty("webdriver.gecko.driver", "src/drivers/windows/geckodriver.exe");
                 System.setProperty("webdriver.chrome.driver", "src/drivers/windows/chromedriver.exe");

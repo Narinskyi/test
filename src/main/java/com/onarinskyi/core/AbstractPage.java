@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public abstract class AbstractPage implements Page {
+public class AbstractPage implements Page {
 
     @Autowired
     protected WebDriverDecorator driver;
