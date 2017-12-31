@@ -1,6 +1,6 @@
 package com.onarinskyi.listeners;
 
-import com.onarinskyi.driver.WebDriverFacade;
+import com.onarinskyi.driver.WebDriverDecorator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.testng.ITestResult;
@@ -10,10 +10,10 @@ import ru.yandex.qatools.allure.annotations.Attachment;
 @Component
 public class OnTestFailureListener extends TestListenerAdapter {
 
-    private final WebDriverFacade driver;
+    private final WebDriverDecorator driver;
 
     @Autowired
-    public OnTestFailureListener(WebDriverFacade driver) {
+    public OnTestFailureListener(WebDriverDecorator driver) {
         this.driver = driver;
     }
 

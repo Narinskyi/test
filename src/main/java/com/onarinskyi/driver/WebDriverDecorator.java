@@ -1,45 +1,85 @@
 package com.onarinskyi.driver;
 
 import com.onarinskyi.config.DriverConfig;
+import com.onarinskyi.core.Page;
 import com.onarinskyi.environment.Timeout;
-import com.onarinskyi.interfaces.Page;
 import com.onarinskyi.utils.UrlResolver;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import static com.onarinskyi.time.Timeout.EXPLICIT_WAIT;
 
-@Component
-@Scope("prototype")
-public class WebDriverFacade {
+public class WebDriverDecorator implements WebDriver {
 
-    private final Logger log = Logger.getLogger(WebDriverFacade.class);
+    private final Logger log = Logger.getLogger(WebDriverDecorator.class);
     private WebDriver driver;
     private WebDriverWait wait;
     private final UrlResolver urlResolver;
 
-    @Autowired
-    public WebDriverFacade(WebDriver driver, Timeout timeout, UrlResolver urlResolver) {
+    public WebDriverDecorator(WebDriver driver, Timeout timeout, UrlResolver urlResolver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, timeout.explicitWait());
         this.driver.manage().timeouts().implicitlyWait(timeout.implicitWait(), TimeUnit.MILLISECONDS);
         this.urlResolver = urlResolver;
     }
 
+    @Override
+    public void get(String s) {
+        driver.get(s);
+    }
+
+    @Override
+    public String getTitle() {
+        return driver.getTitle();
+    }
+
+    @Override
+    public String getPageSource() {
+        return driver.getPageSource();
+    }
+
+    @Override
+    public void close() {
+        driver.close();
+    }
+
+    @Override
+    public Set<String> getWindowHandles() {
+        return driver.getWindowHandles();
+    }
+
+    @Override
+    public String getWindowHandle() {
+        return driver.getWindowHandle();
+    }
+
+    @Override
+    public TargetLocator switchTo() {
+        return driver.switchTo();
+    }
+
+    @Override
+    public Navigation navigate() {
+        return driver.navigate();
+    }
+
+    @Override
+    public Options manage() {
+        return driver.manage();
+    }
+
     public void quit() {
         DriverConfig.quitDriver();
     }
 
-    private WebElement findElement(By locator) {
+    public WebElement findElement(By locator) {
 
         log.info("Waiting for presence of element: " + locator);
         try {

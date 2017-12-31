@@ -1,9 +1,11 @@
 package com.onarinskyi.config;
 
+import com.onarinskyi.driver.WebDriverDecorator;
 import com.onarinskyi.driver.WebDriverFactory;
 import com.onarinskyi.environment.BrowserType;
 import com.onarinskyi.environment.OperatingSystem;
 import com.onarinskyi.environment.Timeout;
+import com.onarinskyi.utils.UrlResolver;
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,7 +20,7 @@ import java.net.URL;
 @PropertySource("classpath:driver.properties")
 public class DriverConfig {
 
-    private static ThreadLocal<WebDriver> threadLocalDriver;
+    private static ThreadLocal<WebDriverDecorator> threadLocalDriver;
 
     @Value("${browser.type}")
     private String browserType;
@@ -38,11 +40,17 @@ public class DriverConfig {
     @Value("${system.os}")
     private String systemOs;
 
+    @Value("${base.url}")
+    private String applicationBaseUrl;
+
     @Autowired
-    public DriverConfig(WebDriverFactory webDriverFactory) {
+    public DriverConfig(WebDriverFactory webDriverFactory, UrlResolver urlResolver) {
         initDrivers();
-        threadLocalDriver = useGrid ? ThreadLocal.withInitial(() -> webDriverFactory.getDriverOf(browserType(), hubHost)) :
-                ThreadLocal.withInitial(() -> webDriverFactory.getDriverOf(browserType()));
+
+        WebDriver webDriver = useGrid ? webDriverFactory.getDriverOf(browserType(), hubHost) :
+                webDriverFactory.getDriverOf(browserType());
+
+        threadLocalDriver = ThreadLocal.withInitial(() -> new WebDriverDecorator(webDriver, timeout(), urlResolver));
     }
 
     @Bean
@@ -57,7 +65,7 @@ public class DriverConfig {
 
     @Bean
     @Scope("prototype")
-    public WebDriver driver() {
+    public WebDriverDecorator driver() {
         return threadLocalDriver.get();
     }
 

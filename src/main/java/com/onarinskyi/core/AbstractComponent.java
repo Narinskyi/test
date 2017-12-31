@@ -1,19 +1,16 @@
 package com.onarinskyi.core;
 
-import com.onarinskyi.driver.WebDriverFacade;
+import com.onarinskyi.driver.WebDriverDecorator;
 import com.onarinskyi.reflection.Reflection;
+import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class AbstractComponent {
 
-   protected final WebDriverFacade driver;
+    @Autowired
+    protected WebDriverDecorator driver;
 
     {
         Reflection.instantiateFieldsAnnotatedWithBy(this);
-    }
-
-    @Autowired
-    public AbstractComponent(WebDriverFacade driver) {
-        this.driver = driver;
     }
 }

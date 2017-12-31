@@ -1,6 +1,6 @@
 package com.onarinskyi.utils;
 
-import com.onarinskyi.interfaces.Page;
+import com.onarinskyi.core.Page;
 import com.onarinskyi.reflection.Reflection;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
