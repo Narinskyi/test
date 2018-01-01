@@ -11,10 +11,10 @@ public class JUnitOnTestFailureWatcher extends TestWatcher {
 
     private WebDriverDecorator driver;
 
-    @Autowired
-    public JUnitOnTestFailureWatcher(WebDriverDecorator driver) {
-        this.driver = driver;
-    }
+//    @Autowired
+//    public JUnitOnTestFailureWatcher(WebDriverDecorator driver) {
+//        this.driver = driver;
+//    }
 
     @Override
     protected void failed(Throwable e, Description description) {

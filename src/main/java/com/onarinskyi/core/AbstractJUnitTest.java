@@ -19,8 +19,8 @@ public abstract class AbstractJUnitTest {
     @Autowired
     protected TestWatcher onFailureWatcher;
 
-    @Autowired
-    protected WebDriverDecorator driver;
+//    @Autowired
+//    protected WebDriverDecorator driver;
 
     {
         Reflection.instantiateAnnotatedFields(this);

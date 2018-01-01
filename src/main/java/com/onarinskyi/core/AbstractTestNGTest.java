@@ -1,12 +1,9 @@
 package com.onarinskyi.core;
 
 import com.onarinskyi.config.AppConfig;
-import com.onarinskyi.config.DriverConfig;
+import com.onarinskyi.driver.DriverManager;
 import com.onarinskyi.driver.WebDriverDecorator;
 import com.onarinskyi.listeners.TestNGOnTestFailureListener;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.AfterClass;
@@ -26,7 +23,7 @@ public abstract class AbstractTestNGTest extends AbstractTestNGSpringContextTest
     @PostConstruct
     public void init() {
         Reflection.instantiateAnnotatedFields(this);
-        driver = DriverConfig.getDriver();
+        driver = DriverManager.getDriver();
     }
 
     @AfterClass(alwaysRun = true)

@@ -1,6 +1,5 @@
 package com.onarinskyi.driver;
 
-import com.onarinskyi.config.DriverConfig;
 import com.onarinskyi.core.Page;
 import com.onarinskyi.environment.Timeout;
 import com.onarinskyi.utils.UrlResolver;
@@ -20,14 +19,14 @@ public class WebDriverDecorator implements WebDriver {
     private final Logger log = Logger.getLogger(WebDriverDecorator.class);
     private WebDriver driver;
     private WebDriverWait wait;
-    private UrlResolver urlResolver;
     private Timeout timeout;
+    private UrlResolver urlResolver;
 
-    public WebDriverDecorator(WebDriver driver, Timeout timeout, UrlResolver urlResolver) {
-        this.driver = driver;
-        this.urlResolver = urlResolver;
-        this.timeout = timeout;
+    WebDriverDecorator(Timeout timeout, UrlResolver urlResolver) {
+        this.driver = DriverManager.getThreadLocalDriver();
         this.wait = new WebDriverWait(driver, timeout.explicitWait());
+        this.timeout = timeout;
+        this.urlResolver = urlResolver;
         this.driver.manage().timeouts().implicitlyWait(timeout.implicitWait(), TimeUnit.SECONDS);
     }
 
@@ -78,7 +77,7 @@ public class WebDriverDecorator implements WebDriver {
 
     public void quit() {
         driver.quit();
-        DriverConfig.removeDriver();
+        DriverManager.removeDriver();
     }
 
     public WebElement findElement(By locator) {

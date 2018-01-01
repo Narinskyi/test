@@ -1,11 +1,11 @@
 package com.onarinskyi.core;
 
-import com.onarinskyi.config.DriverConfig;
+import com.onarinskyi.driver.DriverManager;
 import com.onarinskyi.driver.WebDriverDecorator;
 
 public abstract class AbstractTestEntity {
 
-    protected WebDriverDecorator driver = DriverConfig.getDriver();
+    protected WebDriverDecorator driver = DriverManager.getDriver();
 
     {
         Reflection.instantiateAnnotatedFields(this);
