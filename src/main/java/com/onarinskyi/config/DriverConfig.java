@@ -46,8 +46,7 @@ public class DriverConfig {
         return threadLocalDriver.get();
     }
 
-    public static void quitDriver() {
-        threadLocalDriver.get().quit();
+    public static void removeDriver() {
         threadLocalDriver.remove();
     }
 

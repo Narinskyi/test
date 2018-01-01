@@ -1,5 +1,6 @@
 package com.onarinskyi.driver;
 
+import com.onarinskyi.config.DriverConfig;
 import com.onarinskyi.core.Page;
 import com.onarinskyi.environment.Timeout;
 import com.onarinskyi.utils.UrlResolver;
@@ -76,6 +77,7 @@ public class WebDriverDecorator implements WebDriver {
 
     public void quit() {
         driver.quit();
+        DriverConfig.removeDriver();
     }
 
     public WebElement findElement(By locator) {
