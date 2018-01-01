@@ -1,4 +1,4 @@
-package com.onarinskyi.jdbc.entities;
+package com.onarinskyi.database.jdbc.entities;
 
 public class Person {
 

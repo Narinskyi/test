@@ -1,6 +1,6 @@
-package com.onarinskyi.jdbc.repositories;
+package com.onarinskyi.database.jdbc.repositories;
 
-import com.onarinskyi.jdbc.entities.Person;
+import com.onarinskyi.database.jdbc.entities.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;

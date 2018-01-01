@@ -1,7 +1,7 @@
-package com.onarinskyi.jdbc.services;
+package com.onarinskyi.database.jdbc.services;
 
-import com.onarinskyi.jdbc.entities.Person;
-import com.onarinskyi.jdbc.repositories.PersonRepository;
+import com.onarinskyi.database.jdbc.repositories.PersonRepository;
+import com.onarinskyi.database.jdbc.entities.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
