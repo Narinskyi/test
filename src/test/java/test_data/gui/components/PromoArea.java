@@ -1,10 +1,10 @@
-package gui.components;
+package test_data.gui.components;
 
 import com.onarinskyi.annotations.FindBy;
-import com.onarinskyi.core.AbstractComponent;
+import com.onarinskyi.core.AbstractPageComponent;
 import org.openqa.selenium.By;
 
-public class PromoArea extends AbstractComponent {
+public class PromoArea extends AbstractPageComponent {
 
     @FindBy(id = "gw-desktop-herotator")
     private By promoAreaBlock;

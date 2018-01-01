@@ -1,7 +1,7 @@
 package com.onarinskyi.utils;
 
 import com.onarinskyi.core.Page;
-import com.onarinskyi.reflection.Reflection;
+import com.onarinskyi.core.Reflection;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -65,7 +65,7 @@ public class UrlResolver {
         return currentPageFullUrl;
     }
 
-    private static String getClassAnnotationBasedUrl(Page page) throws MalformedURLException {
+    private String getClassAnnotationBasedUrl(Page page) throws MalformedURLException {
         return new URL(Reflection.getUrlAnnotationValue(page.getClass())).toString();
     }
 }

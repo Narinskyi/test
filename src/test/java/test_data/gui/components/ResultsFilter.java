@@ -1,13 +1,13 @@
-package gui.components;
+package test_data.gui.components;
 
 import com.onarinskyi.annotations.FindBy;
-import com.onarinskyi.core.AbstractComponent;
+import com.onarinskyi.core.AbstractPageComponent;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-public class ResultsFilter extends AbstractComponent {
+public class ResultsFilter extends AbstractPageComponent {
 
     @FindBy(css = "#leftNavContainer ul h4")
     private By listOfCategories;

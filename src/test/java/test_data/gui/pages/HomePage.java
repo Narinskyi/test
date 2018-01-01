@@ -1,9 +1,11 @@
-package gui.pages;
+package test_data.gui.pages;
 
+import com.onarinskyi.annotations.FindBy;
 import com.onarinskyi.annotations.PageComponent;
 import com.onarinskyi.annotations.Url;
-import gui.components.Header;
-import gui.components.PromoArea;
+import test_data.gui.components.Header;
+import test_data.gui.components.PromoArea;
+import org.openqa.selenium.By;
 
 @Url("/")
 public class HomePage extends BasePage {
@@ -14,11 +16,18 @@ public class HomePage extends BasePage {
     @PageComponent
     private Header header;
 
+    @FindBy(css = ".dummy")
+    private By dummy;
+
     public boolean isPromoAreaVisible() {
         return promoArea.isVisible();
     }
 
     public void findProduct(String product) {
         header.searchFor(product);
+    }
+
+    public void findDummy() {
+        driver.findElement(dummy);
     }
 }

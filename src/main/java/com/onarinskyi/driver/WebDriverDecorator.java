@@ -9,6 +9,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import ru.yandex.qatools.allure.annotations.Attachment;
 
 import java.util.List;
 import java.util.Set;
@@ -251,7 +252,8 @@ public class WebDriverDecorator implements WebDriver {
         return result;
     }
 
-    public byte[] makeScreenshot() {
+    @Attachment(value = "PageObject screenshot", type = "image/png")
+    public byte[] takeScreenshot() {
         return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
     }
 }

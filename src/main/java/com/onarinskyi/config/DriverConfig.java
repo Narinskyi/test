@@ -46,6 +46,10 @@ public class DriverConfig {
         return threadLocalDriver.get();
     }
 
+    public static WebDriverDecorator getDriver() {
+        return threadLocalDriver.get();
+    }
+
     public static void removeDriver() {
         threadLocalDriver.remove();
     }

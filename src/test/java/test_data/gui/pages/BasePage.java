@@ -1,9 +1,9 @@
-package gui.pages;
+package test_data.gui.pages;
 
 import com.onarinskyi.annotations.PageComponent;
 import com.onarinskyi.core.AbstractPage;
-import gui.components.Header;
-import model.Category;
+import test_data.model.Category;
+import test_data.gui.components.Header;
 
 public class BasePage extends AbstractPage {
 

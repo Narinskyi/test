@@ -1,8 +1,8 @@
 package tests;
 
 import com.onarinskyi.annotations.PageObject;
-import gui.pages.HomePage;
-import model.Category;
+import test_data.gui.pages.HomePage;
+import test_data.model.Category;
 import org.testng.annotations.Test;
 import tests.base.SearchTest;
 
