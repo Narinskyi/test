@@ -7,7 +7,7 @@ Test Automation Framework
 - Detailed and customizable reporting via Allure
 - Support of both JUnit and TestNG testing frameworks
 - Spring-based configuration and flexible environment variables mechanism
-- Built-in drivers (Chrome and mobile emulators, Firefox, PhantomJS) for both Windows and MacOS
+- Built-in drivers (Chrome and mobile emulators, Firefox) for both Windows and MacOS
 - Full support of Grid and remote tests
 - Included JdbcTemplate and JPA templates for easy database access. Transactions activated as well
 - Screenshots on test failure

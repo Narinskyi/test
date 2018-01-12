@@ -11,7 +11,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 @Component
-@PropertySource("classpath:application.properties")
+@PropertySource("classpath:driver.properties")
 public class UrlResolver {
 
     private static final Logger logger = Logger.getLogger(UrlResolver.class);

@@ -6,14 +6,14 @@ import java.util.Arrays;
 
 public enum BrowserType {
 
-    FIREFOX,
     CHROME,
+    FIREFOX,
     MOBILE_EMULATOR_CHROME,
     TABLET_EMULATOR_CHROME;
 
     public static BrowserType of(@Value("${browser.type}") String value) {
         return Arrays.stream(BrowserType.values())
-                .filter(constant -> constant.name().contains(value))
+                .filter(constant -> constant.name().toLowerCase().contains(value))
                 .findFirst().orElse(CHROME);
     }
 }
