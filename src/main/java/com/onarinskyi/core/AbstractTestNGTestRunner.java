@@ -14,7 +14,7 @@ import javax.annotation.PostConstruct;
 
 @Listeners(TestNGOnTestFailureListener.class)
 @ContextConfiguration(classes = AppConfig.class)
-public abstract class AbstractTestNGTest extends AbstractTestNGSpringContextTests {
+public abstract class AbstractTestNGTestRunner extends AbstractTestNGSpringContextTests {
 
     protected WebDriverDecorator driver;
 
