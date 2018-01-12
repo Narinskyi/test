@@ -1,4 +1,4 @@
-package test_data.model;
+package data.model;
 
 public enum Category {
     APPLIANCES("Appliances"),

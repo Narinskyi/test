@@ -1,10 +1,10 @@
-package test_data.gui.pages;
+package data.gui.pages;
 
 import com.onarinskyi.annotations.FindBy;
 import com.onarinskyi.annotations.PageComponent;
 import com.onarinskyi.annotations.Url;
-import test_data.gui.components.Header;
-import test_data.gui.components.PromoArea;
+import data.gui.components.Header;
+import data.gui.components.PromoArea;
 import org.openqa.selenium.By;
 
 @Url("/")

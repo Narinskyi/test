@@ -1,8 +1,8 @@
-package test_data.gui.components;
+package data.gui.components;
 
 import com.onarinskyi.annotations.FindBy;
 import com.onarinskyi.core.AbstractPageComponent;
-import test_data.model.Category;
+import data.model.Category;
 import org.openqa.selenium.By;
 
 public class Header extends AbstractPageComponent {

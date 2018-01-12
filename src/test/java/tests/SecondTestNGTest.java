@@ -7,10 +7,9 @@ import data.gui.pages.HomePage;
 import ru.yandex.qatools.allure.annotations.Features;
 import ru.yandex.qatools.allure.annotations.Stories;
 
-
 @Features("Demo")
-@Stories("Simple testNg test")
-public class TestNGTest extends AbstractTestNGTestRunner {
+@Stories("Simple testNg test 2")
+public class SecondTestNGTest extends AbstractTestNGTestRunner {
 
     @PageObject
     private HomePage page;

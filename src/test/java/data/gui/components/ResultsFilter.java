@@ -1,4 +1,4 @@
-package test_data.gui.components;
+package data.gui.components;
 
 import com.onarinskyi.annotations.FindBy;
 import com.onarinskyi.core.AbstractPageComponent;
