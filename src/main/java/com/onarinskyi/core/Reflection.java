@@ -38,18 +38,6 @@ public class Reflection {
         }
     }
 
-//    void instantiateFieldsAnnotatedWithBy(Object targetObject) {
-//        List<Field> annotatedFields = FieldUtils.getFieldsListWithAnnotation(targetObject.getClass(), FindBy.class);
-//        annotatedFields.forEach(field -> {
-//            try {
-//                field.setAccessible(true);
-//                field.set(targetObject, getByLocatorOf(field));
-//            } catch (ReflectiveOperationException e) {
-//                e.printStackTrace();
-//            }
-//        });
-//    }
-
     private static org.openqa.selenium.By getByLocatorOf(Field field) {
         FindBy findByAnnotation = field.getAnnotation(FindBy.class);
         return findByAnnotation.id().isEmpty() ?
