@@ -5,14 +5,13 @@ import com.onarinskyi.core.AbstractTestNGTest;
 import org.testng.annotations.Test;
 import test_data.gui.pages.HomePage;
 
-public class Simple1Test extends AbstractTestNGTest {
+public class TestNGTest extends AbstractTestNGTest {
 
     @PageObject
     private HomePage page;
 
     @Test
-    public void test() {
-        driver.getPageSource();
+    public void testNgTest() {
         page.open();
         page.findDummy();
     }
