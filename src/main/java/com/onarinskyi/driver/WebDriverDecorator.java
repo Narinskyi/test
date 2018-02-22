@@ -13,6 +13,7 @@ import ru.yandex.qatools.allure.annotations.Attachment;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 public class WebDriverDecorator implements WebDriver {
 
@@ -21,13 +22,15 @@ public class WebDriverDecorator implements WebDriver {
     private WebDriverWait wait;
     private Timeout timeout;
     private UrlResolver urlResolver;
+    private boolean failOnException;
 
-    WebDriverDecorator(Timeout timeout, UrlResolver urlResolver) {
+    WebDriverDecorator(Timeout timeout, UrlResolver urlResolver, boolean failOnException) {
         this.driver = DriverManager.getThreadLocalDriver();
         this.wait = new WebDriverWait(driver, timeout.explicitWait());
         this.timeout = timeout;
         this.urlResolver = urlResolver;
         this.driver.manage().timeouts().implicitlyWait(timeout.implicitWait(), TimeUnit.SECONDS);
+        this.failOnException = failOnException;
     }
 
     @Override
@@ -86,7 +89,10 @@ public class WebDriverDecorator implements WebDriver {
         try {
             wait.until(ExpectedConditions.presenceOfElementLocated(locator));
         } catch (TimeoutException e) {
-            log.fatal("Element: " + locator + " was not present in DOM after: " + timeout.explicitWait() + " s");
+            log.error("Element: " + locator + " was not present in DOM after: " + timeout.explicitWait() + " s");
+            if (failOnException) {
+                throw e;
+            }
         }
         return driver.findElement(locator);
     }
@@ -254,5 +260,52 @@ public class WebDriverDecorator implements WebDriver {
     @Attachment(value = "PageObject screenshot", type = "image/png")
     public byte[] takeScreenshot() {
         return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+    }
+
+    public void acceptAlert() {
+        log.info("Accepting alert");
+        try {
+            wait.until(ExpectedConditions.alertIsPresent());
+            driver.switchTo().alert().accept();
+        } catch (TimeoutException e) {
+            log.error("Alert was not present");
+            if (failOnException) {
+                throw e;
+            }
+        }
+    }
+
+    public void dismissAlert() {
+        log.info("Dismissing alert");
+        try {
+            wait.until(ExpectedConditions.alertIsPresent());
+            driver.switchTo().alert().dismiss();
+        } catch (TimeoutException e) {
+            log.error("Alert was not present");
+            if (failOnException) {
+                throw e;
+            }
+        }
+    }
+
+    public boolean isElementEnabled(By locator) {
+        log.info("Verifying whether element is enabled: " + locator);
+        return driver.findElement(locator).isEnabled();
+    }
+
+    public List<String> getTextOfElements(By locator) {
+        return findVisibleElements(locator).stream().map(WebElement::getText).collect(Collectors.toList());
+    }
+
+    private List<WebElement> findVisibleElements(By locator) {
+        try {
+            wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
+        } catch (TimeoutException e) {
+            log.error("Elements: " + locator + " were not visible after: " + timeout.explicitWait() + " seconds");
+            if (failOnException) {
+                throw e;
+            }
+        }
+        return driver.findElements(locator);
     }
 }

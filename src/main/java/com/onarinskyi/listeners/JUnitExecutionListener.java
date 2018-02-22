@@ -6,7 +6,7 @@ import org.junit.runner.Description;
 import org.springframework.stereotype.Component;
 
 @Component
-public class JUnitOnTestFailureWatcher extends TestWatcher {
+public class JUnitExecutionListener extends TestWatcher {
 
     @Override
     protected void failed(Throwable e, Description description) {

@@ -5,6 +5,7 @@ import com.onarinskyi.annotations.PageComponent;
 import com.onarinskyi.annotations.PageObject;
 import com.onarinskyi.annotations.Url;
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.openqa.selenium.By;
 import org.springframework.cglib.core.ReflectUtils;
 import org.springframework.stereotype.Component;
 
@@ -26,10 +27,16 @@ public class Reflection {
             annotatedFields.forEach(field -> {
                 try {
                     field.setAccessible(true);
-                    if (annotation.getSimpleName().equalsIgnoreCase("FindBy")) {
-                        field.set(targetObject, getByLocatorOf(field));
-                    } else {
-                        field.set(targetObject, ReflectUtils.newInstance(field.getType()));
+                    switch (annotation.getSimpleName()) {
+                        case "FindBy":
+                            field.set(targetObject, getByLocatorOf(field));
+                            break;
+                        case "PageComponent":
+                            field.set(targetObject, getPageComponent(field));
+                            break;
+                        default:
+                            field.set(targetObject, ReflectUtils.newInstance(field.getType()));
+                            break;
                     }
                 } catch (ReflectiveOperationException e) {
                     e.printStackTrace();
@@ -38,16 +45,31 @@ public class Reflection {
         }
     }
 
-    private static org.openqa.selenium.By getByLocatorOf(Field field) {
+    private static Object getPageComponent(Field field) throws ReflectiveOperationException {
+        PageComponent findByAnnotation = field.getAnnotation(PageComponent.class);
+        By locator = findByAnnotation.id().isEmpty() ?
+                findByAnnotation.name().isEmpty() ?
+                        findByAnnotation.css().isEmpty() ?
+                                findByAnnotation.xpath().isEmpty() ? null :
+                                        By.xpath(findByAnnotation.xpath()) :
+                                By.cssSelector(findByAnnotation.css()) :
+                        By.name(findByAnnotation.name()) :
+                By.id(findByAnnotation.id());
+        return locator == null ?
+                ReflectUtils.newInstance(field.getType()) :
+                field.getType().getDeclaredConstructor(By.class).newInstance(locator);
+    }
+
+    private static By getByLocatorOf(Field field) {
         FindBy findByAnnotation = field.getAnnotation(FindBy.class);
         return findByAnnotation.id().isEmpty() ?
                 findByAnnotation.name().isEmpty() ?
                         findByAnnotation.css().isEmpty() ?
                                 findByAnnotation.xpath().isEmpty() ? null :
-                                        org.openqa.selenium.By.xpath(findByAnnotation.xpath()) :
-                                org.openqa.selenium.By.cssSelector(findByAnnotation.css()) :
-                        org.openqa.selenium.By.name(findByAnnotation.name()) :
-                org.openqa.selenium.By.id(findByAnnotation.id());
+                                        By.xpath(findByAnnotation.xpath()) :
+                                By.cssSelector(findByAnnotation.css()) :
+                        By.name(findByAnnotation.name()) :
+                By.id(findByAnnotation.id());
     }
 
     public static String getUrlAnnotationValue(Class<?> clazz) {

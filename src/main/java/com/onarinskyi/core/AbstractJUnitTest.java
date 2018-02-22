@@ -14,7 +14,7 @@ import javax.annotation.PostConstruct;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = AppConfig.class)
-public abstract class AbstractJUnitTestRunner {
+public abstract class AbstractJUnitTest {
 
     protected WebDriverDecorator driver;
 

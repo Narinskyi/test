@@ -9,4 +9,9 @@ import java.lang.annotation.Target;
 //Autowire
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface PageComponent {}
+public @interface PageComponent {
+    String id() default "";
+    String name() default "";
+    String css() default "";
+    String xpath() default "";
+}

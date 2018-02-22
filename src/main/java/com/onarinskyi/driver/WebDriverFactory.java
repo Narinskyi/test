@@ -7,6 +7,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.springframework.beans.factory.annotation.Value;
@@ -52,6 +53,19 @@ public class WebDriverFactory {
             default:
                 return new RemoteWebDriver(hubHost, DesiredCapabilities.chrome());
         }
+    }
+
+    private DesiredCapabilities getChromeCapabilities() {
+        HashMap<String, Object> chromePrefs = new HashMap<>();
+        chromePrefs.put("profile.default.settings.popups", 0);
+        chromePrefs.put("download.default_directory", "Some directory path");
+        ChromeOptions options = new ChromeOptions();
+        options.setExperimentalOption("prefs", chromePrefs);
+
+        DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+        capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
+        capabilities.setCapability(ChromeOptions.CAPABILITY, capabilities);
+        return capabilities;
     }
 
     private ChromeOptions getChromeTabletOptions() {

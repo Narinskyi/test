@@ -3,7 +3,7 @@ package com.onarinskyi.core;
 import com.onarinskyi.config.AppConfig;
 import com.onarinskyi.driver.DriverManager;
 import com.onarinskyi.driver.WebDriverDecorator;
-import com.onarinskyi.listeners.TestNGOnTestFailureListener;
+import com.onarinskyi.listeners.TestNGExecutionListener;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.AfterClass;
@@ -12,9 +12,9 @@ import org.testng.asserts.SoftAssert;
 
 import javax.annotation.PostConstruct;
 
-@Listeners(TestNGOnTestFailureListener.class)
+@Listeners(TestNGExecutionListener.class)
 @ContextConfiguration(classes = AppConfig.class)
-public abstract class AbstractTestNGTestRunner extends AbstractTestNGSpringContextTests {
+public abstract class AbstractTestNGTest extends AbstractTestNGSpringContextTests {
 
     protected WebDriverDecorator driver;
 
