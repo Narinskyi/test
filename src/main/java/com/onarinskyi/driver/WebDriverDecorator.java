@@ -5,6 +5,7 @@ import com.onarinskyi.environment.Timeout;
 import com.onarinskyi.utils.UrlResolver;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -26,6 +27,15 @@ public class WebDriverDecorator implements WebDriver {
 
     WebDriverDecorator(Timeout timeout, UrlResolver urlResolver, boolean failOnException) {
         this.driver = DriverManager.getThreadLocalDriver();
+        this.wait = new WebDriverWait(driver, timeout.explicitWait());
+        this.timeout = timeout;
+        this.urlResolver = urlResolver;
+        this.driver.manage().timeouts().implicitlyWait(timeout.implicitWait(), TimeUnit.SECONDS);
+        this.failOnException = failOnException;
+    }
+
+    WebDriverDecorator(ChromeDriver driver, Timeout timeout, UrlResolver urlResolver, boolean failOnException) {
+        this.driver = driver;
         this.wait = new WebDriverWait(driver, timeout.explicitWait());
         this.timeout = timeout;
         this.urlResolver = urlResolver;
@@ -80,6 +90,7 @@ public class WebDriverDecorator implements WebDriver {
 
     public void quit() {
         driver.quit();
+        if (!(driver instanceof ChromeDriver))
         DriverManager.removeDriver();
     }
 

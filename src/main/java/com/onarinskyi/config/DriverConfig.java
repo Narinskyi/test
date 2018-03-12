@@ -16,7 +16,7 @@ import java.net.URL;
 public class DriverConfig {
 
     @Bean
-    public ThreadLocal<WebDriver> initialDriver(WebDriverFactory webDriverFactory,
+    public WebDriver driver(WebDriverFactory webDriverFactory,
                                    @Value("${browser.type}") String browser,
                                    @Value("${system.os}") String systemOs,
                                    @Value("${grid.hub}") URL hubHostUrl,
@@ -25,8 +25,8 @@ public class DriverConfig {
         initDrivers(OperatingSystem.of(systemOs));
 
         BrowserType browserType = BrowserType.of(browser);
-        return ThreadLocal.withInitial(() -> useGrid ? webDriverFactory.getDriverOf(browserType, hubHostUrl) :
-                webDriverFactory.getDriverOf(browserType));
+        return  useGrid ? webDriverFactory.getDriverOf(browserType, hubHostUrl) :
+                webDriverFactory.getDriverOf(browserType);
     }
 
     private void initDrivers(OperatingSystem systemOs) {
